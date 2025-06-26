@@ -311,11 +311,11 @@ const Header = () => {
 
         {/* Right side buttons */}
         <div className="hidden md:flex items-center space-x-4">
-          {/* Language switcher */}
-          <button className="text-gray-700 hover:text-custom-teal font-medium transition-colors duration-200">
-            EN
-          </button>
-          
+        {/* 
+<button className="text-gray-700 hover:text-custom-teal font-medium transition-colors duration-200">
+  EN
+</button>
+*/}
           {/* CTA Button */}
           <Link 
             to="/contact" 
@@ -483,9 +483,11 @@ const Header = () => {
             </Link>
             
             <div className="border-t pt-4 flex flex-col space-y-3">
-              <button className="text-gray-700 hover:text-custom-teal font-medium py-2 text-left pl-4 transition-colors duration-200">
-                Language (EN)
-              </button>
+             {/* 
+<button className="text-gray-700 hover:text-custom-teal font-medium py-2 text-left pl-4 transition-colors duration-200">
+  Language (EN)
+</button>
+*/}
               <Link 
                 to="/contact" 
                 className="bg-custom-teal hover:bg-custom-teal/90 text-white px-6 py-3 rounded-md font-medium transition duration-300 text-center mx-4"

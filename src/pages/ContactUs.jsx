@@ -1,6 +1,5 @@
-// src/components/ContactForm.jsx
-import React, { useState } from 'react';
-
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 const ContactForm = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -13,6 +12,189 @@ const ContactForm = () => {
       });
     
       const [focusedField, setFocusedField] = useState('');
+      const [isSubmitting, setIsSubmitting] = useState(false);
+      const [submitStatus, setSubmitStatus] = useState('');
+      const mapRef = useRef(null);
+      const mapInstanceRef = useRef(null);
+    
+      // Replace this with your Google Apps Script Web App URL
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbweOzABKdtX9nwWqNe_pYcBeOGcy9RTesmkhEqj38ofm1VqKzSA7DDfl1qPW139MTc-/exec'
+      // Leaflet Map integration (Free OpenStreetMap)
+      useEffect(() => {
+        const initMap = () => {
+          // Only initialize if we haven't already and the container exists
+          if (mapRef.current && !mapInstanceRef.current) {
+            try {
+              // Kuwait coordinates - Block 68, Salem Al Mubarak Street, Alsalmiya
+              const kuwaitLat = 29.3375;
+              const kuwaitLng = 48.0758;
+              
+              // Create map instance
+              const L = window.L;
+              const map = L.map(mapRef.current).setView([kuwaitLat, kuwaitLng], 15);
+              
+              // Add OpenStreetMap tiles (completely free)
+              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19,
+              }).addTo(map);
+              
+              // Create custom icon
+              const customIcon = L.divIcon({
+                html: `
+                  <div style="
+                    width: 30px; 
+                    height: 30px; 
+                    background-color: #164772; 
+                    border: 3px solid white; 
+                    border-radius: 50%; 
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  ">
+                    <div style="
+                      width: 12px; 
+                      height: 12px; 
+                      background-color: white; 
+                      border-radius: 50%;
+                    "></div>
+                  </div>
+                `,
+                className: 'custom-map-marker',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15],
+                popupAnchor: [0, -15]
+              });
+              
+              // Add marker
+              const marker = L.marker([kuwaitLat, kuwaitLng], { icon: customIcon }).addTo(map);
+              
+              // Add popup
+              marker.bindPopup(`
+                <div style="font-family: 'Lato', sans-serif; min-width: 200px;">
+                  <h3 style="margin: 0 0 8px 0; color: #164772; font-size: 16px; font-weight: bold;">Coco Palms</h3>
+                  <p style="margin: 0; font-size: 14px; color: #666; line-height: 1.4;">
+                    Block 2, Salem Al Mubarak Street<br>
+                    Dolphin Hotel Commercial Tower<br>
+                    Alsalmiya, Kuwait
+                  </p>
+                  <p style="margin: 8px 0 0 0; font-size: 14px; color: #164772; font-weight: 500;">
+                    📞 +965 9918 5891
+                  </p>
+                </div>
+              `).openPopup();
+              
+              mapInstanceRef.current = map;
+              
+            } catch (error) {
+              console.error('Error initializing map:', error);
+              // Fallback to static map placeholder
+              if (mapRef.current) {
+                mapRef.current.innerHTML = `
+                  <div style="
+                    width: 100%; 
+                    height: 100%; 
+                    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                    display: flex; 
+                    flex-direction: column;
+                    align-items: center; 
+                    justify-content: center;
+                    color: #666;
+                    border-radius: 8px;
+                  ">
+                    <div style="font-size: 48px; margin-bottom: 12px;">📍</div>
+                    <div style="font-weight: bold; margin-bottom: 4px;">Coco Palms Office</div>
+                    <div style="text-align: center; font-size: 14px; line-height: 1.4;">
+                      Block 2, Salem Al Mubarak Street<br>
+                      Alsalmiya, Kuwait
+                    </div>
+                  </div>
+                `;
+              }
+            }
+          }
+        };
+
+        // Load Leaflet CSS and JS dynamically
+        const loadLeaflet = () => {
+          // Check if Leaflet is already loaded
+          if (window.L) {
+            initMap();
+            return;
+          }
+
+          // Load Leaflet CSS
+          const cssLink = document.createElement('link');
+          cssLink.rel = 'stylesheet';
+          cssLink.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+          cssLink.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
+          cssLink.crossOrigin = '';
+          document.head.appendChild(cssLink);
+
+          // Load Leaflet JS
+          const script = document.createElement('script');
+          script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+          script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+          script.crossOrigin = '';
+          script.onload = initMap;
+          document.head.appendChild(script);
+        };
+
+        loadLeaflet();
+
+        // Cleanup function
+        return () => {
+          if (mapInstanceRef.current) {
+            mapInstanceRef.current.remove();
+            mapInstanceRef.current = null;
+          }
+        };
+      }, []);
+
+      // Country codes array with Kuwait as default
+      const countryCodes = [
+        { code: '+965', country: 'Kuwait' },
+        { code: '+61', country: 'Australia' },
+        { code: '+973', country: 'Bahrain' },
+        { code: '+32', country: 'Belgium' },
+        { code: '+55', country: 'Brazil' },
+        { code: '+1', country: 'Canada' },
+        { code: '+86', country: 'China' },
+        { code: '+45', country: 'Denmark' },
+        { code: '+20', country: 'Egypt' },
+        { code: '+33', country: 'France' },
+        { code: '+49', country: 'Germany' },
+        { code: '+91', country: 'India' },
+        { code: '+62', country: 'Indonesia' },
+        { code: '+353', country: 'Ireland' },
+        { code: '+39', country: 'Italy' },
+        { code: '+81', country: 'Japan' },
+        { code: '+60', country: 'Malaysia' },
+        { code: '+52', country: 'Mexico' },
+        { code: '+31', country: 'Netherlands' },
+        { code: '+64', country: 'New Zealand' },
+        { code: '+47', country: 'Norway' },
+        { code: '+968', country: 'Oman' },
+        { code: '+63', country: 'Philippines' },
+        { code: '+48', country: 'Poland' },
+        { code: '+974', country: 'Qatar' },
+        { code: '+7', country: 'Russia' },
+        { code: '+966', country: 'Saudi Arabia' },
+        { code: '+65', country: 'Singapore' },
+        { code: '+82', country: 'South Korea' },
+        { code: '+34', country: 'Spain' },
+        { code: '+46', country: 'Sweden' },
+        { code: '+41', country: 'Switzerland' },
+        { code: '+66', country: 'Thailand' },
+        { code: '+90', country: 'Turkey' },
+        { code: '+971', country: 'UAE' },
+        { code: '+44', country: 'UK' },
+        { code: '+1', country: 'US' },
+        { code: '+84', country: 'Vietnam' }
+      ];
+
+      const [selectedCountryCode, setSelectedCountryCode] = useState('+965');
     
       const handleInputChange = (e) => {
         setFormData({
@@ -20,11 +202,54 @@ const ContactForm = () => {
           [e.target.name]: e.target.value
         });
       };
+
+      const handleCountryCodeChange = (e) => {
+        setSelectedCountryCode(e.target.value);
+      };
     
-      const handleSubmit = (e) => {
+      const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-        // Handle form submission here
+        setIsSubmitting(true);
+        setSubmitStatus('');
+        
+        const submissionData = {
+          ...formData,
+          fullMobile: selectedCountryCode + ' ' + formData.mobile
+        };
+        
+        try {
+          // Send data to Google Sheets
+          const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Important for Google Apps Script
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(submissionData)
+          });
+          
+          // Note: Due to no-cors mode, we can't read the response
+          // But if no error is thrown, we can assume it worked
+          setSubmitStatus('success');
+          
+          // Reset form
+          setFormData({
+            name: '',
+            mobile: '',
+            email: '',
+            company: '',
+            employees: '',
+            subject: '',
+            message: ''
+          });
+          setSelectedCountryCode('+965');
+          
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          setSubmitStatus('error');
+        } finally {
+          setIsSubmitting(false);
+        }
       };
     
       return (
@@ -57,7 +282,7 @@ const ContactForm = () => {
                       </div>
                       <div>
                         <p className="text-gray-900 font-medium">
-                          Block 68, Salem Al Mubarak Street, Dolphin<br />
+                          Block 2, Salem Al Mubarak Street, Dolphin<br />
                           Hotel commercial tower, Alsalmiya, Kuwait
                         </p>
                       </div>
@@ -83,16 +308,16 @@ const ContactForm = () => {
                     </div>
                   </div>
     
-                  {/* Map Placeholder */}
+                  {/* Free Leaflet Map */}
                   <div className="mt-8">
-                    <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center">
-                      <div className="text-center">
-                        <svg className="w-12 h-12 text-gray-400 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                        </svg>
-                        <p className="text-gray-500 text-sm">Interactive Map</p>
-                      </div>
-                    </div>
+                    <div 
+                      ref={mapRef} 
+                      className="w-full h-64 bg-gray-200 rounded-lg shadow-lg"
+                      style={{ minHeight: '256px', borderRadius: '8px' }}
+                    />
+                    <p className="text-xs text-gray-500 mt-2 text-center">
+                      Powered by OpenStreetMap - Completely Free
+                    </p>
                   </div>
                 </div>
               </div>
@@ -103,6 +328,19 @@ const ContactForm = () => {
                   <div className="mb-8">
                     <h2 className="text-2xl font-bold text-gray-900 mb-2">Get in touch</h2>
                   </div>
+
+                  {/* Status Messages */}
+                  {submitStatus === 'success' && (
+                    <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                      <p className="text-green-800 text-sm">✅ Form submitted successfully! We will get back to you soon.</p>
+                    </div>
+                  )}
+                  
+                  {submitStatus === 'error' && (
+                    <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                      <p className="text-red-800 text-sm">❌ There was an error submitting the form. Please try again.</p>
+                    </div>
+                  )}
     
                   <div className="space-y-6">
                     <div className="group">
@@ -120,6 +358,7 @@ const ContactForm = () => {
                         onBlur={() => setFocusedField('')}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                         placeholder=""
+                        disabled={isSubmitting}
                       />
                     </div>
     
@@ -128,8 +367,18 @@ const ContactForm = () => {
                         Mobile <span className="text-red-500">*</span>
                       </label>
                       <div className="flex">
-                        <select className="px-3 py-3 border border-gray-300 rounded-l-lg bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500">
-                          <option value="+965">Kuwait (+965)</option>
+                        <select 
+                          value={selectedCountryCode}
+                          onChange={handleCountryCodeChange}
+                          className="px-3 py-3 border border-gray-300 rounded-l-lg bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 min-w-0"
+                          style={{ minWidth: '140px', maxWidth: '140px' }}
+                          disabled={isSubmitting}
+                        >
+                          {countryCodes.map((country) => (
+                            <option key={`${country.code}-${country.country}`} value={country.code}>
+                              {country.country} ({country.code})
+                            </option>
+                          ))}
                         </select>
                         <input
                           id="mobile"
@@ -141,7 +390,8 @@ const ContactForm = () => {
                           onFocus={() => setFocusedField('mobile')}
                           onBlur={() => setFocusedField('')}
                           className="flex-1 px-4 py-3 border border-l-0 border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                          placeholder=""
+                          placeholder="Enter mobile number"
+                          disabled={isSubmitting}
                         />
                       </div>
                     </div>
@@ -161,6 +411,7 @@ const ContactForm = () => {
                         onBlur={() => setFocusedField('')}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                         placeholder=""
+                        disabled={isSubmitting}
                       />
                     </div>
     
@@ -179,6 +430,7 @@ const ContactForm = () => {
                         onBlur={() => setFocusedField('')}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                         placeholder=""
+                        disabled={isSubmitting}
                       />
                     </div>
     
@@ -194,6 +446,7 @@ const ContactForm = () => {
                         onFocus={() => setFocusedField('employees')}
                         onBlur={() => setFocusedField('')}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 bg-white"
+                        disabled={isSubmitting}
                       >
                         <option value="">Select...</option>
                         <option value="1-10">1-10</option>
@@ -219,6 +472,7 @@ const ContactForm = () => {
                         onBlur={() => setFocusedField('')}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                         placeholder=""
+                        disabled={isSubmitting}
                       />
                     </div>
     
@@ -236,31 +490,38 @@ const ContactForm = () => {
                         onBlur={() => setFocusedField('')}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 resize-none"
                         placeholder=""
+                        disabled={isSubmitting}
                       />
                     </div>
     
                     <div className="text-sm text-gray-600">
                       By submitting this form, you agree to our{' '}
-                      <a href="#" className="text-blue-600 hover:underline">
-                        Privacy Policy.
-                      </a>
+                      <Link to="/privacy-policy" className="text-blue-600 hover:underline">
+  Privacy Policy
+</Link>
                     </div>
     
                     <button
+                      type="button"
                       onClick={handleSubmit}
-                      className="w-full text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                      disabled={isSubmitting}
+                      className="w-full text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
                       style={{ 
-                        backgroundColor: '#164772',
-                        borderColor: '#164772'
+                        backgroundColor: isSubmitting ? '#9CA3AF' : '#164772',
+                        borderColor: isSubmitting ? '#9CA3AF' : '#164772'
                       }}
                       onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = '#0f3556';
+                        if (!isSubmitting) {
+                          e.target.style.backgroundColor = '#0f3556';
+                        }
                       }}
                       onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = '#164772';
+                        if (!isSubmitting) {
+                          e.target.style.backgroundColor = '#164772';
+                        }
                       }}
                     >
-                      Submit
+                      {isSubmitting ? 'Submitting...' : 'Submit'}
                     </button>
                   </div>
                 </div>

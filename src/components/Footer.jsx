@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
           
           {/* Company Column */}
-          <div className="text-center sm:text-left">
+          <div className="text-center sm:text-center">
             <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 md:mb-4">
               Company
             </h3>
@@ -55,7 +55,7 @@ const Footer = () => {
           </div>
 
           {/* Products Column */}
-          <div className="text-center sm:text-left">
+          <div className="text-center sm:text-center">
             <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 md:mb-4">
               Products
             </h3>
@@ -104,7 +104,7 @@ const Footer = () => {
           </div>
 
           {/* Contact Us Column */}
-          <div className="text-center sm:text-left sm:col-span-2 lg:col-span-1">
+          <div className="text-center sm:text-centre sm:col-span-2 lg:col-span-1">
             <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 md:mb-4">
               Contact Us
             </h3>
@@ -179,18 +179,21 @@ const Footer = () => {
             >
               Contact
             </Link>
-            <a 
-              href="#" 
+           {/*
+<a 
+  href="#" 
+  className="text-gray-500 hover:text-gray-600 transition-colors duration-200 text-sm sm:text-base"
+>
+  Terms of Service
+</a>
+*/}
+            <Link 
+              to="/privacy-policy" 
               className="text-gray-500 hover:text-gray-600 transition-colors duration-200 text-sm sm:text-base"
-            >
-              Terms of Service
-            </a>
-            <a 
-              href="#" 
-              className="text-gray-500 hover:text-gray-600 transition-colors duration-200 text-sm sm:text-base"
+              onClick={() => window.scrollTo(0, 0)}
             >
               Privacy Policy
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -214,7 +217,7 @@ const Footer = () => {
                 </div>
               </div>
               <p className="text-gray-400 text-xs sm:text-sm">
-                © 2025, Cocopalms Suite W.L.L. All Rights Reserved.
+                © 2025, Cocopalms Technology Company All Rights Reserved.
               </p>
             </div>
           </div>

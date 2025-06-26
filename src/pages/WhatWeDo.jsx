@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Monitor, Smartphone, Users, ShoppingCart, Building2, Utensils } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import DynamicIcon from '../components/DynamicIcon';
+import { useServices } from './hooks/useServices';
 
-// Import images
+
+
+// Import images (keep your existing imports)
 import webdevImage from '../assets/webdev.jpg';
 import mobileappImage from '../assets/mobileapp.jpg';
 import erpImage from '../assets/erp.jpg';
@@ -13,16 +16,25 @@ import fbImage from '../assets/fb1.png';
 
 const WhatWeDo = () => {
   const location = useLocation();
+  const { services, loading, error } = useServices();
+
+  // Image mapping for your local images
+  const imageMap = {
+    'webdev.jpg': webdevImage,
+    'mobileapp.jpg': mobileappImage,
+    'erp.jpg': erpImage,
+    'ecom.jpg': ecomImage,
+    'rentings.jpg': rentingsImage,
+    'fb1.png': fbImage,
+  };
 
   // Handle anchor navigation when component mounts or hash changes
   useEffect(() => {
     if (location.hash) {
-      // Remove the # from the hash
       const elementId = location.hash.substring(1);
       const element = document.getElementById(elementId);
       
       if (element) {
-        // Add a small delay to ensure the page has rendered
         setTimeout(() => {
           element.scrollIntoView({ 
             behavior: 'smooth',
@@ -31,79 +43,38 @@ const WhatWeDo = () => {
         }, 100);
       }
     } else {
-      // If no hash, scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [location.hash]);
 
-  const services = [
-    {
-      id: "web-development",
-      icon: Monitor,
-      title: "Web Development",
-      subtitle: "Building Your Digital Presence, From Startup to Enterprise",
-      description: "We craft impactful company websites for businesses of all sizes, develop targeted promotional landing pages, and engineer fully functional web services that drive results. Our web development expertise spans from responsive design to complex web applications, ensuring your digital presence stands out in today's competitive landscape.",
-      bgColor: "bg-blue-50",
-      iconColor: "text-blue-600",
-      iconBg: "bg-blue-100",
-      image: webdevImage
-    },
-    {
-      id: "mobile-apps",
-      icon: Smartphone,
-      title: "Mobile Application Development",
-      subtitle: "Delivering Exceptional Experiences Across Platforms",
-      description: "As a renowned technology provider, we specialize in developing versatile native and cross-platform mobile applications that consistently earn the admiration of both our clients and their users. From iOS to Android, we create mobile solutions that drive engagement and business growth.",
-      bgColor: "bg-green-50",
-      iconColor: "text-green-600",
-      iconBg: "bg-green-100",
-      image: mobileappImage
-    },
-    {
-      id: "erp-solutions",
-      icon: Users,
-      title: "Complete ERP Ecosystem",
-      subtitle: "Provide a Complete ERP Ecosystem for Streamlined Operations",
-      description: "A comprehensive ERP solution, providing a unified suite of business modules that addresses every facet of your operational needs. Our ERP systems integrate seamlessly with your existing processes, enhancing efficiency and providing real-time insights into your business operations.",
-      bgColor: "bg-purple-50",
-      iconColor: "text-purple-600",
-      iconBg: "bg-purple-100",
-      image: erpImage
-    },
-    {
-      id: "ecommerce",
-      icon: ShoppingCart,
-      title: "World Class Ecommerce",
-      subtitle: "Develop a World Class Ecommerce Landscape",
-      description: "Billions of people worldwide are embracing online purchasing. Our expertise in ecommerce development empowers your business to effectively reach and serve this vast and growing market. We create scalable, secure, and user-friendly online stores that convert visitors into customers.",
-      bgColor: "bg-orange-50",
-      iconColor: "text-orange-600",
-      iconBg: "bg-orange-100",
-      image: ecomImage
-    },
-    {
-      id: "real-estate",
-      icon: Building2,
-      title: "Real Estate Solutions",
-      subtitle: "Connecting Landlords and Tenants for Ideal Rentals",
-      description: "As an innovative IT company, we offer Rentings, a comprehensive B2B & B2C platform designed to seamlessly connect landlords and tenants, simplifying the process of finding the perfect living or business space. Our real estate solutions streamline property management and enhance the rental experience.",
-      bgColor: "bg-teal-50",
-      iconColor: "text-teal-600",
-      iconBg: "bg-teal-100",
-      image: rentingsImage
-    },
-    {
-      id: "fnb-solutions",
-      icon: Utensils,
-      title: "F&B Software Solutions",
-      subtitle: "Empowering the F&B Industry with Bespoke Software Solutions",
-      description: "At Cocoplams, we understand the unique demands of the Food and Beverage sector. We develop a wide array of software solutions, crafting each application to the specific needs and scale of your business. From restaurant management to delivery platforms, we've got you covered.",
-      bgColor: "bg-red-50",
-      iconColor: "text-red-600",
-      iconBg: "bg-red-100",
-      image: fbImage
-    }
-  ];
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-teal-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading services...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">Error loading services: {error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">
@@ -122,23 +93,26 @@ const WhatWeDo = () => {
         </div>
       </section>
 
-      {/* Services Sections */}
+      {/* Dynamic Services Sections */}
       {services.map((service, index) => {
-        const IconComponent = service.icon;
         const isEven = index % 2 === 0;
+        const serviceImage = imageMap[service.image_url] || service.image_url;
         
         return (
           <section
-            key={index}
-            id={service.id}
+            key={service.id}
+            id={service.slug}
             className={`py-12 md:py-16 lg:py-20 px-4 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} scroll-mt-20`}
           >
             <div className="container mx-auto max-w-7xl">
               <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center ${!isEven ? 'lg:grid-flow-col-dense' : ''}`}>
                 {/* Content Side */}
                 <div className={`${!isEven ? 'lg:col-start-2' : ''} px-2 md:px-0`}>
-                  <div className={`${service.iconBg} w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center mb-6 md:mb-8 inline-flex`}>
-                    <IconComponent className={`w-8 h-8 md:w-10 md:h-10 ${service.iconColor}`} />
+                  <div className={`${service.icon_bg} w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center mb-6 md:mb-8 inline-flex`}>
+                    <DynamicIcon 
+                      iconName={service.icon_name} 
+                      className={`w-8 h-8 md:w-10 md:h-10 ${service.icon_color}`} 
+                    />
                   </div>
                   
                   <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
@@ -158,19 +132,20 @@ const WhatWeDo = () => {
                 <div className={`${!isEven ? 'lg:col-start-1 lg:row-start-1' : ''} px-2 md:px-0`}>
                   <div className="relative rounded-2xl overflow-hidden h-80 md:h-96 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <img 
-                      src={service.image} 
+                      src={serviceImage} 
                       alt={service.title}
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        console.error(`Failed to load image: ${service.image_url}`);
+                        e.target.style.display = 'none';
+                      }}
                     />
                     {/* Overlay with gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                     {/* Content overlay */}
                     <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
-                      <div className={`${service.iconBg} w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-3 md:mb-4 opacity-90`}>
-                        <IconComponent className={`w-6 h-6 md:w-8 md:h-8 ${service.iconColor}`} />
-                      </div>
                       <h4 className="text-lg md:text-xl font-bold mb-1">{service.title}</h4>
-                      <p className="text-sm md:text-base text-white/80">Professional Solutions</p>
+                      <p className="text-sm md:text-base text-white/80">{service.service_name}</p>
                     </div>
                   </div>
                 </div>

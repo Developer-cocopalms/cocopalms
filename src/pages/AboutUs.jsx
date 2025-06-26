@@ -9,9 +9,10 @@ const AboutUs = () => {
           Cocopalms: Architecting the Future of Software Innovation Since 2007
         </h1>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed mb-12">
-          Founded in 2007, Cocopalms is a distinguished Software Technology Development Company 
-          dedicated to crafting innovative and bespoke products and services that address the 
-          specialized needs of discerning businesses.
+          Founded in 2007, Cocopalms Tech Company, headquartered in Kuwait, is a next-generation Information Technology Services
+          company with a global presence. We specialize in delivering scalable and innovative digital solutions tailored to business needs across 
+          diverse industries. Our offerings include automation systems, ERP solutions, mobile and web application development, 
+          cloud services, IT consulting, systems integration.
         </p>
         <Link 
   to="/contact" 
@@ -29,7 +30,7 @@ const AboutUs = () => {
             Our mission
           </p>
           <h2 className="text-xl md:text-3xl font-meduim text-gray-900 leading-tight max-w-3xl mx-auto">
-          To empower our clients with robust web solutions that translate complex data into  
+          To empower our clients with robust solutions that translate complex data into  
           actionable knowledge, directly addressing their challenges and streamlining their 
           operational workflows for measurable improvements.
           </h2>

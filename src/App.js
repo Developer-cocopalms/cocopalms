@@ -16,7 +16,7 @@ import BizoBooks from './pages/BizoBooks';
 import RealEstate from './pages/RealEstate';
 import Kitchenly from './pages/Kitchenly';
 import CocoDine from './pages/CocoDine';
-
+import PrivacyPolicy from './pages/PrivacyPolicy';
 function App() {
   return (
     <Router>
@@ -38,6 +38,7 @@ function App() {
             <Route path="/success-stories/real-estate" element={<RealEstate />} />
             <Route path="/success-stories/kitchenly" element={<Kitchenly />} />
             <Route path="/success-stories/coco-dine" element={<CocoDine />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           </Routes>
         </main>
         
