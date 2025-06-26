@@ -1,5 +1,4 @@
 name: Deploy to Server
-
 on:
   push:
     branches: [ main ]
@@ -11,15 +10,15 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-    
+      
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
-    
+        
     - name: Install dependencies
       run: npm install
-    
+      
     - name: Build React app
       run: npm run build
       env:
@@ -27,7 +26,7 @@ jobs:
         REACT_APP_SUPABASE_ANON_KEY: ${{ secrets.REACT_APP_SUPABASE_ANON_KEY }}
         CI: false
         ESLINT_NO_DEV_ERRORS: true
-    
+
     - name: Deploy to server
       uses: appleboy/ssh-action@v0.1.7
       with:
@@ -35,12 +34,18 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
         script: |
-          sudo systemctl stop apache2 || true
-          sudo rm -rf /var/www/html_backup_old || true
-          sudo mv /var/www/html /var/www/html_backup_$(date +%Y%m%d) || true
-          sudo mkdir -p /var/www/html
-          sudo chown -R $USER:$USER /var/www/html
-    
+          # Stop Apache (ignore if fails)
+          echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S systemctl stop apache2 || true
+          
+          # Backup old site
+          echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S mv /var/www/html /var/www/html_backup_$(date +%Y%m%d) || true
+          
+          # Create new directory
+          echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S mkdir -p /var/www/html
+          
+          # Set permissions
+          echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S chown -R $USER:$USER /var/www/html
+          
     - name: Copy files to server
       uses: appleboy/scp-action@v0.1.4
       with:
@@ -50,7 +55,7 @@ jobs:
         source: "build/*"
         target: "/var/www/html/"
         strip_components: 1
-    
+        
     - name: Restart Apache
       uses: appleboy/ssh-action@v0.1.7
       with:
@@ -58,5 +63,6 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
         script: |
-          sudo systemctl start apache2
-          sudo systemctl enable apache2
+          # Start Apache
+          echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S systemctl start apache2
+          echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S systemctl enable apache2
