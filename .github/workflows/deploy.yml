@@ -1,0 +1,59 @@
+name: Deploy to Server
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Build React app
+      run: npm run build
+      env:
+        REACT_APP_SUPABASE_URL: ${{ secrets.REACT_APP_SUPABASE_URL }}
+        REACT_APP_SUPABASE_ANON_KEY: ${{ secrets.REACT_APP_SUPABASE_ANON_KEY }}
+        
+    - name: Deploy to server
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: 168.187.138.13
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        script: |
+          sudo systemctl stop apache2 || true
+          sudo rm -rf /var/www/html_backup_old || true
+          sudo mv /var/www/html /var/www/html_backup_$(date +%Y%m%d) || true
+          sudo mkdir -p /var/www/html
+          sudo chown -R $USER:$USER /var/www/html
+          
+    - name: Copy files to server
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: 168.187.138.13
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        source: "build/*"
+        target: "/var/www/html/"
+        strip_components: 1
+        
+    - name: Restart Apache
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: 168.187.138.13
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        script: |
+          sudo systemctl start apache2
+          sudo systemctl enable apache2
