@@ -181,7 +181,7 @@ export default function LandingPage() {
                 {/* Desktop and larger: Four lines with slight upward adjustment */}                    
                 <span className="hidden lg:block lg:-mt-4 xl:-mt-6">                        
                   Empower Your Business <br />                        
-                  with Seamless Software <br />                        
+                  with Seamless <br />                        
                   Software Solutions!                    
                 </span>                
               </h1>                
