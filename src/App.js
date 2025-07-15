@@ -12,6 +12,12 @@ import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import OurWork from './pages/OurWork';
 import WhatWeDo from './pages/WhatWeDo';
+import WebDevelopment from './pages/WebDevelopment';
+import MobileApp from './pages/MobileApp';
+import ErpSolution from './pages/ErpSolution';
+import EcommerceApplication from './pages/EcommerceApplication';
+import PropertyManagement from './pages/PropertyManagement';
+import FandbSolution from './pages/FandbSolution';
 import BizoBooks from './pages/BizoBooks';
 import RealEstate from './pages/RealEstate';
 import Kitchenly from './pages/Kitchenly';
@@ -31,6 +37,12 @@ function App() {
            
             <Route path="/about" element={<AboutUs />} />
             <Route path="/what-we-do" element={<WhatWeDo />} />
+            <Route path="/what-we-do/web-development" element={<WebDevelopment />} />
+            <Route path="/what-we-do/mobile-app" element={<MobileApp />} />
+            <Route path="/what-we-do/erp-solution" element={<ErpSolution />} />
+            <Route path="/what-we-do/ecommerce-application" element={<EcommerceApplication />} />
+            <Route path="/what-we-do/property-management" element={<PropertyManagement />} />
+            <Route path="/what-we-do/fandb-solution" element={<FandbSolution />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/our-work" element={<OurWork />} />
             <Route path="*" element={<NotFound />} />

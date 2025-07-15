@@ -4,7 +4,7 @@ import iPhoneSvg from '../assets/iPhone3.svg';
 
 const Footer = () => {
   return (
-    <footer className="bg-white py-6 sm:py-8 md:py-12 lg:py-16">
+    <footer className="bg-white py-6 sm:py-8 md:py-12 lg:py-16 mb-0">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
           
@@ -32,16 +32,6 @@ const Footer = () => {
                   About
                 </Link>
               </li>
-             {/* <li>
-                <a 
-                  href="#" 
-                  className="text-blue-600 hover:text-blue-700 transition-colors duration-200 text-sm sm:text-base"
-                  onClick={() => window.scrollTo(0, 0)}
-                >
-                  Blog
-                </a>
-              </li>  
-             */}
               <li>
                 <Link 
                   to="/contact" 
@@ -77,7 +67,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="text-gray-600 hover:text-gray-700 transition-colors duration-200 text-sm sm:text-base"
                 >
-                  Real Estate
+                  Property Management System
                 </a>
               </li>
               <li>
@@ -179,14 +169,6 @@ const Footer = () => {
             >
               Contact
             </Link>
-           {/*
-<a 
-  href="#" 
-  className="text-gray-500 hover:text-gray-600 transition-colors duration-200 text-sm sm:text-base"
->
-  Terms of Service
-</a>
-*/}
             <Link 
               to="/privacy-policy" 
               className="text-gray-500 hover:text-gray-600 transition-colors duration-200 text-sm sm:text-base"
@@ -196,30 +178,30 @@ const Footer = () => {
             </Link>
           </div>
         </div>
+      </div>
 
-        {/* Copyright Section - Extends to bottom */}
-        <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-gray-200 -mb-6 sm:-mb-8 md:-mb-12 lg:-mb-16">
-          <div className="bg-gray-900 -mx-4 sm:-mx-6 md:-mx-8 lg:-mx-12 xl:-mx-16 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-4 sm:py-6 -mb-6 sm:-mb-8 md:-mb-12 lg:-mb-16">
-            <div className="flex flex-col items-center justify-center text-center">
-              {/* iPhone SVG above Cocopalms */}
-              <div className="mb-3 sm:mb-4">
-                <img 
-                  src={iPhoneSvg} 
-                  alt="iPhone" 
-                  className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mx-auto"
-                />
-              </div>
-              
-              {/* Cocopalms Logo */}
-              <div className="flex items-center mb-3">
-                <div className="text-white text-lg sm:text-xl md:text-2xl font-bold">
-                  Cocopalms
-                </div>
-              </div>
-              <p className="text-gray-400 text-xs sm:text-sm">
-                © 2025, Cocopalms Technology Company All Rights Reserved.
-              </p>
+      {/* Copyright Section - Full Width Dark Background */}
+      <div className="bg-gray-900 mt-6 py-6 mb-0">
+        <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pb-0">
+          <div className="flex flex-col items-center justify-center text-center">
+            {/* iPhone SVG above Cocopalms */}
+            <div className="mb-3 sm:mb-4">
+              <img 
+                src={iPhoneSvg} 
+                alt="iPhone" 
+                className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mx-auto"
+              />
             </div>
+            
+            {/* Cocopalms Logo */}
+            <div className="flex items-center mb-3">
+              <div className="text-white text-lg sm:text-xl md:text-2xl font-bold">
+                Cocopalms
+              </div>
+            </div>
+            <p className="text-gray-400 text-xs sm:text-sm">
+              © 2025, Cocopalms Technology Company All Rights Reserved.
+            </p>
           </div>
         </div>
       </div>

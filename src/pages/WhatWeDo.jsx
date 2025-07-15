@@ -12,7 +12,7 @@ import mobileappImage from '../assets/mobileapp.jpg';
 import erpImage from '../assets/erp.jpg';
 import ecomImage from '../assets/ecom.jpg';
 import rentingsImage from '../assets/rentings.jpg';
-import fbImage from '../assets/fb1.png';
+import fbImage from '../assets/fb1.jpg';
 
 const WhatWeDo = () => {
   const location = useLocation();
@@ -25,7 +25,7 @@ const WhatWeDo = () => {
     'erp.jpg': erpImage,
     'ecom.jpg': ecomImage,
     'rentings.jpg': rentingsImage,
-    'fb1.png': fbImage,
+    'fb1.jpg': fbImage,
   };
 
   // Handle anchor navigation when component mounts or hash changes

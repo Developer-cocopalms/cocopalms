@@ -14,7 +14,7 @@ export const useFeatures = () => {
         const { data, error } = await supabase
           .from('features')
           .select('*')
-          .eq('is_active', true)
+          .eq('status', true)
           .order('display_order', { ascending: true });
 
         if (error) throw error;

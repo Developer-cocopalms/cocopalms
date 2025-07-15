@@ -16,7 +16,7 @@ const CocoDine = () => {
               />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Coco Dine</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Cocodine</h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
             Complete dining experience and restaurant management system that transforms how customers interact with restaurants
           </p>
@@ -26,7 +26,7 @@ const CocoDine = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center bg-white text-teal-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
           >
-            Experience Coco Dine <ExternalLink className="ml-2 h-5 w-5" />
+            Experience Cocodine <ExternalLink className="ml-2 h-5 w-5" />
           </a>
         </div>
       </div>
@@ -38,7 +38,7 @@ const CocoDine = () => {
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Platform Overview</h2>
             <div className="prose prose-lg mx-auto">
               <p className="text-gray-600 text-lg leading-relaxed">
-                Coco Dine is a revolutionary dining platform that bridges the gap between traditional restaurant service 
+                Cocodine is a revolutionary dining platform that bridges the gap between traditional restaurant service 
                 and modern digital convenience. Our comprehensive solution provides customers with seamless ordering, 
                 payment, and dining experiences while giving restaurants powerful tools to manage operations and enhance 
                 customer satisfaction.
@@ -206,11 +206,11 @@ const CocoDine = () => {
       </div>
 
       {/* Call to Action */}
-      <div className="py-16 bg-gray-900 text-white">
+      <div className="py-16 bg-gradient-to-r from-teal-600 to-teal-800 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Transform Your Restaurant's Digital Experience</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join innovative restaurants already using Coco Dine to enhance customer satisfaction and boost revenue.
+            Join innovative restaurants already using Cocodine to enhance customer satisfaction and boost revenue.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 

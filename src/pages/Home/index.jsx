@@ -3,33 +3,42 @@ import { ChevronRight, ShoppingCart, Monitor, Smartphone, ShoppingBag, Globe, Ba
   UtensilsCrossed, Home } from 'lucide-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import webdevelopImg from '../../assets/webdevelop.jpg';
+import mobiledevelopImg from '../../assets/mobileapp.jpg';
+import ecomdevelopImg from '../../assets/ecom.jpg';
 // Import dynamic data hooks
 import { useTeamMembers } from '../hooks/useTeamMembers';
 import { useFeatures } from '../hooks/useFeatures';
 import { useTestimonials } from '../hooks/useTestimonials';
 import DynamicIcon from '../../components/DynamicIcon';
-
+import HeroVideoSlideshow from '../../components/HeroVideoSlideshow';
 
 // Import static assets
-import teamMember1 from '../../assets/team/Azeem-removebg-preview.png';
-import teamMember2 from '../../assets/team/fazil.png';
-import teamMember3 from '../../assets/team/john-removebg-preview.png';
-import teamMember4 from '../../assets/team/Salma-removebg-preview.png';
-import teamMember5 from '../../assets/team/cropped-Hasna-removebg-preview.png';
-import teamMember6 from '../../assets/team/latheef.png';
+
+import teamMember0 from '../../assets/team/fazil.png';
+import teamMember1 from '../../assets/team/john-removebg-preview.png';
+import teamMember2 from '../../assets/team/Salma-removebg-preview.png';
+import teamMember3 from '../../assets/team/cropped-Hasna-removebg-preview.png';
+import teamMember4 from '../../assets/team/latheef.png';
 import logos from '../../assets/logos.png';
-import Image2 from '../../assets/image2 (1).png';
+import logo1 from '../../assets/logo1.png';
+import logo2 from '../../assets/logo2.png';
+import logo3 from '../../assets/logo3.jpeg';
+import logo4 from '../../assets/logo4.png';
+
 
 const TeamMemberCard = ({ image, name, position }) => {
   return (
     <div className="overflow-hidden rounded-lg shadow-md hover:shadow-lg transition duration-300 h-full flex flex-col">
-      {/* Modified image container - responsive height and better object positioning */}
+      {/* Fixed image container - better positioning to prevent head cutoff */}
       <div className="h-52 sm:h-48 w-full overflow-hidden">
         <img 
           src={image} 
           alt={name} 
-          className="w-full h-full object-cover object-top sm:object-center"
+          className="w-full h-full object-cover"
+          style={{ 
+            objectPosition: name === 'James Almeda' ? 'center 20%' : 'center top' 
+          }}
         />
       </div>
       <div className="bg-white p-4 flex-grow">
@@ -39,7 +48,135 @@ const TeamMemberCard = ({ image, name, position }) => {
     </div>
   );
 };
+const SolutionsSection = () => {
+  const [activeService, setActiveService] = useState('website');
 
+  const servicesData = {
+    website: {
+      title: 'Website Development',
+      content: 'We build powerful, professional websites for businesses of all sizes — from startups to large enterprises. Our team creates high-converting landing pages and scalable web services that align with your goals, strengthen your brand, and boost results. Whether you\'re launching a campaign or improving operations, our web solutions are designed to deliver impact.',
+      image: webdevelopImg,
+      icon: Monitor
+    },
+    mobile: {
+      title: 'Mobile Application Development',
+      content: 'We develop high-performance mobile apps tailored for both native and cross-platform use, ensuring smooth functionality across all devices. Focused on intuitive design and user experience, our apps are built to engage users and meet business goals. From idea to launch, we turn your vision into impactful, user-friendly mobile solutions.',
+      image: mobiledevelopImg,
+      icon: Smartphone
+    },
+    ecommerce: {
+      title: 'E-commerce Development',
+      content: 'We build scalable, secure eCommerce platforms that help businesses grow their online presence and boost revenue. Our solutions ensure a seamless shopping experience across devices, featuring intuitive design, personalized recommendations, real-time inventory, and secure payments. Whether starting fresh or upgrading your store, we tailor each solution to meet your goals and delight customers.',
+      image: ecomdevelopImg,
+      icon: ShoppingBag
+    }
+  };
+
+  const currentService = servicesData[activeService];
+
+  const handleServiceClick = (serviceKey) => {
+    setActiveService(serviceKey);
+  };
+
+  return (
+    <section className="py-20 md:py-32 lg:py-40 bg-green-50">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center mb-20 md:mb-24">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            Solutions for all<br />
+            the ways that we work.
+          </h2>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 xl:gap-20 items-start">
+          {/* Left Side - Services Navigation & Image */}
+          <div className="order-2 lg:order-1">
+            <div className="flex flex-col lg:flex-row gap-10 lg:gap-4 xl:gap-8">
+              {/* Services Navigation */}
+              <div className="flex-1 min-w-0 lg:mr-4 xl:mr-0 lg:max-w-xs xl:max-w-none">
+                <div className="space-y-4">
+                  {Object.entries(servicesData).map(([key, service]) => {
+                    const IconComponent = service.icon;
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => handleServiceClick(key)}
+                        className={`w-full flex items-center justify-between p-5 rounded-lg transition-all duration-200 cursor-pointer transform hover:scale-105 ${
+                          activeService === key 
+                            ? 'bg-white shadow-lg' 
+                            : 'bg-green-50 hover:bg-green-100'
+                        }`}
+                      >
+                        <div className="flex items-center space-x-4">
+                          <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                            activeService === key ? 'bg-teal-50' : 'bg-white'
+                          }`}>
+                            <IconComponent size={28} className="text-teal-500" />
+                          </div>
+                          <span className="text-lg font-medium text-gray-900 text-left">
+                            {service.title}
+                          </span>
+                        </div>
+                        <ChevronRight className="text-gray-400 flex-shrink-0" size={20} />
+                      </button>
+                    );
+                  })}
+                </div>
+                
+                {/* Explore All Tools Link */}
+                <div className="mt-8">
+                  <a 
+                    href="/contact" 
+                    className="text-teal-500 font-medium text-sm hover:text-teal-600 transition-colors duration-200 flex items-center space-x-2"
+                  >
+                    <span>Explore All Tools</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              
+              {/* Image - Beside services on lg+ devices */}
+              <div className="flex-1 lg:flex-none lg:w-72 xl:w-80 2xl:w-96">
+                <div className="rounded-xl shadow-2xl overflow-hidden">
+                  <img
+                    src={currentService.image}
+                    alt={`${currentService.title} Preview`}
+                    className="w-full h-80 lg:h-80 xl:h-96 object-cover transition-opacity duration-500"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Right Side - Content */}
+          <div className="space-y-8 md:space-y-10 order-1 lg:order-2">
+            <div className="text-left">
+              <span className="text-teal-500 font-semibold text-sm uppercase tracking-wider">
+                {currentService.title}
+              </span>
+            </div>
+            
+            <div>
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 md:mb-8">
+                Empowering Your Business with Technology.
+              </h3>
+              
+              <div className="space-y-6 mb-8 md:mb-10">
+                <div className="flex items-start space-x-3">
+                  <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+                    {currentService.content}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 // Main Landing Page Component
 export default function LandingPage() {
   // Dynamic data hooks
@@ -62,6 +199,9 @@ export default function LandingPage() {
     }
   }, [testimonials.length]);
 
+
+
+   
   // Fallback data for features if dynamic data isn't available
   const fallbackFeatures = [
     {
@@ -72,16 +212,16 @@ export default function LandingPage() {
     {
       icon: <Smartphone size={48} />,
       title: "Mobile Application Development",
-      description: "We specialize in developing versatile mobile applications that are fully optimized for specific platforms, ensuring smooth performance and native functionality. Our team also creates cross-platform mobile solutions that work seamlessly across various devices, offering flexibility and cost efficiency for businesses aiming to reach a wider audience. With a strong focus on intuitive design and functionality, we deliver exceptional user experiences that not only meet client expectations but also earn lasting admiration from end users. From concept to deployment, our mobile app development services are tailored to bring your ideas to life and drive engagement."
+      description: "We specialize in developing versatile mobile applications that are fully optimized for specific platforms, ensuring smooth performance and native functionality. Our team also creates cross-platform mobile solutions that work seamlessly across various devices, offering flexibility and cost efficiency for businesses aiming to reach a wider audience. With a strong focus on intuitive design and functionality, we deliver exceptional user experiences that not only meet client expectations but also earn lasting admiration from end users."
     },
     {
       icon: <ShoppingCart size={48} />,
       title: "E-Commerce Development",
-      description: "We develop robust eCommerce platforms designed to effectively reach and serve vast customer bases, enabling businesses to expand their digital footprint and increase revenue. Our solutions are built with scalability, security, and performance in mind, ensuring a seamless shopping experience across all devices. By optimizing customer journeys through intuitive interfaces and integrating personalized product recommendations, real-time stock updates, and secure payment gateways, we help boost engagement and drive sales. Whether launching a new online store or enhancing an existing one, our eCommerce development services are tailored to meet your business goals and customer expectations."
+      description: "We develop robust eCommerce platforms designed to effectively reach and serve vast customer bases, enabling businesses to expand their digital footprint and increase revenue. Our solutions are built with scalability, security, and performance in mind, ensuring a seamless shopping experience across all devices. By optimizing customer journeys through intuitive interfaces and integrating personalized product recommendations, real-time stock updates, and secure payment gateways, we help boost engagement and drive sales.Our eCommerce development services are tailored to meet your business goals and customer expectations."
     },
     {
       icon: <Home size={48} />,
-      title: "Real Estate Solutions (Rentings Platform)",
+      title: "Property Management System",
       description: "We connect landlords and tenants through a comprehensive B2B and B2C platform designed to simplify every aspect of property leasing. Whether you're seeking a new home or commercial space, our platform makes it easy to find the perfect fit by offering intuitive search tools and detailed listings. For landlords and property managers, we provide seamless rental management tools that streamline property transactions, from listings and tenant communication to rent collection and maintenance tracking. Our goal is to make property management and leasing efficient, transparent, and hassle-free for all parties involved."
     },
     {
@@ -98,131 +238,88 @@ export default function LandingPage() {
 
   // Fallback data for team members if dynamic data isn't available
   const fallbackTeamMembers = [
+    
     {
-      image: teamMember1,
-      name: "Azeem Azmy",
-      position: "Sales & Marketing Officer"
-    },
-    {
-      image: teamMember2,
+      image: teamMember0,
       name: "Fazil Parvez",
       position: "General Manager"
     },
     {
-      image: teamMember3,
+      image: teamMember1,
       name: "James Almeda",
       position: "IT Operations & Manager"
     },
     {
-      image: teamMember4,
+      image: teamMember2,
       name: "Salma Abdul Rahman",
       position: "Project Manager"
     },
     {
-      image: teamMember5,
+      image: teamMember3,
       name: "Hasna Kalady",
       position: "Program Developer"
     }
   ];
 
-  // Fallback data for testimonials if dynamic data isn't available
+ // Update your logo mapping in the component
+const logoMapping = {
+  'logo1': logo1,
+  'logo2': logo2,
+  'logo3': logo3,
+  'logo4': logo4,
+  // Add more mappings as needed
+};
+  
+  // 3. Update fallback testimonials data to include logo_name:
+ 
+  // Use dynamic data if available, otherwise use fallback data
+  const displayFeatures = !featuresLoading && features.length > 0 ? features : fallbackFeatures;
+
   const fallbackTestimonials = [
     {
-      quote: "Bizo interface is simple and easy to use for the kitchen, customers and even drivers. It provides 360degree solution to the whole restaurant operations. We at Dietbux Kuwait glad to make Bizo an essential part of our business.",
-      author: "Mr. Marwan Albahar",
-      position: "Planet Zero,CEO, Kuwait",
-      avatar: "🌍"
+      id: 1,
+      quote: "Partnering with Cocopalms transformed our operations. Their ERP solution streamlined processes across departments, helping us make faster, smarter decisions. Their team's commitment to quality and support was outstanding.",
+      author_name: "BizoSuite",
+      logo_image: "logo1", // Make sure this matches your logoMapping key
+      display_order: 1,
+      is_active: true
     },
     {
-      quote: "The comprehensive ERP solution has transformed our business operations completely. The seamless integration across all departments has improved our efficiency by 300%.",
-      author: "Sarah Johnson",
-      position: "Tech Innovations, CTO, Dubai",
-      avatar: "💼"
+      id: 2,
+      quote: "Cocopalms brought our vision to life, developing a beautifully designed mobile application for our subscription-based diet plans. The intuitive user interface makes it easy for our customers, and the robust backend tools help us effortlessly manage subscriptions and orders. We highly recommend them!",
+      author_name: "Dietbux",
+      logo_image: "logo2", // Make sure this matches your logoMapping key
+      display_order: 2,
+      is_active: true
     },
     {
-      quote: "Outstanding mobile app development services. Their team delivered exactly what we envisioned and the user experience is phenomenal.",
-      author: "Ahmed Hassan",
-      position: "StartupHub, Founder, Riyadh",
-      avatar: "📱"
+      id: 3,
+      quote: "Cocopalms brought our concept for a smart property management platform to life. Their team was proactive, detail-oriented, and incredibly responsive. The result is a powerful tool our tenants and landlords love using.",
+      author_name: "Rentings",
+      logo_image: "logo3", // Make sure this matches your logoMapping key
+      display_order: 3,
+      is_active: true
+    },
+    {
+      id: 4,
+      quote: "The web development expertise at Cocopalms resulted in a stunning and highly functional website that serves as a powerful representation of our brand. Its robust performance, especially its speed and mobile optimization, has been instrumental in building trust and credibility with our international clientele.",
+      author_name: "Dieter",
+      logo_image: "logo4", // Make sure this matches your logoMapping key
+      display_order: 4,
+      is_active: true
     }
   ];
 
-  // Use dynamic data if available, otherwise use fallback data
-  const displayFeatures = !featuresLoading && features.length > 0 ? features : fallbackFeatures;
   const displayTestimonials = !testimonialsLoading && testimonials.length > 0 ? testimonials : fallbackTestimonials;
 
   return (
     <div className="font-sans">
       {/* Hero Section */}
-      <section className="min-h-screen pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-32 md:pb-20 lg:pt-48 lg:pb-32 bg-greenish_light relative overflow-hidden">
-        {/* Decorative gradient circles - Responsive positioning */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-10">
-          {/* Top left circle - scales with screen size */}
-          <div className="absolute -top-32 -left-32 w-48 h-48 sm:-top-48 sm:-left-48 sm:w-64 sm:h-64 md:-top-64 md:-left-64 md:w-96 md:h-96 bg-custom-teal/20 rounded-full blur-2xl sm:blur-3xl"></div>
-          
-          {/* Top right circle - responsive positioning */}
-          <div className="absolute top-1/4 right-1/6 w-32 h-32 sm:top-1/3 sm:right-1/5 sm:w-48 sm:h-48 md:right-1/4 md:w-64 md:h-64 bg-custom-teal/25 rounded-full blur-xl sm:blur-2xl"></div>
-          
-          {/* Bottom left circle - responsive sizing */}
-          <div className="absolute bottom-1/4 -left-16 w-40 h-40 sm:-left-24 sm:w-56 sm:h-56 md:-left-32 md:w-80 md:h-80 bg-custom-teal/20 rounded-full blur-xl sm:blur-2xl"></div>
-        </div>
+      {/* Hero Section with Video Slideshow */}
+<HeroVideoSlideshow />
 
-        <div className="container mx-auto px-4 sm:px-6 md:px-8 flex flex-col justify-center h-full relative z-20">     
-          <div className="flex flex-col items-center">       
-            {/* Text Content - Reduced top margins for higher positioning */}       
-            <div className="w-full max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto mb-8 sm:mb-12 md:mb-16 mt-2 sm:mt-4 md:mt-6 lg:mt-8 xl:mt-4 text-center">                
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-gray-800 leading-tight mb-4 sm:mb-5 md:mb-6 text-center px-2 sm:px-0">                    
-                {/* Mobile and tablet: Two lines */}                    
-                <span className="block lg:hidden">                        
-                  Empower Your Business with <br />                        
-                  Seamless Software Solutions!                    
-                </span>                               
-                
-                {/* Desktop and larger: Four lines with slight upward adjustment */}                    
-                <span className="hidden lg:block lg:-mt-4 xl:-mt-6">                        
-                  Empower Your Business <br />                        
-                  with Seamless <br />                        
-                  Software Solutions!                    
-                </span>                
-              </h1>                
-              <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-7 md:mb-8 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto px-2 sm:px-0 leading-relaxed">                    
-                Powerful range of IT solutions tailored for modern businesses,                     
-                from ERP systems and mobile apps to e-commerce platforms                     
-                and delivery management tools.                 
-              </p>            
-            </div>
-
-            {/* Dashboard Video - Fully responsive */}
-            <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-3xl xl:max-w-5xl mx-auto px-2 sm:px-0">
-              <div className="relative group">
-                {/* Video Container with responsive rounded corners and shadow */}
-                <div className="relative overflow-hidden rounded-lg sm:rounded-xl md:rounded-2xl shadow-lg sm:shadow-xl md:shadow-2xl bg-gray-900">
-                  <video
-                    className="w-full h-auto object-cover transition duration-300 group-hover:scale-105"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                  >
-                    <source src="/video.mp4" type="video/mp4" />
-                    {/* Fallback for browsers that don't support video */}
-                    <div className="w-full h-32 sm:h-48 md:h-64 lg:h-80 bg-gray-800 flex items-center justify-center text-white text-sm sm:text-base">
-                      <span className="text-center px-4">Your browser does not support the video tag.</span>
-                    </div>
-                  </video>
-                  
-                  {/* Optional overlay for better contrast */}
-                  <div className="absolute inset-0 bg-black/5 pointer-events-none"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="-mt-2 pt-0 pb-2 sm:mt-0 sm:pt-6 sm:pb-8 md:pt-8 md:pb-10 lg:pt-10 lg:pb-12 xl:pt-12 xl:pb-16 bg-white">
+     {/* Stats Section */}
+     <section className="mt-8 pt-0 pb-2 sm:mt-0 sm:pt-6 sm:pb-8 md:pt-8 md:pb-10 lg:pt-10 lg:pb-12 xl:pt-12 xl:pb-16 bg-white">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 items-stretch">
             
@@ -388,87 +485,9 @@ export default function LandingPage() {
       </section>
 
       {/* Solutions Section */}
-      <section className="py-20 bg-green-50">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-              Solutions for all<br />
-              the ways that we work.
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Services Navigation & Dashboard Preview */}
-            <div className="relative">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Services Navigation */}
-                <div>
-                  <div className="space-y-4 mb-8">
-                    <Link to="/what-we-do" className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition duration-300 cursor-pointer ">
-                      <div className="w-8 h-8 text-teal-500">
-                        <Monitor size={32} />
-                      </div>
-                      <span className="text-lg font-medium text-gray-900">Website Development</span>
-                      <ChevronRight className="ml-auto text-gray-400" size={20} />
-                    </Link>
-                    
-                    <Link to="/what-we-do" className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition duration-300 cursor-pointer">
-                      <div className="w-8 h-8 text-teal-500">
-                        <Smartphone size={32} />
-                      </div>
-                      <span className="text-lg font-medium text-gray-900">Mobile Application Development</span>
-                      <ChevronRight className="ml-auto text-gray-400" size={20} />
-                    </Link>
-                    
-                    <Link to="/what-we-do" className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition duration-300 cursor-pointer">
-                      <div className="w-8 h-8 text-teal-500">
-                        <ShoppingBag size={32} />
-                      </div>
-                      <span className="text-lg font-medium text-gray-900">E-commerce Development</span>
-                      <ChevronRight className="ml-auto text-gray-400" size={20} />
-                    </Link>
-                  </div>
-                </div>
-                
-                {/* Dashboard Image - Moderately Enlarged */}
-                <div className="relative">
-                  <div className="bg-white rounded-lg shadow-xl overflow-hidden">
-                    <div className="aspect-[4/4] w-full">
-                      <img
-                        src={Image2}
-                        alt="Dashboard Preview"
-                        className="w-full h-full object-cover rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Right Side - Content */}
-            <div className="space-y-8">
-              <div className="text-left">
-                <span className="text-teal-500 font-semibold text-sm uppercase tracking-wider">What We Do?</span>
-              </div>
-              
-              <div>
-                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                  Empowering Your Business with Technology.
-                </h3>
-                
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-start space-x-3">
-                    <p className="text-gray-600 leading-relaxed">
-                      Cocopalms stands as a leading IT company in Kuwait, partnering with you to drive software innovation and deliver market-leading solutions. Our expert IT services are designed to address complex business challenges 
-                      through customized technological approaches. We are committed to empowering your digital transformation with our comprehensive IT service solutions.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+     
+      {/* Interactive Solutions Section - REPLACED */}
+      <SolutionsSection />
 
       {/* Features Section - Updated with dynamic data */}
       <section className="py-20 bg-white">
@@ -476,13 +495,13 @@ export default function LandingPage() {
           {/* Header */}
           <div className="text-center mb-16">
             <p className="text-gray-500 text-sm font-medium uppercase tracking-wider mb-4">
-              Key Features
+             Our Services
             </p>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Cocopalms
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Run your entire business with Cocopalms' unified cloud software solution
+              Run your entire business with Cocopalms unified cloud software
             </p>
           </div>
 
@@ -507,7 +526,7 @@ export default function LandingPage() {
                   
                   {/* Description */}
                   <div className="text-justify">
-                    <p className="text-gray-600 leading-relaxed text-sm">
+                    <p className="text-gray-600 leading-relaxed text-paragraph">
                       {feature.description}
                     </p>
                   </div>
@@ -554,15 +573,15 @@ export default function LandingPage() {
 
       {/* Meet Our Team Section - Updated with dynamic data */}
       <section className="pt-6 pb-12 sm:pt-8 sm:pb-16 md:pt-10 md:pb-20 bg-white">
-        {/* Header Section - Responsive */}
-        <div className="text-center mb-8 sm:mb-10 md:mb-12 px-4">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-900">
-            Meet our Team
-          </h2>
-           <p className="text-base sm:text-lg text-gray-600 max-w-sm sm:max-w-lg md:max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">
-          Run your entire business on Cocopalms with our unified cloud software.
-        </p>
-      </div>
+  {/* Header Section - Responsive */}
+  <div className="text-center mb-8 sm:mb-10 md:mb-12 px-4">
+    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-900">
+      Meet our Team
+    </h2>
+    <p className="text-base sm:text-lg text-gray-600 max-w-sm sm:max-w-lg md:max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">
+      Run your entire business with Cocopalms unified cloud software
+    </p>
+  </div>
   
   <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6">
     {!teamLoading && teamMembers.length > 0 ? (
@@ -572,28 +591,26 @@ export default function LandingPage() {
           <div className="flex justify-center mb-6 sm:mb-8">
             <div className="w-full max-w-xs sm:max-w-sm md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5 px-2 sm:px-4">
               <div className="w-full">
-                <TeamMemberCard 
-                  image={ceo.image_url} 
-                  name={ceo.name} 
-                  position={ceo.position} 
+                <TeamMemberCard
+                  image={ceo.image_url}
+                  name={ceo.name}
+                  position={ceo.position}
                 />
               </div>
             </div>
           </div>
         )}
         
-        {/* Grid for other team members - Fully responsive */}
+        {/* Grid for other team members - Fully responsive and centered */}
         {otherMembers.length > 0 && (
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 px-2 sm:px-0">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 sm:gap-6 justify-items-center mx-auto max-w-fit">
             {otherMembers.map((member) => (
-              <div key={member.id} className="w-full">
-                <div className="w-full max-w-xs mx-auto">
-                  <TeamMemberCard 
-                    image={member.image_url} 
-                    name={member.name} 
-                    position={member.position} 
-                  />
-                </div>
+              <div key={member.id} className="w-full max-w-xs">
+                <TeamMemberCard
+                  image={member.image_url}
+                  name={member.name}
+                  position={member.position}
+                />
               </div>
             ))}
           </div>
@@ -638,48 +655,75 @@ export default function LandingPage() {
         </p>
       </div>
 
-      {/* Right Side - Dynamic Testimonials or Loading/Empty State */}
-      {!testimonialsLoading && testimonials.length > 0 ? (
+      {/* Right Side - Dynamic Testimonials */}
+      {!testimonialsLoading && (testimonials.length > 0 || fallbackTestimonials.length > 0) ? (
         <div className="relative h-80 md:h-96 overflow-hidden">
           <div 
             className="absolute inset-0 transition-transform duration-700 ease-in-out"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
             <div className="flex">
-              {testimonials.map((testimonial) => (
-                <div 
-                  key={testimonial.id}
-                  className="bg-white p-4 md:p-6 lg:p-8 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 h-full flex flex-col justify-between flex-shrink-0 w-full"
-                >
-                  <div>
-                    <div className="text-2xl md:text-3xl lg:text-4xl text-gray-300 mb-2 md:mb-4">"</div>
-                    <p className="text-gray-700 leading-relaxed mb-4 md:mb-6 text-sm md:text-base lg:text-lg">
-                      {testimonial.quote}
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-center space-x-3 md:space-x-4">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-teal-100 rounded-full flex items-center justify-center text-lg md:text-xl font-semibold">
-                      {testimonial.avatar_emoji}
-                    </div>
+              {(testimonials.length > 0 ? testimonials : fallbackTestimonials).map((testimonial, index) => {
+                // FIXED: Better logo resolution logic
+                let logoSrc;
+                
+                if (testimonial.logo_url) {
+                  // If logo_url exists, use it directly
+                  logoSrc = testimonial.logo_url;
+                } else if (testimonial.logo_image && logoMapping[testimonial.logo_image]) {
+                  // If logo_image exists and is in mapping, use it
+                  logoSrc = logoMapping[testimonial.logo_image];
+                } else if (testimonial.logo_name && logoMapping[testimonial.logo_name]) {
+                  // If logo_name exists and is in mapping, use it
+                  logoSrc = logoMapping[testimonial.logo_name];
+                } else {
+                  // Default fallback - you can customize this per testimonial if needed
+                  logoSrc = logo1; // or you could use a different default per testimonial
+                }
+
+                console.log('Testimonial:', testimonial.author_name, 'Logo:', logoSrc); // Debug log
+                
+                return (
+                  <div 
+                    key={testimonial.id || index}
+                    className="bg-white p-4 md:p-6 lg:p-8 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 h-full flex flex-col justify-between flex-shrink-0 w-full"
+                  >
                     <div>
-                      <h4 className="font-semibold text-gray-900 text-base md:text-lg">
-                        {testimonial.author_name}
-                      </h4>
-                      <p className="text-gray-600 text-xs md:text-sm">
-                        {testimonial.author_position}
+                      <div className="text-2xl md:text-3xl lg:text-4xl text-gray-300 mb-2 md:mb-4">"</div>
+                      <p className="text-gray-700 leading-relaxed mb-4 md:mb-6 text-sm md:text-base lg:text-lg">
+                        {testimonial.quote}
                       </p>
                     </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-semibold text-gray-900 text-base md:text-lg">
+                          {testimonial.author_name || testimonial.author}
+                        </h4>
+                      </div>
+                      <div className="ml-4 flex-shrink-0">
+                        <img 
+                          src={logoSrc} 
+                          alt={`${testimonial.author_name || testimonial.author} Company Logo`}
+                          className="h-8 w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 object-contain"
+                          onError={(e) => {
+                            console.error('Logo failed to load:', logoSrc, 'for', testimonial.author_name);
+                            // Remove the generic fallback - let it show broken image or handle differently
+                            e.target.style.display = 'none';
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
           
           {/* Navigation Dots */}
-          {testimonials.length > 1 && (
+          {(testimonials.length > 1 || fallbackTestimonials.length > 1) && (
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-              {testimonials.map((_, index) => (
+              {(testimonials.length > 0 ? testimonials : fallbackTestimonials).map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
@@ -715,6 +759,7 @@ export default function LandingPage() {
     </div>
   </div>
 </section>
+
 
 
  {/* Customer Support Section */}

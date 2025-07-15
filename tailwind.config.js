@@ -10,6 +10,11 @@ module.exports = {
       fontFamily: {
         sans: ['Lato', 'sans-serif'],
       },
+      fontSize: {
+        'heading': '30px',
+        'subheading': '18px',
+        'paragraph': '16px',
+      },
     },
   },
   plugins: [],

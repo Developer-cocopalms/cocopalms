@@ -14,6 +14,7 @@ export const useTeamMembers = () => {
         const { data, error } = await supabase
           .from('team_members')
           .select('*')
+          .eq('status', true)  // ← ADD THIS LINE
           .order('display_order', { ascending: true });
 
         if (error) throw error;

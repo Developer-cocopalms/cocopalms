@@ -73,7 +73,7 @@ const ContactForm = () => {
               // Add popup
               marker.bindPopup(`
                 <div style="font-family: 'Lato', sans-serif; min-width: 200px;">
-                  <h3 style="margin: 0 0 8px 0; color: #164772; font-size: 16px; font-weight: bold;">Coco Palms</h3>
+                  <h3 style="margin: 0 0 8px 0; color: #164772; font-size: 16px; font-weight: bold;">Cocopalms</h3>
                   <p style="margin: 0; font-size: 14px; color: #666; line-height: 1.4;">
                     Block 2, Salem Al Mubarak Street<br>
                     Dolphin Hotel Commercial Tower<br>
@@ -502,27 +502,27 @@ const ContactForm = () => {
                     </div>
     
                     <button
-                      type="button"
-                      onClick={handleSubmit}
-                      disabled={isSubmitting}
-                      className="w-full text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                      style={{ 
-                        backgroundColor: isSubmitting ? '#9CA3AF' : '#164772',
-                        borderColor: isSubmitting ? '#9CA3AF' : '#164772'
-                      }}
-                      onMouseEnter={(e) => {
-                        if (!isSubmitting) {
-                          e.target.style.backgroundColor = '#0f3556';
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!isSubmitting) {
-                          e.target.style.backgroundColor = '#164772';
-                        }
-                      }}
-                    >
-                      {isSubmitting ? 'Submitting...' : 'Submit'}
-                    </button>
+  type="button"
+  onClick={handleSubmit}
+  disabled={isSubmitting}
+  className="w-full text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+  style={{
+    backgroundColor: isSubmitting ? '#9CA3AF' : '#0d9488',
+    borderColor: isSubmitting ? '#9CA3AF' : '#0d9488'
+  }}
+  onMouseEnter={(e) => {
+    if (!isSubmitting) {
+      e.target.style.backgroundColor = '#0d9488';
+    }
+  }}
+  onMouseLeave={(e) => {
+    if (!isSubmitting) {
+      e.target.style.backgroundColor = '#0f766e';
+    }
+  }}
+>
+  {isSubmitting ? 'Submitting...' : 'Submit'}
+</button>
                   </div>
                 </div>
               </div>

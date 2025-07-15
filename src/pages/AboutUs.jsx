@@ -1,6 +1,125 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+// Import images
+import firstImage from '../assets/1sth.jpeg';
+import secondImage from '../assets/2nd.jpeg';
+import thirdImage from '../assets/3rd.jpeg';
+import fourthImage from '../assets/4th.png';
 const AboutUs = () => {
+  const [activeSection, setActiveSection] = useState(0);
+  const scrollContainerRef = useRef(null);
+  const sectionRefs = useRef([]);
+  const isScrollingRef = useRef(false);
+
+  // Use imported images
+  const images = [
+    firstImage,
+    secondImage,
+    thirdImage,
+    fourthImage
+  ];
+
+
+  const whoWeAreContent = [
+    {
+      title: "The initial thought",
+      subtitle: "Our Journey to Revolutionize Business Technology Solutions",
+      content: "Cocopalms is a next-generation IT solutions company delivering innovative and end-to-end technology services for modern businesses. We specialize in developing web platforms, mobile applications, e-commerce solutions, and enterprise software that drive digital transformation.From designing intuitive websites to building powerful backend systems and cloud based business applications, we provide scalable and secure solutions tailored to each client's goals. Our expertise spans across industries, helping businesses streamline operations, enhance customer experiences, and grow through smart technology.Whether you're launching a mobile app, automating your workflow, or building a custom ERP system , Cocopalms is your trusted technology partner.",
+      image: images[0]
+    },
+    {
+      title: "Meet the Team of Cocopalms",
+      subtitle: "Our Expert Team",
+      content: "Our developers don't just write code, they create digital experiences that solve real business problems. By combining cutting-edge tools, secure architecture, and human centered design, we ensure every solution is not just functional, but future ready.With a strong culture of collaboration and continuous learning, our development team is the heart of Cocopalms' innovation turning ideas into impactful solutions for businesses across industries.",
+      image: images[1]
+    },
+    {
+      title: "Built on Experience, Driven by Excellence",
+      subtitle: "Our Foundation",
+      content: "A glimpse into the mobile app creation process showcasing diverse design interfaces across Android and iOS platforms. These visuals represent the seamless blend of functionality and user experience that defines every Cocopalms mobile solution.Each application is thoughtfully designed to ensure smooth navigation, intuitive layouts, and responsive performance. From customer ordering apps to delivery tracking and business management tools, our mobile platforms are built to meet the evolving needs of modern businesses.Whether it's enhancing customer engagement or streamlining operations, our mobile apps are crafted to deliver high impact across devices and industries.",
+      image: images[2]
+    },
+    {
+      title: "Custom Websites & Real-Time Business Intelligence Dashboards",
+      subtitle: "Our Impact",
+      content: "Creation of dynamic websites and intelligent dashboards — core elements of Cocopalms' digital solutions. Our platforms are designed to be visually engaging, user-friendly, and fully responsive across devices.From clean, modern website layouts to powerful backend dashboards, each interface is built to offer clarity, control, and real-time insights. Whether managing sales, operations, inventory, or customer data, our dashboards bring actionable information to your fingertips.With seamless navigation, smart analytics, and customizable components, Cocopalms' web solutions help businesses stay connected, efficient, and ahead of the curve.",
+      image: images[3]
+    }
+  ];
+
+  // Handle scroll spy functionality
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isScrollingRef.current) return; // Don't update active section while programmatically scrolling
+      
+      if (!scrollContainerRef.current) return;
+
+      const container = scrollContainerRef.current;
+      const containerTop = container.scrollTop;
+      const containerHeight = container.clientHeight;
+
+      let currentSection = 0;
+      
+      // Find which section is most visible
+      sectionRefs.current.forEach((section, index) => {
+        if (section) {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          
+          // Check if section is in viewport
+          const sectionBottom = sectionTop + sectionHeight;
+          const viewportTop = containerTop;
+          const viewportBottom = containerTop + containerHeight;
+          
+          // Calculate visible portion of section
+          const visibleTop = Math.max(sectionTop, viewportTop);
+          const visibleBottom = Math.min(sectionBottom, viewportBottom);
+          const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+          
+          // If more than 50% of section is visible, or if we're at the top of the section
+          if (visibleHeight > sectionHeight * 0.5 || (containerTop >= sectionTop - 50 && containerTop < sectionTop + 50)) {
+            currentSection = index;
+          }
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      // Initial check
+      setTimeout(handleScroll, 100);
+      return () => container.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
+
+  // Handle navigation click - Fixed scroll behavior
+  const scrollToSection = (index) => {
+    if (sectionRefs.current[index] && scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const section = sectionRefs.current[index];
+      
+      // Set flag to prevent scroll spy from updating during programmatic scroll
+      isScrollingRef.current = true;
+      
+      // Update active section immediately
+      setActiveSection(index);
+      
+      // Use scrollIntoView for more reliable positioning
+      section.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end'
+      });
+      
+      // Reset the flag after scroll completes
+      setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 1000);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -15,9 +134,8 @@ const AboutUs = () => {
           cloud services, IT consulting, systems integration.
         </p>
         <Link 
-  to="/contact" 
-  className="bg-[#164772] hover:bg-[#0f3a5f] text-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-block text-center"
-  onClick={() => window.scrollTo(0, 0)}
+  to="/contact"
+  className="bg-teal-600 hover:bg-teal-700 text-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-block text-center"
 >
   Contact Us
 </Link>
@@ -26,38 +144,93 @@ const AboutUs = () => {
       {/* Mission Section */}
       <div className="bg-green-50 py-20">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="text-sm text-[#008196] font-medium mb-4 uppercase tracking-wide">
+          <p className="text-sm text-teal-600 font-medium mb-4 uppercase tracking-wide">
             Our mission
           </p>
-          <h2 className="text-xl md:text-3xl font-meduim text-gray-900 leading-tight max-w-3xl mx-auto">
-          To empower our clients with robust solutions that translate complex data into  
-          actionable knowledge, directly addressing their challenges and streamlining their 
-          operational workflows for measurable improvements.
+          <h2 className="text-xl md:text-3xl font-medium text-gray-900 leading-tight max-w-3xl mx-auto">
+            To empower our clients with robust solutions that translate complex data into  
+            actionable knowledge, directly addressing their challenges and streamlining their 
+            operational workflows for measurable improvements.
           </h2>
         </div>
       </div>
 
-      {/* Who We Are Section */}
+      {/* Dynamic Who We Are Section */}
       <div className="py-20">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Who we are?
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
-          We engineer a suite of mission-critical applications designed for scalable operations, 
-          complemented by comprehensive communication, unwavering support, proactive maintenance, 
-          and tailored solutions.
-          </p>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
-          As a committed leader in the technological landscape, Cocopalms exports premium software 
-              solutions to a global clientele, with a portfolio extending across the MENA region, 
-              Europe, and Asia, and a clear vision for worldwide impact.
-          </p>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Our expert team develops both meticulously crafted off-the-shelf products and highly 
-            customized bespoke solutions that seamlessly integrate innovation and automation, 
-            serving clients across the MENA region, Europe, and Asia.
-          </p>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Who we are?
+            </h2>
+            <p className="text-lg text-gray-600">
+              At Cocopalms, our story began with a simple yet ambitious goal:
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Left Side - Navigation (Smaller) */}
+            <div className="lg:col-span-4 space-y-4">
+              {whoWeAreContent.map((item, index) => (
+                <div
+                  key={index}
+                  className={`cursor-pointer transition-all duration-300 ${
+                    activeSection === index 
+                      ? 'border-l-4 border-teal-600 pl-4 bg-teal-50 py-3 rounded-r-lg' 
+                      : 'border-l-4 border-transparent pl-4 py-3 hover:border-gray-300 hover:bg-gray-50'
+                  }`}
+                  onClick={() => scrollToSection(index)}
+                >
+                  <h3 className={`text-lg font-bold mb-1 transition-colors ${
+                    activeSection === index ? 'text-teal-600' : 'text-gray-900'
+                  }`}>
+                    {item.title}
+                  </h3>
+                  <p className={`text-xs transition-colors ${
+                    activeSection === index ? 'text-teal-700' : 'text-gray-600'
+                  }`}>
+                    {item.subtitle}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Right Side - Scrollable Content Display (Larger) */}
+            <div className="lg:col-span-8 bg-white rounded-lg shadow-lg overflow-hidden">
+              <div 
+                ref={scrollContainerRef}
+                className="h-[600px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
+                style={{ scrollBehavior: 'smooth' }}
+              >
+                {whoWeAreContent.map((item, index) => (
+                  <div
+                    key={index}
+                    ref={el => sectionRefs.current[index] = el}
+                    className="min-h-[600px] border-b border-gray-100 last:border-b-0 flex flex-col"
+                  >
+                    <div className="relative h-72 overflow-hidden flex-shrink-0">
+                      <img 
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover object-center"
+                        style={{ objectPosition: 'center 30%' }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                      <div className="absolute bottom-4 left-6 text-white">
+                        <h3 className="text-2xl font-bold mb-2">
+                          {item.title}
+                        </h3>
+                      </div>
+                    </div>
+                    <div className="p-8 flex-grow">
+                      <p className="text-gray-600 leading-relaxed text-lg">
+                        {item.content}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -112,15 +285,16 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
-  {/* Vision Section */}
-  <div className="bg-green-50 py-20">
+
+      {/* Vision Section */}
+      <div className="bg-green-50 py-20">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="text-sm text-[#008196] font-medium mb-4 uppercase tracking-wide">
-            Our Vission
+          <p className="text-sm text-teal-600 font-medium mb-4 uppercase tracking-wide">
+            Our Vision
           </p>
-          <h2 className="text-xl md:text-3xl font-meduim text-gray-900 leading-tight max-w-3xl mx-auto">
-          To be a globally recognized IT solutions provider, empowering businesses with seamless, efficient, and cost-effective digital transformations 
-          that directly contribute to their growth and success through our unwavering commitment to quality and high-value services.
+          <h2 className="text-xl md:text-3xl font-medium text-gray-900 leading-tight max-w-3xl mx-auto">
+            To be a globally recognized IT solutions provider, empowering businesses with seamless, efficient, and cost-effective digital transformations 
+            that directly contribute to their growth and success through our unwavering commitment to quality and high-value services.
           </h2>
         </div>
       </div>
@@ -135,13 +309,12 @@ const AboutUs = () => {
             Let's discuss how Cocopalms can architect the future of your software innovation 
             and drive your business growth.
           </p>
-          <Link 
-  to="/contact" 
-  className="bg-custom-teal hover:bg-custom-teal/90 text-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-block text-center"
-  onClick={() => window.scrollTo(0, 0)}
+          <a 
+  href="/contact" 
+  className="bg-teal-600 hover:bg-teal-700 text-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-block text-center"
 >
   Get Started Today
-</Link>
+</a>
         </div>
       </div>
     </div>

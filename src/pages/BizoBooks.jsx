@@ -1,7 +1,6 @@
 import React from 'react';
 import { Users, TrendingUp, CheckCircle, ExternalLink } from 'lucide-react';
-
-import BizoLogo from '../assets/bizo_logo.png';
+import BizoSuiteLogo from '../assets/bizo_logo.png';
 const BizoBooks = () => {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -9,10 +8,10 @@ const BizoBooks = () => {
       <div className="bg-gradient-to-r from-teal-600 to-teal-800 text-white py-20 mt-24">
         <div className="container mx-auto px-4 text-center">
           <div className="flex justify-center mb-6">
-            <div className="bg-white p-4 rounded-full shadow-lg">
+          <div className="bg-white p-4 rounded-full shadow-lg">
               <img 
-                src={BizoLogo} 
-                alt="BizoSuite ERP Logo" 
+                src={BizoSuiteLogo} 
+                alt="Coco Dine Logo" 
                 className="h-12 w-12 object-contain"
               />
             </div>
@@ -141,24 +140,24 @@ const BizoBooks = () => {
       </div>
 
       {/* Call to Action */}
-      <div className="py-16 bg-gray-900 text-white">
+      <div className="py-16 bg-gradient-to-r from-teal-600 to-teal-800 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Financial Management?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join hundreds of businesses already using Bizo Books to streamline their accounting processes.
+            Join hundreds of businesses already using BizoSuite to streamline their accounting processes.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="https://bizosuite.com/" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center  border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg font-semibold transition-colors duration-200"
+              className="inline-flex items-center bg-white text-teal-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
             >
               Start Free Trial <ExternalLink className="ml-2 h-5 w-5" />
             </a>
             <a 
               href="/contact" 
-              className="inline-flex items-center border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-lg font-semibold transition-colors duration-200"
+              className="inline-flex items-center border-2 border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3 rounded-lg font-semibold transition-colors duration-200"
             >
               Contact Us
             </a>

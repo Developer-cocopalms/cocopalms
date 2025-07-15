@@ -86,7 +86,7 @@ const Header = () => {
                 <div className="p-6">
                   <div className="grid grid-cols-3 gap-6">
                     {/* Web Development Card */}
-                    <Link to="/what-we-do#web-development" className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 block">
+                    <Link to="/what-we-do/web-development" className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 block">
                       <div className="flex items-center mb-4">
                         <div className="bg-blue-100 p-3 rounded-lg">
                           <Monitor className="h-6 w-6 text-blue-600" />
@@ -99,7 +99,7 @@ const Header = () => {
                     </Link>
 
                     {/* Mobile Apps Card */}
-                    <Link to="/what-we-do#mobile-apps" className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 block">
+                    <Link to="/what-we-do/mobile-app" className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 block">
                       <div className="flex items-center mb-4">
                         <div className="bg-green-100 p-3 rounded-lg">
                           <Smartphone className="h-6 w-6 text-green-600" />
@@ -112,7 +112,7 @@ const Header = () => {
                     </Link>
 
                     {/* Bizosuite ERP Card */}
-                    <Link to="/what-we-do#erp-solutions" className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 block">
+                    <Link to="/what-we-do/erp-solution" className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 block">
                       <div className="flex items-center mb-4">
                         <div className="bg-purple-100 p-3 rounded-lg">
                           <Users className="h-6 w-6 text-purple-600" />
@@ -125,7 +125,7 @@ const Header = () => {
                     </Link>
 
                     {/* E-commerce Solutions Card - Second Row First */}
-                    <Link to="/what-we-do#ecommerce" className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 block">
+                    <Link to="/what-we-do/ecommerce-application" className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 block">
                       <div className="flex items-center mb-4">
                         <div className="bg-orange-100 p-3 rounded-lg">
                           <ShoppingCart className="h-6 w-6 text-orange-600" />
@@ -138,26 +138,26 @@ const Header = () => {
                     </Link>
 
                     {/* Real Estate Platform Card - Second Row Second */}
-                    <Link to="/what-we-do#real-estate" className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 block">
+                    <Link to="/what-we-do/property-management" className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 block">
                       <div className="flex items-center mb-4">
                         <div className="bg-teal-100 p-3 rounded-lg">
                           <Building2 className="h-6 w-6 text-teal-600" />
                         </div>
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Real Estate Platform</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Property Management System</h3>
                       <p className="text-gray-600 text-sm">
                         B2B & B2C platform connecting landlords and tenants for seamless property rentals.
                       </p>
                     </Link>
 
                     {/* F&B Software Card - Second Row Third */}
-                    <Link to="/what-we-do#fnb-solutions" className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 block">
+                    <Link to="/what-we-do/fandb-solution" className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 block">
                       <div className="flex items-center mb-4">
                         <div className="bg-red-100 p-3 rounded-lg">
                           <Utensils className="h-6 w-6 text-red-600" />
                         </div>
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">F&B Software</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">F&B Solution</h3>
                       <p className="text-gray-600 text-sm">
                         Specialized software applications tailored for restaurants, cafes, and food service businesses.
                       </p>
@@ -216,7 +216,7 @@ const Header = () => {
                 className="h-24 w-24 object-contain"
               />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Real Estate</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Property Managemnt System</h3>
             <p className="text-gray-600 text-sm mb-2">
               Comprehensive property management and real estate solutions.
             </p>
@@ -266,7 +266,7 @@ const Header = () => {
                 className="h-24 w-24 object-contain"
               />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Coco Dine</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Cocodine</h3>
             <p className="text-gray-600 text-sm mb-2">
               Complete dining experience and restaurant management system.
             </p>
@@ -386,28 +386,28 @@ const Header = () => {
               </div>
               {isDropdownOpen && (
                 <div className="pl-8 mt-2 space-y-4">
-                  <Link to="/what-we-do#web-development" className="block" onClick={() => setIsMenuOpen(false)}>
+                  <Link to="/what-we-do/web-development" className="block" onClick={() => setIsMenuOpen(false)}>
                     <h4 className="font-semibold text-gray-900">Web Development</h4>
                     <p className="text-sm text-gray-500 mt-1">Professional websites and web applications for businesses from startup to enterprise level.</p>
                   </Link>
-                  <Link to="/what-we-do#mobile-apps" className="block" onClick={() => setIsMenuOpen(false)}>
+                  <Link to="/what-we-do/mobile-app" className="block" onClick={() => setIsMenuOpen(false)}>
                     <h4 className="font-semibold text-gray-900">Mobile Apps</h4>
                     <p className="text-sm text-gray-500 mt-1">High-quality mobile applications that deliver exceptional user experiences across all platforms.</p>
                   </Link>
-                  <Link to="/what-we-do#erp-solutions" className="block" onClick={() => setIsMenuOpen(false)}>
+                  <Link to="/what-we-do/erp-solution" className="block" onClick={() => setIsMenuOpen(false)}>
                     <h4 className="font-semibold text-gray-900">ERP Solution</h4>
                     <p className="text-sm text-gray-500 mt-1">Comprehensive ERP solution with unified modules for all your operational needs.</p>
                   </Link>
-                  <Link to="/what-we-do#ecommerce" className="block" onClick={() => setIsMenuOpen(false)}>
+                  <Link to="/what-we-do/ecommerce-application" className="block" onClick={() => setIsMenuOpen(false)}>
                     <h4 className="font-semibold text-gray-900">E-commerce Applications</h4>
                     <p className="text-sm text-gray-500 mt-1">Custom e-commerce platforms to help you tap into the global online marketplace.</p>
                   </Link>
-                  <Link to="/what-we-do#real-estate" className="block" onClick={() => setIsMenuOpen(false)}>
-                    <h4 className="font-semibold text-gray-900">Real Estate Platform</h4>
+                  <Link to="/what-we-do/property-management" className="block" onClick={() => setIsMenuOpen(false)}>
+                    <h4 className="font-semibold text-gray-900">Property Management System</h4>
                     <p className="text-sm text-gray-500 mt-1">B2B & B2C platform connecting landlords and tenants for seamless property rentals.</p>
                   </Link>
-                  <Link to="/what-we-do#fnb-solutions" className="block" onClick={() => setIsMenuOpen(false)}>
-                    <h4 className="font-semibold text-gray-900">F&B Software</h4>
+                  <Link to="/what-we-do/fandb-solution" className="block" onClick={() => setIsMenuOpen(false)}>
+                    <h4 className="font-semibold text-gray-900">F&B Solution</h4>
                     <p className="text-sm text-gray-500 mt-1">Specialized software applications tailored for restaurants, cafes, and food service businesses.</p>
                   </Link>
                 </div>
@@ -442,7 +442,7 @@ const Header = () => {
                     </p>
                   </Link>
                   <Link to="/success-stories/real-estate" className="block" onClick={() => setIsMenuOpen(false)}>
-                    <h4 className="font-semibold text-gray-900">Real Estate</h4>
+                    <h4 className="font-semibold text-gray-900">Property Management System</h4>
                     <p className="text-sm text-gray-500 mt-1">Comprehensive property management and real estate solutions.</p>
                   </Link>
                   <Link to="/success-stories/kitchenly" className="block" onClick={() => setIsMenuOpen(false)}>
@@ -450,7 +450,7 @@ const Header = () => {
                     <p className="text-sm text-gray-500 mt-1">Smart kitchen management and restaurant operations platform.</p>
                   </Link>
                   <Link to="/success-stories/coco-dine" className="block" onClick={() => setIsMenuOpen(false)}>
-                    <h4 className="font-semibold text-gray-900">Coco Dine</h4>
+                    <h4 className="font-semibold text-gray-900">Cocodine</h4>
                     <p className="text-sm text-gray-500 mt-1">Complete dining experience and restaurant management system.</p>
                   </Link>
                 </div>

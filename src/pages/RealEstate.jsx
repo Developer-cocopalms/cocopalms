@@ -19,7 +19,7 @@ const RealEstate = () => {
               />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Real Estate Platform</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Property Management System</h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
             Comprehensive property management and real estate solutions connecting landlords and tenants seamlessly
           </p>
@@ -157,7 +157,7 @@ const RealEstate = () => {
       </div>
 
       {/* Call to Action */}
-      <div className="py-16 bg-gray-900 text-white">
+      <div className="py-16  bg-gradient-to-r from-teal-600 to-teal-800 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Transform Your Property Management Today</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
