@@ -24,7 +24,7 @@ const RealEstate = () => {
             Comprehensive property management and real estate solutions connecting landlords and tenants seamlessly
           </p>
           <a
-            href="https://rentings.io/en"
+            href="https://rentings.io/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center bg-white text-teal-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
@@ -165,7 +165,7 @@ const RealEstate = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
-              href="https://rentings.io/en" 
+              href="https://rentings.io/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center border-2 border-white text-white hover:bg-white hover:text-gray-900  px-8 py-3 rounded-lg font-semibold transition-colors duration-200"

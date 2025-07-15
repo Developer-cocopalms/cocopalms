@@ -62,7 +62,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://rentings.io/en" 
+                  href="https://rentings.io/" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-600 hover:text-gray-700 transition-colors duration-200 text-sm sm:text-base"

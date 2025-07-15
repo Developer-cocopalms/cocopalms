@@ -222,7 +222,7 @@ const Header = () => {
             </p>
           </Link>
           <a 
-            href="https://rentings.io/en" 
+            href="https://rentings.io/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="flex items-center text-custom-teal font-medium text-sm hover:text-custom-teal/80 transition-colors duration-200"
