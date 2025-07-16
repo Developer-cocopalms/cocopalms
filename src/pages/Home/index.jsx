@@ -12,6 +12,7 @@ import { useFeatures } from '../hooks/useFeatures';
 import { useTestimonials } from '../hooks/useTestimonials';
 import DynamicIcon from '../../components/DynamicIcon';
 import HeroVideoSlideshow from '../../components/HeroVideoSlideshow';
+import InstagramSlider from '../../components/InstagramSlider';
 
 // Import static assets
 
@@ -809,8 +810,10 @@ const logoMapping = {
           </div>
         </div>
       </section>
+      
      
-     
+     {/* Instagram Slider Section - NEW */}
+     <InstagramSlider />
    
     </div>
     
