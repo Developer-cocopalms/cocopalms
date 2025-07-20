@@ -203,7 +203,7 @@ export default function LandingPage() {
 
 
    
-  // Fallback data for features if dynamic data isn't available
+  // Fallback data for services if dynamic data isn't available
   const fallbackFeatures = [
     {
       icon: <Globe size={48} />,

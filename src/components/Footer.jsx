@@ -99,13 +99,21 @@ const Footer = () => {
               Contact Us
             </h3>
             <div>
-              <p className="text-gray-900 font-medium mb-2 text-sm sm:text-base">Email</p>
-              <a 
-                href="mailto:info@cocopalms.io" 
-                className="text-gray-600 hover:text-gray-700 transition-colors duration-200 break-all text-sm sm:text-base"
-              >
-                info@cocopalms.io
-              </a>
+            <p className="text-gray-900 font-medium mb-2 text-sm sm:text-base">Email</p>
+<a 
+  href="mailto:info@cocopalms.io" 
+  className="text-gray-600 hover:text-gray-700 transition-colors duration-200 break-all text-sm sm:text-base"
+>
+  info@cocopalms.io
+</a>
+
+<p className="text-gray-900 font-medium mt-4 mb-2 text-sm sm:text-base">Mobile</p>
+<a 
+  href="tel:+96599185891" 
+  className="text-gray-600 hover:text-gray-700 transition-colors duration-200 break-all text-sm sm:text-base"
+>
+  +965 9918 5891
+</a>
             </div>
           </div>
         </div>

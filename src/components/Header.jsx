@@ -1,19 +1,58 @@
 import { useState, useEffect } from 'react';
 import { ChevronRight, Menu, X, Smartphone, ShoppingCart, Monitor, Building2, Users, Utensils } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 import iPhoneSvg from '../assets/iPhone3.svg';
 import cocopalmsSvg from '../assets/Cocopalms2.svg';
-import BizoLogo from '../assets/bizo_logo.png';
-import RealEstateLogo from '../assets/Rentings Logo.jpeg';
-import KitchenlyLogo from '../assets/Kitchenly Logo.png';
-import CocoDineLogo from '../assets/Cocodine logo.png';
+
+// Import all the logos
+import bizoLogo from '../assets/bizo_logo.png';
+import rentingsLogo from '../assets/Rentings Logo.jpeg';
+import kitchenlyLogo from '../assets/Kitchenly Logo.png';
+import cocodineLogo from '../assets/Cocodine logo.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSuccessDropdownOpen, setIsSuccessDropdownOpen] = useState(false);
+  const [successStories, setSuccessStories] = useState([]);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
+
+  // Logo mapping object
+  const logoMap = {
+    'bizo-books': bizoLogo,
+    'real-estate': rentingsLogo,
+    'kitchenly': kitchenlyLogo,
+    'coco-dine': cocodineLogo
+  };
+
+  // Fetch success stories from Supabase
+  useEffect(() => {
+    const fetchSuccessStories = async () => {
+      try {
+        setLoading(true);
+        const { data, error } = await supabase
+          .from('success_stories')
+          .select('*')
+          .eq('is_active', true)
+          .order('display_order', { ascending: true });
+
+        if (error) {
+          console.error('Error fetching success stories:', error);
+        } else {
+          setSuccessStories(data || []);
+        }
+      } catch (error) {
+        console.error('Error fetching success stories:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSuccessStories();
+  }, []);
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -166,136 +205,76 @@ const Header = () => {
                 </div>
               </div>
             </div>
-{/* Success Stories Dropdown */}
-<div className="relative group">
-  <button 
-    className={`font-medium transition-colors duration-200 flex items-center ${
-      location.pathname.startsWith('/success-stories') 
-        ? 'text-custom-teal border-b-2 border-custom-teal pb-1' 
-        : 'text-gray-700 hover:text-custom-teal'
-    }`}
-  >
-    Success Stories
-    <ChevronRight className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:rotate-90" />
-  </button>
-  <div className="absolute left-0 mt-2 w-[600px] origin-top-left rounded-lg bg-white shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-    <div className="p-6">
-      <div className="grid grid-cols-2 gap-6">
-        {/* Bizo Books Card */}
-        <div className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
-          <Link to="/success-stories/bizo-books" className="block">
-            <div className="flex items-center mb-1">
-              <img 
-                src={BizoLogo} 
-                alt="BizoSuite ERP Logo" 
-                className="h-24 w-24 object-contain"
-              />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">BizoSuite ERP</h3>
-            <p className="text-gray-600 text-sm mb-2">
-             Smart ERP solution designed to help growing businesses manage operations efficiently.
-            </p>
-          </Link>
-          <a 
-            href="https://bizosuite.com/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center text-custom-teal font-medium text-sm hover:text-custom-teal/80 transition-colors duration-200"
-          >
-            TRY NOW <ChevronRight className="ml-1 h-4 w-4" />
-          </a>
-        </div>
 
-        {/* Real Estate Card */}
-        <div className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
-          <Link to="/success-stories/real-estate" className="block">
-            <div className="flex items-center mb-1">
-              <img 
-                src={RealEstateLogo} 
-                alt="Real Estate Logo" 
-                className="h-24 w-24 object-contain"
-              />
+            {/* Success Stories Dropdown - Now Dynamic with proper logo handling */}
+            <div className="relative group">
+              <button 
+                className={`font-medium transition-colors duration-200 flex items-center ${
+                  location.pathname.startsWith('/success-stories') 
+                    ? 'text-custom-teal border-b-2 border-custom-teal pb-1' 
+                    : 'text-gray-700 hover:text-custom-teal'
+                }`}
+              >
+                Success Stories
+                <ChevronRight className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:rotate-90" />
+              </button>
+              <div className="absolute left-0 mt-2 w-[600px] origin-top-left rounded-lg bg-white shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="p-6">
+                  {loading ? (
+                    <div className="flex justify-center items-center py-8">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-custom-teal"></div>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-6">
+                      {successStories.map((story) => (
+                        <div key={story.id} className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                          <Link to={`/success-stories/${story.slug}`} className="block">
+                            <div className="flex items-center mb-1">
+                              <img 
+                                src={logoMap[story.slug] || story.logo_url} 
+                                alt={`${story.title} Logo`} 
+                                className="h-24 w-24 object-contain"
+                                onError={(e) => {
+                                  console.log(`Failed to load logo for ${story.title}:`, e.target.src);
+                                  e.target.style.display = 'none';
+                                }}
+                              />
+                            </div>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-2">{story.title}</h3>
+                            <p className="text-gray-600 text-sm mb-2">
+                              {story.description}
+                            </p>
+                          </Link>
+                          {story.external_url && (
+                            <a 
+                              href={story.external_url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex items-center text-custom-teal font-medium text-sm hover:text-custom-teal/80 transition-colors duration-200"
+                            >
+                              {story.external_button_text || 'TRY NOW'} <ChevronRight className="ml-1 h-4 w-4" />
+                            </a>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Property Managemnt System</h3>
-            <p className="text-gray-600 text-sm mb-2">
-              Comprehensive property management and real estate solutions.
-            </p>
-          </Link>
-          <a 
-            href="https://rentings.io/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center text-custom-teal font-medium text-sm hover:text-custom-teal/80 transition-colors duration-200"
-          >
-            TRY NOW <ChevronRight className="ml-1 h-4 w-4" />
-          </a>
-        </div>
 
-        {/* Kitchenly Card */}
-        <div className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
-          <Link to="/success-stories/kitchenly" className="block">
-            <div className="flex items-center mb-1">
-              <img 
-                src={KitchenlyLogo} 
-                alt="Kitchenly Logo" 
-                className="h-24 w-24 object-contain"
-              />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Kitchenly</h3>
-            <p className="text-gray-600 text-sm mb-2">
-              Smart kitchen management and restaurant operations platform.
-            </p>
-          </Link>
-          <a 
-            href="https://kitchenly.cloud/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center text-custom-teal font-medium text-sm hover:text-custom-teal/80 transition-colors duration-200"
-          >
-            TRY NOW <ChevronRight className="ml-1 h-4 w-4" />
-          </a>
-        </div>
-
-        {/* Coco Dine Card */}
-        <div className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
-          <Link to="/success-stories/coco-dine" className="block">
-            <div className="flex items-center mb-1">
-              <img 
-                src={CocoDineLogo} 
-                alt="Coco Dine Logo" 
-                className="h-24 w-24 object-contain"
-              />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Cocodine</h3>
-            <p className="text-gray-600 text-sm mb-2">
-              Complete dining experience and restaurant management system.
-            </p>
-          </Link>
-          <a 
-            href="https://www.cocodine.me/en" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center text-custom-teal font-medium text-sm hover:text-custom-teal/80 transition-colors duration-200"
-          >
-            TRY NOW <ChevronRight className="ml-1 h-4 w-4" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>    
-{/* Temporarily hidden - Our Work
+            {/* Blog Link - Fixed active state logic */}
             <Link 
-              to="/our-work" 
+              to="/blog" 
               className={`font-medium transition-colors duration-200 ${
-                location.pathname === '/our-work' 
+                location.pathname === '/blog' || location.pathname.startsWith('/blog/')
                   ? 'text-custom-teal border-b-2 border-custom-teal pb-1' 
                   : 'text-gray-700 hover:text-custom-teal'
               }`}
             >
-              Our Work
+              Blog
             </Link>
-            */}
+            
             <Link 
               to="/contact" 
               className={`font-medium transition-colors duration-200 ${
@@ -311,11 +290,6 @@ const Header = () => {
 
         {/* Right side buttons */}
         <div className="hidden md:flex items-center space-x-4">
-        {/* 
-<button className="text-gray-700 hover:text-custom-teal font-medium transition-colors duration-200">
-  EN
-</button>
-*/}
           {/* CTA Button */}
           <Link 
             to="/contact" 
@@ -414,7 +388,7 @@ const Header = () => {
               )}
             </div>
             
-            {/* Mobile Success Stories Dropdown */}
+            {/* Mobile Success Stories Dropdown - Now Dynamic with proper logo handling */}
             <div className="relative">
               <div className="flex items-center justify-between">
                 <button 
@@ -436,40 +410,53 @@ const Header = () => {
               </div>
               {isSuccessDropdownOpen && (
                 <div className="pl-8 mt-2 space-y-4">
-                  <Link to="/success-stories/bizo-books" className="block" onClick={() => setIsMenuOpen(false)}>
-                    <h4 className="font-semibold text-gray-900">BizoSuite ERP</h4>
-                    <p className="text-sm text-gray-500 mt-1">Smart ERP solution designed to help growing businesses manage operations efficiently.
-                    </p>
-                  </Link>
-                  <Link to="/success-stories/real-estate" className="block" onClick={() => setIsMenuOpen(false)}>
-                    <h4 className="font-semibold text-gray-900">Property Management System</h4>
-                    <p className="text-sm text-gray-500 mt-1">Comprehensive property management and real estate solutions.</p>
-                  </Link>
-                  <Link to="/success-stories/kitchenly" className="block" onClick={() => setIsMenuOpen(false)}>
-                    <h4 className="font-semibold text-gray-900">Kitchenly</h4>
-                    <p className="text-sm text-gray-500 mt-1">Smart kitchen management and restaurant operations platform.</p>
-                  </Link>
-                  <Link to="/success-stories/coco-dine" className="block" onClick={() => setIsMenuOpen(false)}>
-                    <h4 className="font-semibold text-gray-900">Cocodine</h4>
-                    <p className="text-sm text-gray-500 mt-1">Complete dining experience and restaurant management system.</p>
-                  </Link>
+                  {loading ? (
+                    <div className="flex justify-center items-center py-4">
+                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-custom-teal"></div>
+                    </div>
+                  ) : (
+                    successStories.map((story) => (
+                      <Link 
+                        key={story.id} 
+                        to={`/success-stories/${story.slug}`} 
+                        className="block" 
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <div className="flex items-center mb-2">
+                          <img 
+                            src={logoMap[story.slug] || story.logo_url} 
+                            alt={`${story.title} Logo`} 
+                            className="h-12 w-12 object-contain mr-3"
+                            onError={(e) => {
+                              console.log(`Failed to load mobile logo for ${story.title}:`, e.target.src);
+                              e.target.style.display = 'none';
+                            }}
+                          />
+                          <div>
+                            <h4 className="font-semibold text-gray-900">{story.title}</h4>
+                            <p className="text-sm text-gray-500 mt-1">{story.description}</p>
+                          </div>
+                        </div>
+                      </Link>
+                    ))
+                  )}
                 </div>
               )}
             </div>
             
-{/* Temporarily hidden - Our Work
+            {/* Mobile Blog Link - Added with consistent styling and active state */}
             <Link 
-              to="/our-work" 
+              to="/blog" 
               className={`font-medium py-2 transition-colors duration-200 ${
-                location.pathname === '/our-work' 
+                location.pathname === '/blog' || location.pathname.startsWith('/blog/')
                   ? 'text-custom-teal border-l-4 border-custom-teal pl-4' 
                   : 'text-gray-700 hover:text-custom-teal pl-4'
               }`}
               onClick={() => setIsMenuOpen(false)}
             >
-              Our Work
+              Blog
             </Link>
-            */}
+            
             <Link 
               to="/contact" 
               className={`font-medium py-2 transition-colors duration-200 ${
@@ -483,11 +470,6 @@ const Header = () => {
             </Link>
             
             <div className="border-t pt-4 flex flex-col space-y-3">
-             {/* 
-<button className="text-gray-700 hover:text-custom-teal font-medium py-2 text-left pl-4 transition-colors duration-200">
-  Language (EN)
-</button>
-*/}
               <Link 
                 to="/contact" 
                 className="bg-custom-teal hover:bg-custom-teal/90 text-white px-6 py-3 rounded-md font-medium transition duration-300 text-center mx-4"

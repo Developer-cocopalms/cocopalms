@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Import pages
 import Header from './components/Header';
 import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollToTop'; 
+import ScrollToTop from './components/ScrollToTop';
+
 import LandingPage from './pages/Home';
 
 import NotFound from './pages/NotFound';
@@ -18,11 +19,12 @@ import ErpSolution from './pages/ErpSolution';
 import EcommerceApplication from './pages/EcommerceApplication';
 import PropertyManagement from './pages/PropertyManagement';
 import FandbSolution from './pages/FandbSolution';
-import BizoBooks from './pages/BizoBooks';
-import RealEstate from './pages/RealEstate';
-import Kitchenly from './pages/Kitchenly';
-import CocoDine from './pages/CocoDine';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Blog from './pages/Blog';
+
+// Import the dynamic component (this will handle ALL success stories)
+import DynamicSuccessStory from './components/DynamicSuccessStory.jsx';
+
 function App() {
   return (
     <Router>
@@ -34,7 +36,7 @@ function App() {
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<LandingPage />} />
-           
+            
             <Route path="/about" element={<AboutUs />} />
             <Route path="/what-we-do" element={<WhatWeDo />} />
             <Route path="/what-we-do/web-development" element={<WebDevelopment />} />
@@ -45,12 +47,25 @@ function App() {
             <Route path="/what-we-do/fandb-solution" element={<FandbSolution />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/our-work" element={<OurWork />} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="/success-stories/bizo-books" element={<BizoBooks />} />
-            <Route path="/success-stories/real-estate" element={<RealEstate />} />
-            <Route path="/success-stories/kitchenly" element={<Kitchenly />} />
-            <Route path="/success-stories/coco-dine" element={<CocoDine />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<Blog />} />
+            
+            {/* Single dynamic route handles ALL success stories */}
+            <Route path="/success-stories/:slug" element={<DynamicSuccessStory />} />
+            
+            {/* 
+              REMOVED STATIC SUCCESS STORY ROUTES:
+              These are now handled by the dynamic route above
+              - /success-stories/bizo-books → DynamicSuccessStory (slug: "bizo-books")
+              - /success-stories/real-estate → DynamicSuccessStory (slug: "real-estate") 
+              - /success-stories/kitchenly → DynamicSuccessStory (slug: "kitchenly")
+              - /success-stories/coco-dine → DynamicSuccessStory (slug: "coco-dine")
+            */}
+            
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            
+            {/* 404 route should be last */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         
