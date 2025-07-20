@@ -1,60 +1,71 @@
 import React, { useState, useEffect } from 'react';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabaseUrl = 'https://gfwjcallemugxqdweuuk.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdmd2pjYWxsZW11Z3hxZHdldXVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk5MDIxMzEsImV4cCI6MjA2NTQ3ODEzMX0.kvaYhV4DTNcyix7PzjF9N9XYxzA3bK0nx3mT8bsHqTo'
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const HeroVideoSlideshow = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [slides, setSlides] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const videos = [
-    '/clip1.mp4',
-    '/clip2.mp4',
-    '/clip3.mp4',
-    '/clip4.mp4'
-  ];
+  // Fetch slides from Supabase
+  const fetchSlides = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('hero_slides')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order', { ascending: true });
 
-  const content = [
-    {
-      title: "Seamless Tech. Real Impact",
-      subtitle: "We build intuitive digital experiences with ERP, e-commerce, automation tools, and more.",
-      buttonText: "Explore Services",
-      link: "/what-we-do"
-    },
-    {
-      title: "Empower Your Business with Seamless Solutions!",
-      subtitle: "Powerful range of IT solutions tailored for modern businesses, from ERP systems and mobile apps to e-commerce platforms and delivery management tools.",
-      buttonText: "Contact Us",
-      link: "/contact"
-    },
-    {
-      title: "Your Technology Partner for Tomorrow",
-      subtitle: "Crafting enterprise-ready systems, mobile solutions, and e-commerce platforms that deliver results.",
-      buttonText: "Schedule a Call",
-      link: "/contact"
-    },
-    {
-      title: "Digital Solutions That Drive Success",
-      subtitle: "Empowering businesses with high-performance web & mobile apps, ERP integrations, and tech-driven transformation.",
-      buttonText: "Get Started",
-      link: "/contact"
+      if (error) throw error;
+
+      setSlides(data || []);
+    } catch (err) {
+      console.error('Error fetching slides:', err);
+      setError('Failed to load hero content');
+      // Fallback to static content if needed
+      setSlides([
+        {
+          id: '1',
+          title: "Seamless Tech. Real Impact",
+          subtitle: "We build intuitive digital experiences with ERP, e-commerce, automation tools, and more.",
+          button_text: "Explore Services",
+          button_link: "/what-we-do",
+          video_url: '/clip1.mp4'
+        }
+      ]);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
 
   useEffect(() => {
-    if (isPaused) return;
+    fetchSlides();
+  }, []);
+
+  useEffect(() => {
+    if (isPaused || slides.length === 0) return;
 
     const interval = setInterval(() => {
       setIsVisible(false);
       
       setTimeout(() => {
-        setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
+        setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % slides.length);
         setIsVisible(true);
         setProgress(0);
       }, 500);
     }, 8000);
 
     return () => clearInterval(interval);
-  }, [videos.length, isPaused]);
+  }, [slides.length, isPaused]);
 
   useEffect(() => {
     if (isPaused) return;
@@ -80,7 +91,7 @@ const HeroVideoSlideshow = () => {
   const handlePrevious = () => {
     setIsVisible(false);
     setTimeout(() => {
-      setCurrentVideoIndex((prevIndex) => (prevIndex - 1 + videos.length) % videos.length);
+      setCurrentVideoIndex((prevIndex) => (prevIndex - 1 + slides.length) % slides.length);
       setIsVisible(true);
       setProgress(0);
     }, 300);
@@ -89,19 +100,71 @@ const HeroVideoSlideshow = () => {
   const handleNext = () => {
     setIsVisible(false);
     setTimeout(() => {
-      setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
+      setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % slides.length);
       setIsVisible(true);
       setProgress(0);
     }, 300);
   };
 
+  const handleSlideSelect = (index) => {
+    setIsVisible(false);
+    setTimeout(() => {
+      setCurrentVideoIndex(index);
+      setIsVisible(true);
+      setProgress(0);
+    }, 300);
+  };
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="relative w-full h-screen overflow-hidden mt-20 sm:mt-24 md:mt-28 bg-gray-900 flex items-center justify-center">
+        <div className="text-white text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500 mx-auto mb-4"></div>
+          <p className="text-lg">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="relative w-full h-screen overflow-hidden mt-20 sm:mt-24 md:mt-28 bg-gray-900 flex items-center justify-center">
+        <div className="text-white text-center">
+          <div className="text-red-500 text-6xl mb-4">⚠️</div>
+          <p className="text-lg">{error}</p>
+          <button 
+            onClick={fetchSlides}
+            className="mt-4 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-full transition-all duration-300"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // No slides state
+  if (slides.length === 0) {
+    return (
+      <div className="relative w-full h-screen overflow-hidden mt-20 sm:mt-24 md:mt-28 bg-gray-900 flex items-center justify-center">
+        <div className="text-white text-center">
+          <p className="text-lg">No hero content available</p>
+        </div>
+      </div>
+    );
+  }
+
+  const currentSlide = slides[currentVideoIndex];
+
   return (
     <div className="relative w-full h-screen overflow-hidden mt-20 sm:mt-24 md:mt-28">
       {/* Full Screen Video Background */}
       <div className="absolute inset-0 w-full h-full">
-        {videos.map((video, index) => (
+        {slides.map((slide, index) => (
           <video
-            key={index}
+            key={slide.id}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
               index === currentVideoIndex ? 'opacity-100' : 'opacity-0'
             }`}
@@ -110,7 +173,7 @@ const HeroVideoSlideshow = () => {
             muted
             playsInline
           >
-            <source src={video} type="video/mp4" />
+            <source src={slide.video_url} type="video/mp4" />
           </video>
         ))}
         
@@ -120,9 +183,6 @@ const HeroVideoSlideshow = () => {
         {/* Gradient overlay for enhanced text contrast */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/30"></div>
       </div>
-
-      {/* Header Space - This pushes content below the header */}
-      <div className="absolute top-0 left-0 w-full h-0 bg-transparent z-30 pointer-events-none"></div>
 
       {/* Content Container */}
       <div className="absolute inset-0 flex items-center justify-center z-20">
@@ -134,20 +194,20 @@ const HeroVideoSlideshow = () => {
               
               {/* Dynamic Title */}
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white leading-tight mb-4 sm:mb-6 md:mb-8 drop-shadow-2xl">
-                {content[currentVideoIndex].title}
+                {currentSlide.title}
               </h1>
               
               {/* Dynamic Subtitle */}
               <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-200 mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-2xl mx-auto sm:mx-0 drop-shadow-lg">
-                {content[currentVideoIndex].subtitle}
+                {currentSlide.subtitle}
               </p>
               
               {/* Dynamic Button */}
               <a 
-                href={content[currentVideoIndex].link}
+                href={currentSlide.button_link}
                 className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 rounded-full transition-all duration-300 inline-block text-center transform hover:scale-105 hover:shadow-xl shadow-teal-500/25 text-sm sm:text-base md:text-lg cursor-pointer"
               >
-                {content[currentVideoIndex].buttonText}
+                {currentSlide.button_text}
               </a>
             </div>
           </div>
@@ -242,17 +302,10 @@ const HeroVideoSlideshow = () => {
 
       {/* Mobile Navigation Dots */}
       <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:hidden z-30">
-        {videos.map((_, index) => (
+        {slides.map((_, index) => (
           <button
             key={index}
-            onClick={() => {
-              setIsVisible(false);
-              setTimeout(() => {
-                setCurrentVideoIndex(index);
-                setIsVisible(true);
-                setProgress(0);
-              }, 300);
-            }}
+            onClick={() => handleSlideSelect(index)}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               index === currentVideoIndex 
                 ? 'bg-white scale-125 shadow-lg' 
