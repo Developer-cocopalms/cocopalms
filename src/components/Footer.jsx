@@ -8,41 +8,60 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
           
-          {/* Company Column */}
-          <div className="text-center sm:text-center">
-            <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 md:mb-4">
-              Company
-            </h3>
-            <ul className="space-y-1 sm:space-y-2 md:space-y-3">
-              <li>
-                <Link 
-                  to="/" 
-                  className="text-blue-600 hover:text-blue-700 transition-colors duration-200 text-sm sm:text-base"
-                  onClick={() => window.scrollTo(0, 0)}
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  to="/about" 
-                  className="text-gray-600 hover:text-gray-700 transition-colors duration-200 text-sm sm:text-base"
-                  onClick={() => window.scrollTo(0, 0)}
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  to="/contact" 
-                  className="text-gray-600 hover:text-gray-700 transition-colors duration-200 text-sm sm:text-base"
-                  onClick={() => window.scrollTo(0, 0)}
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
+        {/* Company Column */}
+<div className="text-center sm:text-center">
+  <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 md:mb-4">
+    Company
+  </h3>
+  <ul className="space-y-1 sm:space-y-2 md:space-y-3">
+    <li>
+      <Link
+        to="/"
+        className="text-blue-600 hover:text-blue-700 transition-colors duration-200 text-sm sm:text-base"
+        onClick={() => window.scrollTo(0, 0)}
+      >
+        Home
+      </Link>
+    </li>
+    <li>
+      <Link
+        to="/about"
+        className="text-gray-600 hover:text-gray-700 transition-colors duration-200 text-sm sm:text-base"
+        onClick={() => window.scrollTo(0, 0)}
+      >
+        About
+      </Link>
+    </li>
+    <li>
+      <Link
+        to="/what-we-do"
+        className="text-gray-600 hover:text-gray-700 transition-colors duration-200 text-sm sm:text-base"
+        onClick={() => window.scrollTo(0, 0)}
+      >
+        What We Do
+      </Link>
+    </li>
+    
+    <li>
+      <Link
+        to="/blog"
+        className="text-gray-600 hover:text-gray-700 transition-colors duration-200 text-sm sm:text-base"
+        onClick={() => window.scrollTo(0, 0)}
+      >
+        Blog
+      </Link>
+    </li>
+    <li>
+      <Link
+        to="/contact"
+        className="text-gray-600 hover:text-gray-700 transition-colors duration-200 text-sm sm:text-base"
+        onClick={() => window.scrollTo(0, 0)}
+      >
+        Contact
+      </Link>
+    </li>
+  </ul>
+</div>
 
           {/* Products Column */}
           <div className="text-center sm:text-center">
