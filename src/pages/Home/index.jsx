@@ -3,9 +3,9 @@ import { ChevronRight, ShoppingCart, Monitor, Smartphone, ShoppingBag, Globe, Ba
   UtensilsCrossed, Home } from 'lucide-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import webdevelopImg from '../../assets/webdevelop.jpg';
-import mobiledevelopImg from '../../assets/mobileapp.jpg';
-import ecomdevelopImg from '../../assets/ecom.jpg';
+import webdevelopImg from '../../assets/webdevelop (1).webp';
+import mobiledevelopImg from '../../assets/mobileapp (1).webp';
+import ecomdevelopImg from '../../assets/ecom (1).webp';
 // Import dynamic data hooks
 import { useTeamMembers } from '../hooks/useTeamMembers';
 import { useFeatures } from '../hooks/useFeatures';
@@ -310,7 +310,8 @@ const logoMapping = {
       id: 1,
       quote: "Partnering with Cocopalms transformed our operations. Their ERP solution streamlined processes across departments, helping us make faster, smarter decisions. Their team's commitment to quality and support was outstanding.",
       author_name: "BizoSuite",
-      logo_image: "logo1", // Make sure this matches your logoMapping key
+      author_position: "CEO", // Add this field
+      logo_image: "logo1",
       display_order: 1,
       is_active: true
     },
@@ -318,7 +319,8 @@ const logoMapping = {
       id: 2,
       quote: "Cocopalms brought our vision to life, developing a beautifully designed mobile application for our subscription-based diet plans. The intuitive user interface makes it easy for our customers, and the robust backend tools help us effortlessly manage subscriptions and orders. We highly recommend them!",
       author_name: "Dietbux",
-      logo_image: "logo2", // Make sure this matches your logoMapping key
+      author_position: "Founder", // Add this field
+      logo_image: "logo2",
       display_order: 2,
       is_active: true
     },
@@ -326,7 +328,8 @@ const logoMapping = {
       id: 3,
       quote: "Cocopalms brought our concept for a smart property management platform to life. Their team was proactive, detail-oriented, and incredibly responsive. The result is a powerful tool our tenants and landlords love using.",
       author_name: "Rentings",
-      logo_image: "logo3", // Make sure this matches your logoMapping key
+      author_position: "Product Manager", // Add this field
+      logo_image: "logo3",
       display_order: 3,
       is_active: true
     },
@@ -334,7 +337,8 @@ const logoMapping = {
       id: 4,
       quote: "The web development expertise at Cocopalms resulted in a stunning and highly functional website that serves as a powerful representation of our brand. Its robust performance, especially its speed and mobile optimization, has been instrumental in building trust and credibility with our international clientele.",
       author_name: "Dieter",
-      logo_image: "logo4", // Make sure this matches your logoMapping key
+      author_position: "Marketing Director", // Add this field
+      logo_image: "logo4",
       display_order: 4,
       is_active: true
     }
@@ -707,25 +711,34 @@ const logoMapping = {
                       </p>
                     </div>
                     
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h4 className="font-semibold text-gray-900 text-base md:text-lg">
-                          {testimonial.author_name || testimonial.author}
-                        </h4>
-                      </div>
-                      <div className="ml-4 flex-shrink-0">
-                        <img 
-                          src={logoSrc} 
-                          alt={`${testimonial.author_name || testimonial.author} Company Logo`}
-                          className="h-8 w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 object-contain"
-                          onError={(e) => {
-                            console.error('Logo failed to load:', logoSrc, 'for', testimonial.author_name);
-                            // Remove the generic fallback - let it show broken image or handle differently
-                            e.target.style.display = 'none';
-                          }}
-                        />
-                      </div>
-                    </div>
+                    <div className="flex items-center">
+  {/* Logo on the left side */}
+  <div className="flex-shrink-0 mr-3 md:mr-4">
+    <div className="w-10 h-10 md:w-12 md:h-12 bg-gray-50 rounded-lg flex items-center justify-center border border-gray-200">
+      <img 
+        src={logoSrc} 
+        alt={`${testimonial.author_name || testimonial.author} Company Logo`}
+        className="h-6 w-6 md:h-8 md:w-8 object-contain"
+        onError={(e) => {
+          console.error('Logo failed to load:', logoSrc, 'for', testimonial.author_name);
+          e.target.style.display = 'none';
+        }}
+      />
+    </div>
+  </div>
+  
+  {/* Author info on the right */}
+  <div>
+    <h4 className="font-semibold text-gray-900 text-base md:text-lg">
+      {testimonial.author_name || testimonial.author}
+    </h4>
+    {(testimonial.author_position) && (
+      <p className="text-sm md:text-base text-gray-600 mt-1">
+        {testimonial.author_position}
+      </p>
+    )}
+  </div>
+</div>
                   </div>
                 );
               })}
