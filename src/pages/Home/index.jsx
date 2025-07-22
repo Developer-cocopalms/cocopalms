@@ -28,24 +28,53 @@ import logo3 from '../../assets/logo3.jpeg';
 import logo4 from '../../assets/logo4.png';
 
 
-const TeamMemberCard = ({ image, name, position }) => {
+const TeamMemberCard = ({ image, name, position, isCEO = false }) => {
   return (
-    <div className="overflow-hidden rounded-lg shadow-md hover:shadow-lg transition duration-300 h-full flex flex-col">
-      {/* Fixed image container - better positioning to prevent head cutoff */}
-      <div className="h-52 sm:h-48 w-full overflow-hidden">
+    <div className="text-center group">
+      {/* Circular Image Container */}
+      <div className={`relative mx-auto mb-4 overflow-hidden rounded-full transition-transform duration-300 group-hover:scale-105 ${
+        isCEO 
+          ? 'w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 lg:w-44 lg:h-44' 
+          : 'w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32'
+      }`}>
         <img 
           src={image} 
           alt={name} 
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
           style={{ 
             objectPosition: name === 'James Almeda' ? 'center 20%' : 'center top' 
           }}
         />
+        {/* Subtle overlay on hover */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 rounded-full"></div>
       </div>
-      <div className="bg-white p-4 flex-grow">
-        <h3 className="font-semibold text-lg">{name}</h3>
-        <p className="text-gray-600 text-sm">{position}</p>
+      
+      {/* Name and Position */}
+      <div className="space-y-1">
+        <h3 className={`font-semibold text-gray-900 transition-colors duration-300 group-hover:text-teal-600 ${
+          isCEO 
+            ? 'text-lg sm:text-xl md:text-2xl' 
+            : 'text-base sm:text-lg'
+        }`}>
+          {name}
+        </h3>
+        <p className={`text-gray-600 transition-colors duration-300 ${
+          isCEO 
+            ? 'text-base sm:text-lg md:text-xl font-medium' 
+            : 'text-sm sm:text-base'
+        }`}>
+          {position}
+        </p>
       </div>
+      
+      {/* CEO Badge (optional) */}
+      {isCEO && (
+        <div className="mt-3">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">
+            Founder & CEO
+          </span>
+        </div>
+      )}
     </div>
   );
 };
@@ -571,73 +600,55 @@ const logoMapping = {
           )}
         </div>
       </section>
-
-      {/* Meet Our Team Section - Updated with dynamic data */}
       <section className="pt-6 pb-12 sm:pt-8 sm:pb-16 md:pt-10 md:pb-20 bg-white">
-  {/* Header Section - Responsive */}
-  <div className="text-center mb-8 sm:mb-10 md:mb-12 px-4">
-    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-900">
+  {/* Header Section */}
+  <div className="text-center mb-12 px-4">
+    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900">
       Meet our Team
     </h2>
-    <p className="text-base sm:text-lg text-gray-600 max-w-sm sm:max-w-lg md:max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">
+    <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
       Run your entire business with Cocopalms unified cloud software
     </p>
   </div>
-  
-  <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6">
-    {!teamLoading && teamMembers.length > 0 ? (
-      <>
-        {/* CEO/Founder - Centered and responsive */}
-        {ceo && (
-          <div className="flex justify-center mb-6 sm:mb-8">
-            <div className="w-full max-w-xs sm:max-w-sm md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5 px-2 sm:px-4">
-              <div className="w-full">
-                <TeamMemberCard
-                  image={ceo.image_url}
-                  name={ceo.name}
-                  position={ceo.position}
-                />
-              </div>
+
+  <div className="max-w-6xl mx-auto px-4">
+    {/* CEO Profile - Center with Larger Size */}
+    {ceo && (
+      <div className="flex justify-center mb-16">
+        <div className="text-center group">
+          <div className="relative mb-6">
+            {/* Increased from w-32 h-32 to w-56 h-56 */}
+            <div className="w-56 h-56 mx-auto rounded-full overflow-hidden shadow-2xl ring-4 ring-[#14b8a6] ring-opacity-30 group-hover:ring-[#0d9488] group-hover:ring-opacity-60 transition duration-500">
+              <img 
+                src={ceo.image_url}
+                alt={ceo.name}
+                className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+              />
             </div>
           </div>
-        )}
-        
-        {/* Grid for other team members - Fully responsive and centered */}
-        {otherMembers.length > 0 && (
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 sm:gap-6 justify-items-center mx-auto max-w-fit">
-            {otherMembers.map((member) => (
-              <div key={member.id} className="w-full max-w-xs">
-                <TeamMemberCard
-                  image={member.image_url}
-                  name={member.name}
-                  position={member.position}
-                />
-              </div>
-            ))}
-          </div>
-        )}
-      </>
-    ) : (
-      <div className="text-center py-8 sm:py-12">
-        <div className="flex flex-col items-center justify-center space-y-3">
-          {teamLoading ? (
-            <>
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-              <p className="text-gray-500 text-sm sm:text-base">Loading team members...</p>
-            </>
-          ) : (
-            <>
-              <div className="text-gray-400 mb-2">
-                <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <p className="text-gray-500 text-sm sm:text-base">No team members available</p>
-            </>
-          )}
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">{ceo.name}</h3>
+          <p className="text-[#14b8a6] font-semibold">{ceo.position}</p>
         </div>
       </div>
     )}
+
+    {/* Team Members in Circular Layout - Same Larger Size */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+      {otherMembers.map((member) => (
+        <div key={member.id} className="text-center group">
+          {/* Increased from w-32 h-32 to w-48 h-48 to match CEO */}
+          <div className="w-48 h-48 mx-auto rounded-full overflow-hidden shadow-xl mb-4 ring-2 ring-gray-200 group-hover:ring-teal-400 group-hover:shadow-2xl transition duration-500 transform group-hover:scale-105">
+            <img 
+              src={member.image_url}
+              alt={member.name}
+              className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+            />
+          </div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-1">{member.name}</h3>
+          <p className="text-gray-600 text-sm">{member.position}</p>
+        </div>
+      ))}
+    </div>
   </div>
 </section>
 
@@ -819,4 +830,3 @@ const logoMapping = {
     
   );
 }
-
