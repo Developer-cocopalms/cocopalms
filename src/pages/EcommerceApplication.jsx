@@ -17,6 +17,7 @@ import {
   Headphones
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import ecom1Image from '../assets/ecom1.png';
 import ecom2Image from '../assets/ecom2.png';
@@ -136,6 +137,10 @@ const EcommerceApplications = () => {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        
+      <link rel="canonical" href="https://cocopalms.io/what-we-do/ecommerce-application"/>
+        </Helmet>
       {/* Hero Section */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24 md:mt-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>

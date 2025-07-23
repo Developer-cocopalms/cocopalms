@@ -22,7 +22,7 @@ import {
   QrCode,
   Shield
   } from 'lucide-react';
-
+import { Helmet } from 'react-helmet';
 // Import images
 import coco1 from '../assets/coco1.png';
 import coco2 from '../assets/coco2.png';
@@ -155,6 +155,11 @@ const FandbSolution = () => {
 
   return (
     <div className="min-h-screen">
+
+<Helmet>
+        
+<link rel="canonical" href="https://cocopalms.io/what-we-do/fandb-solution"/>
+        </Helmet>
       {/* Hero Section */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24 md:mt-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>

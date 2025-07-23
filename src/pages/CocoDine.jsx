@@ -1,9 +1,13 @@
 import React from 'react';
 import {   Smartphone, CheckCircle, ExternalLink, Star, CreditCard } from 'lucide-react';
 import CocoDineLogo from '../assets/Cocodine logo.png';
+import { Helmet } from 'react-helmet';
 const CocoDine = () => {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Helmet>
+      <link rel="canonical" href="https://cocopalms.io/success-stories/coco-dine"/>
+      </Helmet>
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-teal-600 to-teal-800 text-white py-20 mt-24">
         <div className="container mx-auto px-4 text-center">

@@ -14,6 +14,7 @@ import purehealthImage from '../assets/purehealthm.png';
 import approvedlifeImage from '../assets/approvedlifem.png';
 import trymacroImage from '../assets/macrom.png';
 import calculateImage from '../assets/calculatem.png';
+import { Helmet } from 'react-helmet';
 
 const MobileApp = () => {
   const apps = [
@@ -129,6 +130,10 @@ const MobileApp = () => {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        
+      <link rel="canonical" href="https://cocopalms.io/what-we-do/mobile-app"/>
+        </Helmet>
       {/* Hero Section */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24">
         <div className="container mx-auto text-center max-w-5xl">

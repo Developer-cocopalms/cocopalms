@@ -2,12 +2,15 @@ import React from 'react';
 import { Building2, Users,  CheckCircle, ExternalLink, Home } from 'lucide-react';
 
 import RealEstateLogo from '../assets/Rentings Logo.jpeg';
-
+import { Helmet } from 'react-helmet';
 
 const RealEstate = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
+      <Helmet>
+      <link rel="canonical" href="https://cocopalms.io/success-stories/real-estate"/>
+        </Helmet>
       <div className="bg-gradient-to-r from-teal-600 to-teal-800 text-white py-20 mt-24">
         <div className="container mx-auto px-4 text-center">
           <div className="flex justify-center mb-6">

@@ -7,10 +7,14 @@ import dieterImage from '../assets/dieterw.png';
 import basicImage from '../assets/basicw.png';
 import alnassemImage from '../assets/alnassemw.png';
 import techbizImage from '../assets/techbizw.png';
-
+import { Helmet } from 'react-helmet';
 const WebDevelopment = () => {
   return (
     <div className="min-h-screen">
+      <Helmet>
+        
+      <link rel="canonical" href="https://cocopalms.io/what-we-do/web-development"/>
+        </Helmet>
       {/* Hero Section */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24 md:mt-24">
         <div className="container mx-auto text-center max-w-4xl">

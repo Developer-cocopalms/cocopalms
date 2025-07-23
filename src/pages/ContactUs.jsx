@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 const ContactForm = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -254,6 +255,10 @@ const ContactForm = () => {
     
       return (
         <div className="min-h-screen bg-white">
+          
+          <Helmet>
+          <link rel="canonical" href="https://cocopalms.io/contact"/>
+      </Helmet>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 pt-32">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 // Import images
 import firstImage from '../assets/1sth.jpeg';
 import secondImage from '../assets/2nd.jpeg';
@@ -122,6 +123,14 @@ const AboutUs = () => {
 
   return (
     <div className="min-h-screen bg-white">
+     <Helmet>
+        <title>About Us - IT Company in Kuwait | Cocopalms Technology Partner</title>
+        <meta 
+          name="description" 
+          content="Founded in 2007, Cocopalms Tech Company is a next-generation IT solutions provider in Kuwait, delivering scalable digital solutions, ERP systems, mobile apps, and web development services across diverse industries." 
+        />
+        <link rel="canonical" href="https://cocopalms.io/about" />
+      </Helmet>
       {/* Hero Section */}
       <div className="max-w-4xl mx-auto px-6 py-20 pt-48 text-center">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { 
   Building2, 
   Users, 
@@ -183,6 +184,11 @@ const ERPEcosystem = () => {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        
+      <link rel="canonical" href="https://cocopalms.io/what-we-do/erp-solution"/>
+        </Helmet>
+      
       {/* Hero Section */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24 md:mt-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>

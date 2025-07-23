@@ -1,10 +1,15 @@
 import React from 'react';
 import { TrendingUp, Clock, Users, CheckCircle, ExternalLink, ChefHat, BarChart3 } from 'lucide-react';
 import KitchenlyLogo from '../assets/Kitchenly Logo.png';
+import { Helmet } from 'react-helmet';
 
 const Kitchenly = () => {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Helmet>
+      <link rel="canonical" href="https://cocopalms.io/success-stories/kitchenly"/>
+      </Helmet>
+      
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-teal-600 to-teal-800 text-white py-20 mt-24">
         <div className="container mx-auto px-4 text-center">

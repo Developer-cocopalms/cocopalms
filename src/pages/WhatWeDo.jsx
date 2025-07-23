@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import DynamicIcon from '../components/DynamicIcon';
 import { useServices } from './hooks/useServices';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -78,6 +79,12 @@ const WhatWeDo = () => {
 
   return (
     <div className="min-h-screen">
+
+
+<Helmet>
+        
+      <link rel="canonical" href="https://cocopalms.io/what-we-do"/>
+      </Helmet>
       {/* Hero Section with Custom Teal Background */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24 md:mt-24">
         <div className="container mx-auto text-center max-w-4xl">
