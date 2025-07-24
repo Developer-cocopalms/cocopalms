@@ -13,6 +13,9 @@ const AboutUs = () => {
   const sectionRefs = useRef([]);
   const isScrollingRef = useRef(false);
 
+  // Canonical URL
+  const canonicalUrl = "https://cocopalms.io/about";
+
   // Use imported images
   const images = [
     firstImage,
@@ -47,6 +50,37 @@ const AboutUs = () => {
       image: images[3]
     }
   ];
+
+  // Add useEffect for canonical URL in document head (similar to your index.jsx)
+  useEffect(() => {
+    // Remove any existing canonical links
+    const existingCanonical = document.querySelector("link[rel='canonical']");
+    if (existingCanonical) {
+      existingCanonical.remove();
+    }
+
+    // Create and add new canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = canonicalUrl;
+    document.head.appendChild(canonicalLink);
+
+    // Add robots meta tag if missing
+    if (!document.querySelector("meta[name='robots']")) {
+      const robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+      document.head.appendChild(robotsMeta);
+    }
+
+    // Cleanup function
+    return () => {
+      const canonical = document.querySelector("link[rel='canonical']");
+      if (canonical && canonical.href === canonicalUrl) {
+        canonical.remove();
+      }
+    };
+  }, [canonicalUrl]);
 
   // Handle scroll spy functionality
   useEffect(() => {
@@ -124,29 +158,33 @@ const AboutUs = () => {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>About Us - IT Company in Kuwait | Cocopalms Technology Partner</title>
+        <title>About Cocopalms | Software Solutions for F&B & Enterprise</title>
         <meta 
           name="description" 
           content="Founded in 2007, Cocopalms Tech Company is a next-generation IT solutions provider in Kuwait, delivering scalable digital solutions, ERP systems, mobile apps, and web development services across diverse industries." 
         />
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://cocopalms.io/about" />
+        
+        {/* Canonical URL - Multiple approaches for better compatibility */}
+        <link rel="canonical" href={canonicalUrl} />
         
         {/* Open Graph Meta Tags */}
-        <meta property="og:title" content="About Us - IT Company in Kuwait | Cocopalms Technology Partner" />
+        <meta property="og:title" content="About Cocopalms | Software Solutions for F&B & Enterprise" />
         <meta property="og:description" content="Founded in 2007, Cocopalms Tech Company is a next-generation IT solutions provider in Kuwait, delivering scalable digital solutions, ERP systems, mobile apps, and web development services across diverse industries." />
-        <meta property="og:url" content="https://cocopalms.io/about" />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Cocopalms" />
         
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="About Us - IT Company in Kuwait | Cocopalms Technology Partner" />
+        <meta name="twitter:title" content="About Cocopalms | Software Solutions for F&B & Enterprise" />
         <meta name="twitter:description" content="Founded in 2007, Cocopalms Tech Company is a next-generation IT solutions provider in Kuwait, delivering scalable digital solutions, ERP systems, mobile apps, and web development services across diverse industries." />
         
         {/* Additional SEO Meta Tags */}
         <meta name="author" content="Cocopalms" />
         <meta name="keywords" content="IT company Kuwait, software development, ERP systems, mobile apps, web development, digital transformation, technology solutions" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         
         {/* Structured Data */}
         <script type="application/ld+json">
@@ -154,7 +192,7 @@ const AboutUs = () => {
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "Cocopalms",
-            "url": "https://cocopalms.io",
+            "url": "https://cocopalms.io/about",
             "description": "Founded in 2007, Cocopalms Tech Company is a next-generation IT solutions provider in Kuwait, delivering scalable digital solutions, ERP systems, mobile apps, and web development services across diverse industries.",
             "foundingDate": "2007",
             "address": {
@@ -162,7 +200,7 @@ const AboutUs = () => {
               "addressCountry": "Kuwait"
             },
             "sameAs": [
-              "https://cocopalms.io/about"
+              canonicalUrl
             ]
           })}
         </script>
