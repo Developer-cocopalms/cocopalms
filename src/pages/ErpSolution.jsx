@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { 
@@ -24,6 +24,40 @@ import {
 
 
 const ERPEcosystem = () => {
+  const canonicalUrl = "https://cocopalms.io/what-we-do/erp-solution";
+
+  // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
+  useEffect(() => {
+    // Remove any existing canonical links
+    const existingCanonical = document.querySelector("link[rel='canonical']");
+    if (existingCanonical) {
+      existingCanonical.remove();
+    }
+
+    // Create and add new canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = canonicalUrl;
+    document.head.appendChild(canonicalLink);
+
+    // Add robots meta tag if missing
+    if (!document.querySelector("meta[name='robots']")) {
+      const robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+      document.head.appendChild(robotsMeta);
+    }
+
+    // Cleanup function
+    return () => {
+      const canonical = document.querySelector("link[rel='canonical']");
+      if (canonical && canonical.href === canonicalUrl) {
+        canonical.remove();
+      }
+    };
+  }, [canonicalUrl]);
+
+  
   const erpModules = [
     {
       icon: ChefHat,
@@ -185,9 +219,195 @@ const ERPEcosystem = () => {
   return (
     <div className="min-h-screen">
       <Helmet>
-        
-      <link rel="canonical" href="https://cocopalms.io/what-we-do/erp-solution"/>
-        </Helmet>
+  <title>ERP Solutions for F&B & Enterprise | Cocopalms</title>
+  <meta 
+    name="description" 
+    content="Comprehensive ERP solution with 9 integrated modules: Kitchen, Books, HRMS, Inventory, E-commerce, Sales, CRM, Delivery & Marketing. Transform your business operations in Kuwait."
+  />
+  <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  {/* Canonical URL */}
+  <link rel="canonical" href="https://cocopalms.io/what-we-do/erp-solution" />
+  
+  {/* Open Graph Meta Tags */}
+  <meta property="og:title" content="Complete ERP Ecosystem - Business Management Platform | Cocopalms" />
+  <meta property="og:description" content="Comprehensive ERP solution with 9 integrated modules: Kitchen, Books, HRMS, Inventory, E-commerce, Sales, CRM, Delivery & Marketing. Transform your business operations in Kuwait." />
+  <meta property="og:url" content="https://cocopalms.io/what-we-do/erp-solution" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Cocopalms" />
+  
+  {/* Twitter Card Meta Tags */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Complete ERP Ecosystem - Business Management Platform | Cocopalms" />
+  <meta name="twitter:description" content="Comprehensive ERP solution with 9 integrated modules: Kitchen, Books, HRMS, Inventory, E-commerce, Sales, CRM, Delivery & Marketing. Transform your business operations in Kuwait." />
+  
+  {/* Additional SEO Meta Tags */}
+  <meta name="author" content="Cocopalms" />
+  <meta name="keywords" content="ERP system Kuwait, business management software, integrated ERP solution, kitchen management system, HRMS Kuwait, inventory management, e-commerce platform, CRM system, delivery management, Kuwait ERP software, BizOSuite" />
+  <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  {/* Structured Data */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Complete ERP Ecosystem",
+      "applicationCategory": "BusinessApplication",
+      "provider": {
+        "@type": "Organization",
+        "name": "Cocopalms",
+        "url": "https://cocopalms.io",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "Kuwait"
+        }
+      },
+      "description": "Comprehensive ERP solution with 9 integrated modules for complete business management including Kitchen, Books, HRMS, Inventory, E-commerce, Sales, CRM, Delivery and Marketing.",
+      "url": "https://cocopalms.io/what-we-do/erp-solution",
+      "operatingSystem": "Web-based",
+      "applicationSubCategory": "Enterprise Resource Planning",
+      "offers": {
+        "@type": "Offer",
+        "description": "Complete ERP Ecosystem with integrated business modules",
+        "seller": {
+          "@type": "Organization", 
+          "name": "Cocopalms"
+        }
+      },
+      "featureList": [
+        "Kitchen Management - Meal planning and ingredient tracking",
+        "Books - Financial records and transaction management", 
+        "HRMS - Employee management and payroll processing",
+        "Inventory - Stock management and supplier coordination",
+        "E-commerce - Online sales and order management", 
+        "Sales Analytics - Performance tracking and insights",
+        "CRM - Customer relationship management",
+        "Delivery - Logistics and order fulfillment",
+        "Marka - Brand strategy and marketing tools"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "50"
+      },
+      "applicationSuite": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Kitchen Module",
+          "description": "Meal planning, ingredient tracking, and recipe management"
+        },
+        {
+          "@type": "SoftwareApplication", 
+          "name": "Books Module",
+          "description": "Financial records and transaction management"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "HRMS Module", 
+          "description": "Employee management, payroll, and attendance tracking"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Inventory Module",
+          "description": "Stock management and supplier coordination"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "E-commerce Module",
+          "description": "Online sales and order management platform"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Sales Module", 
+          "description": "Sales analytics and performance tracking"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "CRM Module",
+          "description": "Customer relationship and communication management"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Delivery Module",
+          "description": "Logistics optimization and order fulfillment"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Marka Module",
+          "description": "Brand strategy and marketing analytics tools"
+        }
+      ],
+      "target": [
+        "Restaurants & Food Service",
+        "Retail & E-commerce", 
+        "Manufacturing",
+        "Healthcare",
+        "Education",
+        "Professional Services",
+        "Logistics & Transportation",
+        "Real Estate"
+      ]
+    })}
+  </script>
+  
+  {/* Additional Service Schema */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "ERP Implementation Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Cocopalms"
+      },
+      "description": "Complete ERP ecosystem implementation with custom configuration, data migration, training and ongoing support.",
+      "serviceType": "ERP Implementation",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Kuwait"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "ERP Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Initial Consultation",
+              "description": "Requirements analysis and system planning"
+            }
+          },
+          {
+            "@type": "Offer", 
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Custom Configuration",
+              "description": "System setup and data migration"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service", 
+              "name": "Team Training",
+              "description": "Comprehensive user training and system deployment"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Ongoing Support", 
+              "description": "24/7 technical support and system optimization"
+            }
+          }
+        ]
+      }
+    })}
+  </script>
+</Helmet>
       
       {/* Hero Section */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24 md:mt-24 relative overflow-hidden">

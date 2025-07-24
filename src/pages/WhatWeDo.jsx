@@ -3,9 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import DynamicIcon from '../components/DynamicIcon';
 import { useServices } from './hooks/useServices';
-import { Helmet } from 'react-helmet';
-
-
+import { Helmet } from 'react-helmet'; 
 
 // Import images (keep your existing imports)
 import webdevImage from '../assets/webdev.jpg';
@@ -19,6 +17,9 @@ const WhatWeDo = () => {
   const location = useLocation();
   const { services, loading, error } = useServices();
 
+  // Canonical URL
+  const canonicalUrl = "https://cocopalms.io/what-we-do";
+
   // Image mapping for your local images
   const imageMap = {
     'webdev.jpg': webdevImage,
@@ -28,6 +29,37 @@ const WhatWeDo = () => {
     'rentings.jpg': rentingsImage,
     'fb1.jpg': fbImage,
   };
+
+  // Add useEffect for canonical URL in document head (same as AboutUs)
+  useEffect(() => {
+    // Remove any existing canonical links
+    const existingCanonical = document.querySelector("link[rel='canonical']");
+    if (existingCanonical) {
+      existingCanonical.remove();
+    }
+
+    // Create and add new canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = canonicalUrl;
+    document.head.appendChild(canonicalLink);
+
+    // Add robots meta tag if missing
+    if (!document.querySelector("meta[name='robots']")) {
+      const robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+      document.head.appendChild(robotsMeta);
+    }
+
+    // Cleanup function
+    return () => {
+      const canonical = document.querySelector("link[rel='canonical']");
+      if (canonical && canonical.href === canonicalUrl) {
+        canonical.remove();
+      }
+    };
+  }, [canonicalUrl]);
 
   // Handle anchor navigation when component mounts or hash changes
   useEffect(() => {
@@ -79,12 +111,36 @@ const WhatWeDo = () => {
 
   return (
     <div className="min-h-screen">
-
-
-<Helmet>
+      <Helmet>
+        <title>What We Do | Cocopalms: Scalable SaaS, ERP & App Development</title>
+        <meta 
+          name="description" 
+          content="Discover Cocopalms' comprehensive IT services including web development, mobile apps, ERP systems, e-commerce solutions, and digital transformation services in Kuwait." 
+        />
+        <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
-      <link rel="canonical" href="https://cocopalms.io/what-we-do"/>
+        {/* Canonical URL - Multiple approaches for better compatibility */}
+        <link rel="canonical" href={canonicalUrl} />
+        
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="What We Do | Cocopalms: Scalable SaaS, ERP & App Development" />
+        <meta property="og:description" content="Discover Cocopalms' comprehensive IT services including web development, mobile apps, ERP systems, e-commerce solutions, and digital transformation services in Kuwait." />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Cocopalms" />
+        
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="What We Do | Cocopalms - IT Solutions & Services" />
+        <meta name="twitter:description" content="Discover Cocopalms' comprehensive IT services including web development, mobile apps, ERP systems, e-commerce solutions, and digital transformation services in Kuwait." />
+        
+        {/* Additional SEO Meta Tags */}
+        <meta name="author" content="Cocopalms" />
+        <meta name="keywords" content="IT services Kuwait, web development, mobile apps, ERP systems, e-commerce solutions, digital transformation, software development" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       </Helmet>
+
       {/* Hero Section with Custom Teal Background */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24 md:mt-24">
         <div className="container mx-auto text-center max-w-4xl">

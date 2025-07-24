@@ -1,7 +1,7 @@
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 import { Smartphone, Code, Shield, Globe, Monitor, ExternalLink, Layers } from 'lucide-react';
-
+import React, { useEffect } from 'react';
 import dietbuxImage from '../assets/dietbuxm.png';
 import dietvalueImage from '../assets/dietvaluem.png';
 import basicImage from '../assets/basicm.png';
@@ -17,6 +17,41 @@ import calculateImage from '../assets/calculatem.png';
 import { Helmet } from 'react-helmet';
 
 const MobileApp = () => {
+
+
+
+  const canonicalUrl = "https://cocopalms.io/what-we-do/mobile-app";
+
+  // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
+  useEffect(() => {
+    // Remove any existing canonical links
+    const existingCanonical = document.querySelector("link[rel='canonical']");
+    if (existingCanonical) {
+      existingCanonical.remove();
+    }
+
+    // Create and add new canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = canonicalUrl;
+    document.head.appendChild(canonicalLink);
+
+    // Add robots meta tag if missing
+    if (!document.querySelector("meta[name='robots']")) {
+      const robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+      document.head.appendChild(robotsMeta);
+    }
+
+    // Cleanup function
+    return () => {
+      const canonical = document.querySelector("link[rel='canonical']");
+      if (canonical && canonical.href === canonicalUrl) {
+        canonical.remove();
+      }
+    };
+  }, [canonicalUrl]);
   const apps = [
     {
       name: 'Dietbux',
@@ -131,9 +166,99 @@ const MobileApp = () => {
   return (
     <div className="min-h-screen">
       <Helmet>
-        
-      <link rel="canonical" href="https://cocopalms.io/what-we-do/mobile-app"/>
-        </Helmet>
+  <title>Mobile Application Platform | Cocopalms for F&B & Enterprise</title>
+  <meta 
+    name="description" 
+    content="Professional mobile app development services in Kuwait. Native iOS & Android apps, cross-platform solutions, UI/UX design. View our portfolio of 12+ successful mobile applications."
+  />
+  <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  {/* Canonical URL */}
+  <link rel="canonical" href="https://cocopalms.io/what-we-do/mobile-app" />
+  
+  {/* Open Graph Meta Tags */}
+  <meta property="og:title" content="Mobile App Development Services | Cocopalms - iOS & Android Apps" />
+  <meta property="og:description" content="Professional mobile app development services in Kuwait. Native iOS & Android apps, cross-platform solutions, UI/UX design. View our portfolio of 12+ successful mobile applications." />
+  <meta property="og:url" content="https://cocopalms.io/what-we-do/mobile-app" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Cocopalms" />
+  
+  {/* Twitter Card Meta Tags */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mobile App Development Services | Cocopalms - iOS & Android Apps" />
+  <meta name="twitter:description" content="Professional mobile app development services in Kuwait. Native iOS & Android apps, cross-platform solutions, UI/UX design. View our portfolio of 12+ successful mobile applications." />
+  
+  {/* Additional SEO Meta Tags */}
+  <meta name="author" content="Cocopalms" />
+  <meta name="keywords" content="mobile app development Kuwait, iOS app development, Android app development, React Native, Flutter, mobile UI/UX design, food delivery apps, health apps Kuwait, Kuwait app developers" />
+  <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  {/* Structured Data */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Mobile App Development Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Cocopalms",
+        "url": "https://cocopalms.io"
+      },
+      "description": "Professional mobile app development services in Kuwait. Native iOS & Android apps, cross-platform solutions, UI/UX design.",
+      "url": "https://cocopalms.io/what-we-do/mobile-app",
+      "serviceType": "Mobile App Development",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Kuwait"
+      },
+      "offers": [
+        {
+          "@type": "Service",
+          "name": "Native App Development",
+          "description": "High-performance native apps for iOS and Android"
+        },
+        {
+          "@type": "Service", 
+          "name": "Cross-Platform Development",
+          "description": "Cost-effective solutions using React Native and Flutter"
+        },
+        {
+          "@type": "Service",
+          "name": "Mobile UI/UX Design", 
+          "description": "Intuitive and engaging user interfaces"
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Mobile App Portfolio",
+        "itemListElement": [
+          {
+            "@type": "MobileApplication",
+            "name": "Dietbux",
+            "applicationCategory": "Health & Nutrition",
+            "operatingSystem": ["iOS", "Android"],
+            "url": "https://dietbux.com/"
+          },
+          {
+            "@type": "MobileApplication", 
+            "name": "Planet Zero",
+            "applicationCategory": "Food Delivery",
+            "operatingSystem": ["iOS", "Android"],
+            "url": "https://play.google.com/store/apps/details?id=io.cocopalms.planetzero"
+          },
+          {
+            "@type": "MobileApplication",
+            "name": "Cal",
+            "applicationCategory": "Food Delivery", 
+            "operatingSystem": ["iOS", "Android"],
+            "url": "https://apps.apple.com/kw/app/cal-%D9%83%D8%A7%D9%84/id1667845619"
+          }
+        ]
+      }
+    })}
+  </script>
+</Helmet>
       {/* Hero Section */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24">
         <div className="container mx-auto text-center max-w-5xl">

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
 import { Link } from 'react-router-dom';
 import { Monitor, Code, Smartphone, Globe, Zap, Shield, ExternalLink } from 'lucide-react';
 import dietbuxImage from '../assets/dietbuxw.png';
@@ -9,12 +10,89 @@ import alnassemImage from '../assets/alnassemw.png';
 import techbizImage from '../assets/techbizw.png';
 import { Helmet } from 'react-helmet';
 const WebDevelopment = () => {
+  // Canonical URL
+  const canonicalUrl = "https://cocopalms.io/what-we-do/web-development";
+
+  // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
+  useEffect(() => {
+    // Remove any existing canonical links
+    const existingCanonical = document.querySelector("link[rel='canonical']");
+    if (existingCanonical) {
+      existingCanonical.remove();
+    }
+
+    // Create and add new canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = canonicalUrl;
+    document.head.appendChild(canonicalLink);
+
+    // Add robots meta tag if missing
+    if (!document.querySelector("meta[name='robots']")) {
+      const robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+      document.head.appendChild(robotsMeta);
+    }
+
+    // Cleanup function
+    return () => {
+      const canonical = document.querySelector("link[rel='canonical']");
+      if (canonical && canonical.href === canonicalUrl) {
+        canonical.remove();
+      }
+    };
+  }, [canonicalUrl]);
+
   return (
     <div className="min-h-screen">
-      <Helmet>
+       <Helmet>
+        <title>Web Development Services for F&B & Enterprise | Cocopalms</title>
+        <meta 
+          name="description" 
+          content="Professional web development services in Kuwait. Custom websites, web applications, responsive design, and modern web solutions. View our portfolio of successful projects." 
+        />
+        <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
-      <link rel="canonical" href="https://cocopalms.io/what-we-do/web-development"/>
-        </Helmet>
+        {/* Canonical URL - Multiple approaches for better compatibility */}
+        <link rel="canonical" href={canonicalUrl} />
+        
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="Web Development Services | Cocopalms - Custom Websites & Web Apps" />
+        <meta property="og:description" content="Professional web development services in Kuwait. Custom websites, web applications, responsive design, and modern web solutions. View our portfolio of successful projects." />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Cocopalms" />
+        
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Web Development Services | Cocopalms - Custom Websites & Web Apps" />
+        <meta name="twitter:description" content="Professional web development services in Kuwait. Custom websites, web applications, responsive design, and modern web solutions. View our portfolio of successful projects." />
+        
+        {/* Additional SEO Meta Tags */}
+        <meta name="author" content="Cocopalms" />
+        <meta name="keywords" content="web development Kuwait, custom websites, web applications, responsive design, React development, modern web solutions, Kuwait web developers" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Web Development Services",
+            "provider": {
+              "@type": "Organization",
+              "name": "Cocopalms"
+            },
+            "description": "Professional web development services in Kuwait. Custom websites, web applications, responsive design, and modern web solutions.",
+            "url": canonicalUrl,
+            "serviceType": "Web Development",
+            "areaServed": "Kuwait"
+          })}
+        </script>
+      </Helmet>
+
       {/* Hero Section */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24 md:mt-24">
         <div className="container mx-auto text-center max-w-4xl">
