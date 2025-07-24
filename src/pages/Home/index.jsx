@@ -348,6 +348,8 @@ const logoMapping = {
 
   return (
     <div className="font-sans">
+
+      
       {/* Hero Section */}
       {/* Hero Section with Video Slideshow */}
 <HeroVideoSlideshow />

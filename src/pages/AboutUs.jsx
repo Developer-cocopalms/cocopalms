@@ -6,6 +6,7 @@ import firstImage from '../assets/1sth.jpeg';
 import secondImage from '../assets/2nd.jpeg';
 import thirdImage from '../assets/3rd.jpeg';
 import fourthImage from '../assets/4th.png';
+
 const AboutUs = () => {
   const [activeSection, setActiveSection] = useState(0);
   const scrollContainerRef = useRef(null);
@@ -19,7 +20,6 @@ const AboutUs = () => {
     thirdImage,
     fourthImage
   ];
-
 
   const whoWeAreContent = [
     {
@@ -123,14 +123,8 @@ const AboutUs = () => {
 
   return (
     <div className="min-h-screen bg-white">
-     <Helmet>
-        <title>About Us - IT Company in Kuwait | Cocopalms Technology Partner</title>
-        <meta 
-          name="description" 
-          content="Founded in 2007, Cocopalms Tech Company is a next-generation IT solutions provider in Kuwait, delivering scalable digital solutions, ERP systems, mobile apps, and web development services across diverse industries." 
-        />
-        <link rel="canonical" href="https://cocopalms.io/about" />
-      </Helmet>
+      
+
       {/* Hero Section */}
       <div className="max-w-4xl mx-auto px-6 py-20 pt-48 text-center">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
@@ -143,11 +137,11 @@ const AboutUs = () => {
           cloud services, IT consulting, systems integration.
         </p>
         <Link 
-  to="/contact"
-  className="bg-teal-600 hover:bg-teal-700 text-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-block text-center"
->
-  Contact Us
-</Link>
+          to="/contact"
+          className="bg-teal-600 hover:bg-teal-700 text-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-block text-center"
+        >
+          Contact Us
+        </Link>
       </div>
 
       {/* Mission Section */}
@@ -318,12 +312,12 @@ const AboutUs = () => {
             Let's discuss how Cocopalms can architect the future of your software innovation 
             and drive your business growth.
           </p>
-          <a 
-  href="/contact" 
-  className="bg-teal-600 hover:bg-teal-700 text-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-block text-center"
->
-  Get Started Today
-</a>
+          <Link 
+            to="/contact" 
+            className="bg-teal-600 hover:bg-teal-700 text-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-block text-center"
+          >
+            Get Started Today
+          </Link>
         </div>
       </div>
     </div>

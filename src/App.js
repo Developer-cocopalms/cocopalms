@@ -22,11 +22,14 @@ import FandbSolution from './pages/FandbSolution';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Blog from './pages/Blog';
 
+
+
 // Import the dynamic component (this will handle ALL success stories)
 import DynamicSuccessStory from './components/DynamicSuccessStory.jsx';
 
 function App() {
   return (
+    
     <Router>
       <div className="min-h-screen flex flex-col">
         {/* Header stays at top */}
@@ -73,6 +76,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    
   );
 }
 
