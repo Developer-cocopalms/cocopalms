@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import { Helmet } from 'react-helmet';
 
 const supabaseUrl = 'https://gfwjcallemugxqdweuuk.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdmd2pjYWxsZW11Z3hxZHdldXVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk5MDIxMzEsImV4cCI6MjA2NTQ3ODEzMX0.kvaYhV4DTNcyix7PzjF9N9XYxzA3bK0nx3mT8bsHqTo'
@@ -24,16 +25,50 @@ const BlogList = ({ onBlogSelect }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Canonical URL for blog list page
+  const canonicalUrl = "https://cocopalms.io/blog";
+
   useEffect(() => {
     fetchBlogPosts();
   }, []);
+
+  // Add canonical URL management
+  useEffect(() => {
+    // Remove any existing canonical links
+    const existingCanonical = document.querySelector("link[rel='canonical']");
+    if (existingCanonical) {
+      existingCanonical.remove();
+    }
+
+    // Create and add new canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = canonicalUrl;
+    document.head.appendChild(canonicalLink);
+
+    // Add robots meta tag if missing
+    if (!document.querySelector("meta[name='robots']")) {
+      const robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+      document.head.appendChild(robotsMeta);
+    }
+
+    // Cleanup function
+    return () => {
+      const canonical = document.querySelector("link[rel='canonical']");
+      if (canonical && canonical.href === canonicalUrl) {
+        canonical.remove();
+      }
+    };
+  }, [canonicalUrl]);
 
   const fetchBlogPosts = async () => {
     try {
       setLoading(true);
       const { data, error } = await supabase
         .from('blog_posts')
-        .select('id, title, excerpt, image_url, published_at, slug')
+        .select('id, title, excerpt, image_url, published_at, slug, meta_description')
         .eq('status', 'published')
         .order('published_at', { ascending: false });
 
@@ -163,6 +198,11 @@ const BlogList = ({ onBlogSelect }) => {
   if (loading) {
     return (
       <div style={containerStyle}>
+        <Helmet>
+          <title>Blog | Cocopalms - Latest Insights & Tech Updates</title>
+          <meta name="description" content="Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation." />
+          <link rel="canonical" href={canonicalUrl} />
+        </Helmet>
         <div style={loadingStyle}>
           <h2>Loading blog posts...</h2>
         </div>
@@ -173,6 +213,11 @@ const BlogList = ({ onBlogSelect }) => {
   if (error) {
     return (
       <div style={containerStyle}>
+        <Helmet>
+          <title>Blog | Cocopalms - Latest Insights & Tech Updates</title>
+          <meta name="description" content="Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation." />
+          <link rel="canonical" href={canonicalUrl} />
+        </Helmet>
         <div style={errorStyle}>
           <h2>Error loading blog posts</h2>
           <p>{error}</p>
@@ -186,6 +231,36 @@ const BlogList = ({ onBlogSelect }) => {
 
   return (
     <div style={containerStyle}>
+      <Helmet>
+        <title>Blog | Cocopalms - Latest Insights & Tech Updates</title>
+        <meta 
+          name="description" 
+          content="Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation." 
+        />
+        <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href={canonicalUrl} />
+        
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="Blog | Cocopalms - Latest Insights & Tech Updates" />
+        <meta property="og:description" content="Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation." />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Cocopalms" />
+        
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Blog | Cocopalms - Latest Insights & Tech Updates" />
+        <meta name="twitter:description" content="Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation." />
+        
+        {/* Additional SEO Meta Tags */}
+        <meta name="author" content="Cocopalms" />
+        <meta name="keywords" content="tech blog, IT insights, software development blog, digital transformation, Kuwait tech blog, programming tips" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+      </Helmet>
+
       <div style={headerStyle}>
         <h1 style={headerTitleStyle}>Our Blog</h1>
         <p style={headerSubtitleStyle}>Stay updated with the latest insights and trends</p>
@@ -238,6 +313,9 @@ const BlogPost = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Dynamic canonical URL for individual blog posts
+  const canonicalUrl = `https://cocopalms.io/blog/${postId}`;
+
   const fetchBlogPost = async () => {
     try {
       setLoading(true);
@@ -275,7 +353,38 @@ const BlogPost = ({
   useEffect(() => {
     fetchBlogPost();
     fetchAllPosts();
-  }, [postId]); // Fixed: removed fetchBlogPost from dependencies since it's defined inside the component
+  }, [postId]);
+
+  // Add canonical URL management for individual blog posts
+  useEffect(() => {
+    // Remove any existing canonical links
+    const existingCanonical = document.querySelector("link[rel='canonical']");
+    if (existingCanonical) {
+      existingCanonical.remove();
+    }
+
+    // Create and add new canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = canonicalUrl;
+    document.head.appendChild(canonicalLink);
+
+    // Add robots meta tag if missing
+    if (!document.querySelector("meta[name='robots']")) {
+      const robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+      document.head.appendChild(robotsMeta);
+    }
+
+    // Cleanup function
+    return () => {
+      const canonical = document.querySelector("link[rel='canonical']");
+      if (canonical && canonical.href === canonicalUrl) {
+        canonical.remove();
+      }
+    };
+  }, [canonicalUrl]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -409,6 +518,11 @@ const BlogPost = ({
   if (loading) {
     return (
       <div style={containerStyle}>
+        <Helmet>
+          <title>Loading... | Cocopalms Blog</title>
+          <meta name="description" content="Loading blog post..." />
+          <link rel="canonical" href={canonicalUrl} />
+        </Helmet>
         <div style={loadingStyle}>
           <h2>Loading blog post...</h2>
         </div>
@@ -419,6 +533,11 @@ const BlogPost = ({
   if (error || !post) {
     return (
       <div style={containerStyle}>
+        <Helmet>
+          <title>Blog Post Not Found | Cocopalms Blog</title>
+          <meta name="description" content="The requested blog post could not be found." />
+          <link rel="canonical" href={canonicalUrl} />
+        </Helmet>
         <div style={errorStyle}>
           <h2>Blog post not found</h2>
           <p>{error}</p>
@@ -434,8 +553,42 @@ const BlogPost = ({
   const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
   const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
+  // Generate description from content or use meta_description
+  const description = post.meta_description || 
+    (post.excerpt || post.content.substring(0, 160).replace(/\n/g, ' ')) + '...';
+
   return (
     <div style={containerStyle}>
+      <Helmet>
+        <title>{post.title} | Cocopalms Blog</title>
+        <meta name="description" content={description} />
+        <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href={canonicalUrl} />
+        
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content={`${post.title} | Cocopalms Blog`} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Cocopalms" />
+        <meta property="og:image" content={post.image_url} />
+        <meta property="article:published_time" content={post.published_at} />
+        
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${post.title} | Cocopalms Blog`} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={post.image_url} />
+        
+        {/* Additional SEO Meta Tags */}
+        <meta name="author" content="Cocopalms" />
+        <meta name="keywords" content={post.tags ? post.tags.join(', ') : 'tech blog, IT insights, software development'} />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+      </Helmet>
+
       <button 
         style={backButtonStyle}
         onClick={onNavigateHome}
