@@ -159,9 +159,10 @@ const AboutUs = () => {
     <div className="min-h-screen bg-white">
       <Helmet>
         <title>About Cocopalms | Software Solutions for F&B & Enterprise</title>
+        <description>Discover Cocopalms: providing innovative software solutions for F&B and enterprise businesses, enhancing efficiency with ERP, POS, and more.</description>
         <meta 
           name="description" 
-          content="Founded in 2007, Cocopalms Tech Company is a next-generation IT solutions provider in Kuwait, delivering scalable digital solutions, ERP systems, mobile apps, and web development services across diverse industries." 
+          content="Discover Cocopalms: providing innovative software solutions for F&B and enterprise businesses, enhancing efficiency with ERP, POS, and more." 
         />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

@@ -387,7 +387,7 @@ const logoMapping = {
     
     <Helmet>
         <title>Cocopalms | Scalable SaaS & ERP Solutions for F&B & Enterprise</title>
-        <meta name="description" content="Empower your business with Cocopalms' smart IT solutions. We offer web development, mobile apps, e-commerce, ERP systems, and property management software." />
+        <meta name="description" content="Cocopalms delivers smart IT solutions worldwide, offering ERP, finance tools, mobile apps, and POS systems for optimized business management." />
         <meta name="keywords" content="web development, mobile apps, ERP solutions, e-commerce development, property management, food beverage software, Cocopalms" />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         

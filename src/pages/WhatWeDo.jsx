@@ -115,7 +115,7 @@ const WhatWeDo = () => {
         <title>What We Do | Cocopalms: Scalable SaaS, ERP & App Development</title>
         <meta 
           name="description" 
-          content="Discover Cocopalms' comprehensive IT services including web development, mobile apps, ERP systems, e-commerce solutions, and digital transformation services in Kuwait." 
+          content="Cocopalms offers scalable SaaS, ERP, and app development solutions, empowering businesses with innovative technology for growth and efficiency." 
         />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

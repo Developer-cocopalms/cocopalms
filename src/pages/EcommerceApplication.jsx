@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { 
   ShoppingCart, 
   CreditCard, 
@@ -25,6 +25,40 @@ import ecom3Image from '../assets/ecom3.png';
 import ecom4Image from '../assets/ecom4.png';
 
 const EcommerceApplications = () => {
+
+  const canonicalUrl = "https://cocopalms.io/what-we-do/ecommerce-application";
+
+  // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
+  useEffect(() => {
+    // Remove any existing canonical links
+    const existingCanonical = document.querySelector("link[rel='canonical']");
+    if (existingCanonical) {
+      existingCanonical.remove();
+    }
+
+    // Create and add new canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = canonicalUrl;
+    document.head.appendChild(canonicalLink);
+
+    // Add robots meta tag if missing
+    if (!document.querySelector("meta[name='robots']")) {
+      const robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+      document.head.appendChild(robotsMeta);
+    }
+
+    // Cleanup function
+    return () => {
+      const canonical = document.querySelector("link[rel='canonical']");
+      if (canonical && canonical.href === canonicalUrl) {
+        canonical.remove();
+      }
+    };
+  }, [canonicalUrl]);
+
   const ecomFeatures = [
     {
       icon: ShoppingCart,
@@ -137,10 +171,41 @@ const EcommerceApplications = () => {
 
   return (
     <div className="min-h-screen">
-      <Helmet>
-        
-      <link rel="canonical" href="https://cocopalms.io/what-we-do/ecommerce-application"/>
-        </Helmet>
+      
+
+<Helmet>
+  <title>E-commerce Application Development for F&B & Retail | Cocopalms </title>
+  <meta 
+    name="description" 
+    content="Professional e-commerce development services in Kuwait. Custom online stores, shopping cart solutions, payment integration, and scalable e-commerce platforms. Transform your business with our proven solutions." 
+  />
+  <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  {/* Canonical URL */}
+  <link rel="canonical" href={canonicalUrl} />
+  
+  {/* Open Graph Meta Tags */}
+  <meta property="og:title" content="E-commerce Development Services | Cocopalms - Online Store Solutions" />
+  <meta property="og:description" content="Professional e-commerce development services in Kuwait. Custom online stores, shopping cart solutions, payment integration, and scalable e-commerce platforms. Transform your business with our proven solutions." />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Cocopalms" />
+  
+  {/* Twitter Card Meta Tags */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="E-commerce Development Services | Cocopalms - Online Store Solutions" />
+  <meta name="twitter:description" content="Professional e-commerce development services in Kuwait. Custom online stores, shopping cart solutions, payment integration, and scalable e-commerce platforms." />
+  
+  {/* Keywords */}
+  <meta name="keywords" content="e-commerce development Kuwait, online store development, shopping cart solutions, payment gateway integration, custom e-commerce platforms, multi-vendor marketplace, mobile commerce, Kuwait e-commerce developers, online business solutions, digital commerce" />
+  
+  {/* Geographic targeting */}
+  <meta name="geo.region" content="KW" />
+  <meta name="geo.placename" content="Kuwait" />
+  <meta name="author" content="Cocopalms" />
+  <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+</Helmet>
       {/* Hero Section */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24 md:mt-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>

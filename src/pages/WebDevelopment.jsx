@@ -50,7 +50,7 @@ const WebDevelopment = () => {
         <title>Web Development Services for F&B & Enterprise | Cocopalms</title>
         <meta 
           name="description" 
-          content="Professional web development services in Kuwait. Custom websites, web applications, responsive design, and modern web solutions. View our portfolio of successful projects." 
+          content="Cocopalms offers expert web development services for F&B and enterprise businesses, delivering custom solutions to enhance performance and growth." 
         />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

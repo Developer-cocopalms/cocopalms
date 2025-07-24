@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { 
@@ -25,6 +25,42 @@ import rent3 from '../assets/rent3.png';
 import rent4 from '../assets/rent4.png';
 
 const PropertyManagementSystem = () => {
+
+  const canonicalUrl = "https://cocopalms.io/what-we-do/property-management"; 
+
+  // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
+  useEffect(() => {
+    // Remove any existing canonical links
+    const existingCanonical = document.querySelector("link[rel='canonical']");
+    if (existingCanonical) {
+      existingCanonical.remove();
+    }
+
+    // Create and add new canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = canonicalUrl;
+    document.head.appendChild(canonicalLink);
+
+    // Add robots meta tag if missing
+    if (!document.querySelector("meta[name='robots']")) {
+      const robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+      document.head.appendChild(robotsMeta);
+    }
+
+    // Cleanup function
+    return () => {
+      const canonical = document.querySelector("link[rel='canonical']");
+      if (canonical && canonical.href === canonicalUrl) {
+        canonical.remove();
+      }
+    };
+  }, [canonicalUrl]);
+
+
+
   const platformFeatures = [
     {
       icon: Home,
@@ -137,9 +173,41 @@ const PropertyManagementSystem = () => {
     <div className="min-h-screen">
 
 <Helmet>
-        
-<link rel="canonical" href="https://cocopalms.io/what-we-do/property-management"/>
-        </Helmet>
+  <title>Property Management Software & Rental Solution | Cocopalms</title>
+  <meta name="description" content="Comprehensive property management system in Kuwait. Connect landlords and tenants with our digital platform featuring rent collection, maintenance tracking, and property analytics." />
+  <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  {/* Canonical URL - Multiple approaches for better compatibility */}
+  <link rel="canonical" href={canonicalUrl} />
+  
+  {/* Open Graph Meta Tags */}
+  <meta property="og:title" content="Property Management System | Cocopalms - Landlord & Tenant Solutions" />
+  <meta property="og:description" content="Comprehensive property management system in Kuwait. Connect landlords and tenants with our digital platform featuring rent collection, maintenance tracking, and property analytics." />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Cocopalms" />
+  <meta property="og:locale" content="en_US" />
+  
+  {/* Twitter Card Meta Tags */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Property Management System | Cocopalms - Landlord & Tenant Solutions" />
+  <meta name="twitter:description" content="Comprehensive property management system in Kuwait. Connect landlords and tenants with our digital platform featuring rent collection, maintenance tracking, and property analytics." />
+  
+  {/* Additional SEO Meta Tags */}
+  <meta name="author" content="Cocopalms" />
+  <meta name="keywords" content="property management Kuwait, rental management system, landlord tenant platform, rent collection software, property maintenance tracking, Kuwait real estate, digital lease management, tenant screening Kuwait, property analytics dashboard" />
+  <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  {/* Geographic and Business Meta Tags */}
+  <meta name="geo.region" content="KW" />
+  <meta name="geo.placename" content="Kuwait" />
+  <meta name="language" content="en" />
+  <meta name="distribution" content="global" />
+  <meta name="rating" content="general" />
+  
+  
+</Helmet>
       {/* Hero Section */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24 md:mt-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>

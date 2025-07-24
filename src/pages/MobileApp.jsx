@@ -169,7 +169,7 @@ const MobileApp = () => {
   <title>Mobile Application Platform | Cocopalms for F&B & Enterprise</title>
   <meta 
     name="description" 
-    content="Professional mobile app development services in Kuwait. Native iOS & Android apps, cross-platform solutions, UI/UX design. View our portfolio of 12+ successful mobile applications."
+    content="Cocopalms creates high-performance mobile applications for F&B and enterprise, delivering exceptional user experiences across iOS and Android platforms"
   />
   <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />

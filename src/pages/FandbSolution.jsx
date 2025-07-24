@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   UtensilsCrossed, 
@@ -30,6 +30,40 @@ import coco3 from '../assets/coco3.png';
 import coco4 from '../assets/coco4.png';
 
 const FandbSolution = () => {
+
+  const canonicalUrl = "https://cocopalms.io/what-we-do/fandb-solution"; 
+
+  // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
+  useEffect(() => {
+    // Remove any existing canonical links
+    const existingCanonical = document.querySelector("link[rel='canonical']");
+    if (existingCanonical) {
+      existingCanonical.remove();
+    }
+
+    // Create and add new canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = canonicalUrl;
+    document.head.appendChild(canonicalLink);
+
+    // Add robots meta tag if missing
+    if (!document.querySelector("meta[name='robots']")) {
+      const robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+      document.head.appendChild(robotsMeta);
+    }
+
+    // Cleanup function
+    return () => {
+      const canonical = document.querySelector("link[rel='canonical']");
+      if (canonical && canonical.href === canonicalUrl) {
+        canonical.remove();
+      }
+    };
+  }, [canonicalUrl]);
+
   const platformFeatures = [
     {
       icon: UtensilsCrossed,
@@ -155,11 +189,46 @@ const FandbSolution = () => {
 
   return (
     <div className="min-h-screen">
-
 <Helmet>
-        
-<link rel="canonical" href="https://cocopalms.io/what-we-do/fandb-solution"/>
-        </Helmet>
+  <title>Cocopalms F&B Platform for Food & Beverage Businesses</title>
+  <meta name="description" content="Comprehensive restaurant management platform for F&B businesses. Streamline operations with online ordering, delivery management, digital menus, payment integration, and customer analytics." />
+  <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  {/* Canonical URL - Multiple approaches for better compatibility */}
+  <link rel="canonical" href={canonicalUrl} />
+  
+  {/* Open Graph Meta Tags */}
+  <meta property="og:title" content="F&B Restaurant Management Platform | Cocopalms - Complete Food & Beverage Solution" />
+  <meta property="og:description" content="Comprehensive restaurant management platform for F&B businesses. Streamline operations with online ordering, delivery management, digital menus, payment integration, and customer analytics." />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Cocopalms" />
+  <meta property="og:locale" content="en_US" />
+  
+  {/* Twitter Card Meta Tags */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="F&B Restaurant Management Platform | Cocopalms - Complete Food & Beverage Solution" />
+  <meta name="twitter:description" content="Comprehensive restaurant management platform for F&B businesses. Streamline operations with online ordering, delivery management, digital menus, payment integration, and customer analytics." />
+  
+  {/* Additional SEO Meta Tags */}
+  <meta name="author" content="Cocopalms" />
+  <meta name="keywords" content="restaurant management system, F&B platform, online ordering system, food delivery app, restaurant POS, digital menu management, kitchen management software, restaurant analytics, food business software, delivery management system, restaurant technology Kuwait" />
+  <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  {/* Geographic and Business Meta Tags */}
+  <meta name="geo.region" content="KW" />
+  <meta name="geo.placename" content="Kuwait" />
+  <meta name="language" content="en" />
+  <meta name="distribution" content="global" />
+  <meta name="rating" content="general" />
+  
+  {/* Additional F&B Specific Meta Tags */}
+  <meta name="industry" content="Food & Beverage, Restaurant Technology" />
+  <meta name="category" content="Restaurant Management Software" />
+  
+</Helmet>
+  
       {/* Hero Section */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24 md:mt-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
