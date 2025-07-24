@@ -1,15 +1,55 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Users, TrendingUp, CheckCircle, ExternalLink } from 'lucide-react';
 import BizoSuiteLogo from '../assets/bizo_logo.png';
 import { Helmet } from 'react-helmet';
 const BizoBooks = () => {
+  const canonicalUrl = "https://cocopalms.io/success-stories/bizo-books"; 
+
+  // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
+  useEffect(() => {
+    // Remove any existing canonical links
+    const existingCanonical = document.querySelector("link[rel='canonical']");
+    if (existingCanonical) {
+      existingCanonical.remove();
+    }
+
+    // Create and add new canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = canonicalUrl;
+    document.head.appendChild(canonicalLink);
+
+    // Add robots meta tag if missing
+    if (!document.querySelector("meta[name='robots']")) {
+      const robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+      document.head.appendChild(robotsMeta);
+    }
+
+    // Cleanup function
+    return () => {
+      const canonical = document.querySelector("link[rel='canonical']");
+      if (canonical && canonical.href === canonicalUrl) {
+        canonical.remove();
+      }
+    };
+  }, [canonicalUrl]);
+
   return (
     <div className="min-h-screen bg-gray-50">
 
 <Helmet>
-        
-<link rel="canonical" href="https://cocopalms.io/success-stories/bizo-books"/>
-        </Helmet>
+  <title>Bizo Books Case Study | Cocopalms ERP & Automation Impact</title>
+  <meta name="description" content="Comprehensive restaurant management platform for F&B businesses. Streamline operations with online ordering, delivery management, digital menus, payment integration, and customer analytics." />
+  <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  {/* Canonical URL - Multiple approaches for better compatibility */}
+  <link rel="canonical" href={canonicalUrl} />
+  
+  
+</Helmet>
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-teal-600 to-teal-800 text-white py-20 mt-24">
         <div className="container mx-auto px-4 text-center">

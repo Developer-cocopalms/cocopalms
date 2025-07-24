@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
+import { Helmet } from 'react-helmet';
 import { Users, TrendingUp, CheckCircle, ExternalLink, Building2, Home, Package, Smartphone, FileText, BarChart3 } from 'lucide-react';
 // Import all logos
 import BizoSuiteLogo from '../assets/bizo_logo.png';
@@ -36,9 +37,43 @@ const DynamicSuccessStory = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Generate canonical URL based on slug
+  const canonicalUrl = `https://cocopalms.io/success-stories/${slug}`;
+
   useEffect(() => {
     fetchStoryContent();
   }, [slug]);
+
+  // Add useEffect for canonical URL management
+  useEffect(() => {
+    // Remove any existing canonical links
+    const existingCanonical = document.querySelector("link[rel='canonical']");
+    if (existingCanonical) {
+      existingCanonical.remove();
+    }
+
+    // Create and add new canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = canonicalUrl;
+    document.head.appendChild(canonicalLink);
+
+    // Add robots meta tag if missing
+    if (!document.querySelector("meta[name='robots']")) {
+      const robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+      document.head.appendChild(robotsMeta);
+    }
+
+    // Cleanup function
+    return () => {
+      const canonical = document.querySelector("link[rel='canonical']");
+      if (canonical && canonical.href === canonicalUrl) {
+        canonical.remove();
+      }
+    };
+  }, [canonicalUrl, slug]);
 
   const fetchStoryContent = async () => {
     try {
@@ -147,6 +182,53 @@ const DynamicSuccessStory = () => {
     return BizoSuiteLogo;
   };
 
+  // Generate dynamic meta data based on story data
+  const getMetaTitle = () => {
+    // Specific titles for each success story based on slug
+    const titleMap = {
+      'bizo-books': 'Bizo Books Case Study | Cocopalms ERP & Automation Impact',
+      'real-estate': 'Real Estate Case Study | Cocopalms Platform in Action',
+      'kitchenly': 'Kitchenly Case Study | Cocopalms ERP & Platform Impact',
+      'coco-dine': 'Coco Dine Case Study | Cocopalms ERP & Automation Impact'
+    };
+
+    // Return specific title if slug matches, otherwise use dynamic title
+    if (titleMap[slug]) {
+      return titleMap[slug];
+    }
+    
+    // Fallback to dynamic title based on story data
+    if (storyData?.hero_title) {
+      return `${storyData.hero_title} | Success Story | Cocopalms`;
+    }
+    
+    return `Success Story | Cocopalms`;
+  };
+
+  const getMetaDescription = () => {
+    // Specific descriptions for each success story based on slug
+    const descriptionMap = {
+      'bizo-books': 'Explore the Bizo Books case study showcasing Cocopalms ERP and automation solutions, driving efficiency and business transformation.',
+      'real-estate': 'Discover our Real Estate case study, highlighting a B2B & B2C platform that revolutionizes property management and rental processes.',
+      'kitchenly': 'Explore the Kitchenly case study, demonstrating the impact of Cocopalms ERP and platform solutions on efficiency and business growth.',
+      'coco-dine': 'Explore the Coco Dine case study, showcasing how Cocopalms ERP and automation solutions enhance operational efficiency and business performance.'
+    };
+
+    // Return specific description if slug matches
+    if (descriptionMap[slug]) {
+      return descriptionMap[slug];
+    }
+    
+    // Fallback to dynamic description based on story data
+    if (storyData?.hero_subtitle) {
+      return storyData.hero_subtitle.length > 160 
+        ? storyData.hero_subtitle.substring(0, 157) + '...'
+        : storyData.hero_subtitle;
+    }
+    
+    return `Discover how Cocopalms helped transform businesses with innovative technology solutions and digital transformation services.`;
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -191,6 +273,33 @@ const DynamicSuccessStory = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Helmet>
+        <title>{getMetaTitle()}</title>
+        <meta name="description" content={getMetaDescription()} />
+        <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href={canonicalUrl} />
+        
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content={getMetaTitle()} />
+        <meta property="og:description" content={getMetaDescription()} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Cocopalms" />
+        
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={getMetaTitle()} />
+        <meta name="twitter:description" content={getMetaDescription()} />
+        
+        {/* Additional SEO Meta Tags */}
+        <meta name="author" content="Cocopalms" />
+        <meta name="keywords" content="success story, case study, digital transformation, IT solutions Kuwait, business growth, technology solutions" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+      </Helmet>
+
       {/* Hero Section */}
       <div className={`bg-gradient-to-r from-${storyData.gradient_from} to-${storyData.gradient_to} text-white py-20 mt-24`}>
         <div className="container mx-auto px-4 text-center">
