@@ -123,7 +123,50 @@ const AboutUs = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      
+      <Helmet>
+        <title>About Us - IT Company in Kuwait | Cocopalms Technology Partner</title>
+        <meta 
+          name="description" 
+          content="Founded in 2007, Cocopalms Tech Company is a next-generation IT solutions provider in Kuwait, delivering scalable digital solutions, ERP systems, mobile apps, and web development services across diverse industries." 
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="canonical" href="https://cocopalms.io/about" />
+        
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="About Us - IT Company in Kuwait | Cocopalms Technology Partner" />
+        <meta property="og:description" content="Founded in 2007, Cocopalms Tech Company is a next-generation IT solutions provider in Kuwait, delivering scalable digital solutions, ERP systems, mobile apps, and web development services across diverse industries." />
+        <meta property="og:url" content="https://cocopalms.io/about" />
+        <meta property="og:type" content="website" />
+        
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Us - IT Company in Kuwait | Cocopalms Technology Partner" />
+        <meta name="twitter:description" content="Founded in 2007, Cocopalms Tech Company is a next-generation IT solutions provider in Kuwait, delivering scalable digital solutions, ERP systems, mobile apps, and web development services across diverse industries." />
+        
+        {/* Additional SEO Meta Tags */}
+        <meta name="author" content="Cocopalms" />
+        <meta name="keywords" content="IT company Kuwait, software development, ERP systems, mobile apps, web development, digital transformation, technology solutions" />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Cocopalms",
+            "url": "https://cocopalms.io",
+            "description": "Founded in 2007, Cocopalms Tech Company is a next-generation IT solutions provider in Kuwait, delivering scalable digital solutions, ERP systems, mobile apps, and web development services across diverse industries.",
+            "foundingDate": "2007",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "Kuwait"
+            },
+            "sameAs": [
+              "https://cocopalms.io/about"
+            ]
+          })}
+        </script>
+      </Helmet>
 
       {/* Hero Section */}
       <div className="max-w-4xl mx-auto px-6 py-20 pt-48 text-center">

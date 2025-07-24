@@ -13,6 +13,7 @@ import { useTestimonials } from '../hooks/useTestimonials';
 import DynamicIcon from '../../components/DynamicIcon';
 import HeroVideoSlideshow from '../../components/HeroVideoSlideshow';
 import InstagramSlider from '../../components/InstagramSlider';
+import { Helmet } from 'react-helmet';
 
 // Import static assets
 
@@ -209,6 +210,9 @@ const SolutionsSection = () => {
 };
 // Main Landing Page Component
 export default function LandingPage() {
+
+  // SEO and Canonical URL
+  const canonicalUrl = "https://cocopalms.io";
   // Dynamic data hooks
   const { teamMembers, ceo, otherMembers, loading: teamLoading } = useTeamMembers();
   const { features, loading: featuresLoading } = useFeatures();
@@ -216,6 +220,37 @@ export default function LandingPage() {
   
   // Testimonial slider state
   const [currentIndex, setCurrentIndex] = useState(0);
+
+// FIXED: Add useEffect for canonical URL in document head
+useEffect(() => {
+  // Remove any existing canonical links
+  const existingCanonical = document.querySelector("link[rel='canonical']");
+  if (existingCanonical) {
+    existingCanonical.remove();
+  }
+
+  // Create and add new canonical link
+  const canonicalLink = document.createElement('link');
+  canonicalLink.rel = 'canonical';
+  canonicalLink.href = canonicalUrl;
+  document.head.appendChild(canonicalLink);
+
+  // Add robots meta tag if missing
+  if (!document.querySelector("meta[name='robots']")) {
+    const robotsMeta = document.createElement('meta');
+    robotsMeta.name = 'robots';
+    robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+    document.head.appendChild(robotsMeta);
+  }
+
+  // Cleanup function
+  return () => {
+    const canonical = document.querySelector("link[rel='canonical']");
+    if (canonical && canonical.href === canonicalUrl) {
+      canonical.remove();
+    }
+  };
+}, [canonicalUrl]);  
 
   useEffect(() => {
     if (testimonials.length > 0) {
@@ -348,7 +383,52 @@ const logoMapping = {
 
   return (
     <div className="font-sans">
-
+    {/* SEO Head Tags with Canonical URL */}
+    
+    <Helmet>
+        <title>Cocopalms | Scalable SaaS & ERP Solutions for F&B & Enterprise</title>
+        <meta name="description" content="Empower your business with Cocopalms' smart IT solutions. We offer web development, mobile apps, e-commerce, ERP systems, and property management software." />
+        <meta name="keywords" content="web development, mobile apps, ERP solutions, e-commerce development, property management, food beverage software, Cocopalms" />
+        <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+        
+        {/* Canonical URL - Multiple approaches for better compatibility */}
+        <link rel="canonical" href={canonicalUrl} />
+        
+        {/* Open Graph tags for social media */}
+        <meta property="og:title" content="Cocopalms - Smart IT Solutions" />
+        <meta property="og:description" content="Empower your business with Cocopalms' smart IT solutions including web development, mobile apps, and ERP systems." />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Cocopalms" />
+        
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Cocopalms - Smart IT Solutions" />
+        <meta name="twitter:description" content="Empower your business with Cocopalms' smart IT solutions including web development, mobile apps, and ERP systems." />
+        
+        {/* Additional SEO tags */}
+        <meta name="author" content="Cocopalms" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        {/* Structured Data for better SEO */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Cocopalms",
+            "url": canonicalUrl,
+            "description": "Smart IT Solutions for Web Development, Mobile Apps & ERP",
+            "foundingDate": "2020",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "Customer Service",
+              "availableLanguage": "English"
+            },
+            "sameAs": []
+          })}
+        </script>
+      </Helmet>
       
       {/* Hero Section */}
       {/* Hero Section with Video Slideshow */}
