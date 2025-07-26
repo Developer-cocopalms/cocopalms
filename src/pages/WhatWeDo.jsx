@@ -30,6 +30,14 @@ const WhatWeDo = () => {
     'fb1.jpg': fbImage,
   };
 
+  // Update meta description manually
+  useEffect(() => {
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Cocopalms offers scalable SaaS, ERP, and app development solutions, empowering businesses with innovative technology for growth and efficiency.');
+    }
+  }, []);
+
   // Add useEffect for canonical URL in document head (same as AboutUs)
   useEffect(() => {
     // Remove any existing canonical links
@@ -116,7 +124,9 @@ const WhatWeDo = () => {
         <meta 
           name="description" 
           content="Cocopalms offers scalable SaaS, ERP, and app development solutions, empowering businesses with innovative technology for growth and efficiency." 
+          
         />
+        
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         

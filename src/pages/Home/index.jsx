@@ -221,6 +221,13 @@ export default function LandingPage() {
   // Testimonial slider state
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  useEffect(() => {
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Cocopalms delivers smart IT solutions worldwide, offering ERP, finance tools, mobile apps, and POS systems for optimized business management.');
+    }
+  }, []);
+
 // FIXED: Add useEffect for canonical URL in document head
 useEffect(() => {
   // Remove any existing canonical links

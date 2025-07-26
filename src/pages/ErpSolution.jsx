@@ -26,6 +26,16 @@ import {
 const ERPEcosystem = () => {
   const canonicalUrl = "https://cocopalms.io/what-we-do/erp-solution";
 
+// Update meta description for ERP page
+useEffect(() => {
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute('content', 'Cocopalms provides tailored ERP solutions for F&B and enterprise businesses, streamlining operations and enhancing efficiency for sustainable growth.');
+  }
+}, []);  
+
+
+  
   // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
   useEffect(() => {
     // Remove any existing canonical links
@@ -222,7 +232,7 @@ const ERPEcosystem = () => {
   <title>ERP Solutions for F&B & Enterprise | Cocopalms</title>
   <meta 
     name="description" 
-    content="Comprehensive ERP solution with 9 integrated modules: Kitchen, Books, HRMS, Inventory, E-commerce, Sales, CRM, Delivery & Marketing. Transform your business operations in Kuwait."
+    content="Cocopalms provides tailored ERP solutions for F&B and enterprise businesses, streamlining operations and enhancing efficiency for sustainable growth."
   />
   <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -232,16 +242,12 @@ const ERPEcosystem = () => {
   
   {/* Open Graph Meta Tags */}
   <meta property="og:title" content="Complete ERP Ecosystem - Business Management Platform | Cocopalms" />
-  <meta property="og:description" content="Comprehensive ERP solution with 9 integrated modules: Kitchen, Books, HRMS, Inventory, E-commerce, Sales, CRM, Delivery & Marketing. Transform your business operations in Kuwait." />
+  <meta property="og:description" content="Cocopalms provides tailored ERP solutions for F&B and enterprise businesses, streamlining operations and enhancing efficiency for sustainable growth." />
   <meta property="og:url" content="https://cocopalms.io/what-we-do/erp-solution" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Cocopalms" />
   
-  {/* Twitter Card Meta Tags */}
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Complete ERP Ecosystem - Business Management Platform | Cocopalms" />
-  <meta name="twitter:description" content="Comprehensive ERP solution with 9 integrated modules: Kitchen, Books, HRMS, Inventory, E-commerce, Sales, CRM, Delivery & Marketing. Transform your business operations in Kuwait." />
-  
+ 
   {/* Additional SEO Meta Tags */}
   <meta name="author" content="Cocopalms" />
   <meta name="keywords" content="ERP system Kuwait, business management software, integrated ERP solution, kitchen management system, HRMS Kuwait, inventory management, e-commerce platform, CRM system, delivery management, Kuwait ERP software, BizOSuite" />

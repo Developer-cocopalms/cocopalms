@@ -13,6 +13,14 @@ const WebDevelopment = () => {
   // Canonical URL
   const canonicalUrl = "https://cocopalms.io/what-we-do/web-development";
 
+  // Update meta description for web development page
+useEffect(() => {
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute('content', 'Cocopalms offers expert web development services for F&B and enterprise businesses, delivering custom solutions to enhance performance and growth.');
+  }
+}, []);
+
   // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
   useEffect(() => {
     // Remove any existing canonical links

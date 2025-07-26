@@ -51,6 +51,15 @@ const AboutUs = () => {
     }
   ];
 
+
+  // Update meta description for about page
+useEffect(() => {
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute('content', 'Discover Cocopalms: providing innovative software solutions for F&B and enterprise businesses, enhancing efficiency with ERP, POS, and more.');
+  }
+}, []);
+
   // Add useEffect for canonical URL in document head (similar to your index.jsx)
   useEffect(() => {
     // Remove any existing canonical links
@@ -159,7 +168,7 @@ const AboutUs = () => {
     <div className="min-h-screen bg-white">
       <Helmet>
         <title>About Cocopalms | Software Solutions for F&B & Enterprise</title>
-        <description>Discover Cocopalms: providing innovative software solutions for F&B and enterprise businesses, enhancing efficiency with ERP, POS, and more.</description>
+        
         <meta 
           name="description" 
           content="Discover Cocopalms: providing innovative software solutions for F&B and enterprise businesses, enhancing efficiency with ERP, POS, and more." 

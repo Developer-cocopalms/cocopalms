@@ -22,6 +22,14 @@ const MobileApp = () => {
 
   const canonicalUrl = "https://cocopalms.io/what-we-do/mobile-app";
 
+  // Update meta description for mobile app page
+useEffect(() => {
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute('content', 'Cocopalms creates high-performance mobile applications for F&B and enterprise, delivering exceptional user experiences across iOS and Android platforms.');
+  }
+}, []);
+
   // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
   useEffect(() => {
     // Remove any existing canonical links
