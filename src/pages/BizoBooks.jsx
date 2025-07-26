@@ -5,6 +5,15 @@ import { Helmet } from 'react-helmet';
 const BizoBooks = () => {
   const canonicalUrl = "https://cocopalms.io/success-stories/bizo-books"; 
 
+  
+// Update meta description for Bizo page
+useEffect(() => {
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute('content', 'Explore the Bizo Books case study showcasing Cocopalms ERP and automation solutions, driving efficiency and business transformation.');
+  }
+}, []);
+
   // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
   useEffect(() => {
     // Remove any existing canonical links
@@ -41,7 +50,7 @@ const BizoBooks = () => {
 
 <Helmet>
   <title>Bizo Books Case Study | Cocopalms ERP & Automation Impact</title>
-  <meta name="description" content="Comprehensive restaurant management platform for F&B businesses. Streamline operations with online ordering, delivery management, digital menus, payment integration, and customer analytics." />
+  <meta name="description" content="Explore the Bizo Books case study showcasing Cocopalms ERP and automation solutions, driving efficiency and business transformation." />
   <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   

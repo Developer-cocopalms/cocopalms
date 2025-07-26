@@ -31,7 +31,15 @@ import coco4 from '../assets/coco4.png';
 
 const FandbSolution = () => {
 
-  const canonicalUrl = "https://cocopalms.io/what-we-do/fandb-solution"; 
+  const canonicalUrl = "https://cocopalms.io/what-we-do/fandb-solution";
+  
+  // Update meta description for F&B solution page
+useEffect(() => {
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute('content', 'Cocopalms F&B platform offers tailored solutions for food and beverage businesses, enhancing operations, management, and customer experiences efficiently.');
+  }
+}, []);
 
   // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
   useEffect(() => {
@@ -191,7 +199,7 @@ const FandbSolution = () => {
     <div className="min-h-screen">
 <Helmet>
   <title>Cocopalms F&B Platform for Food & Beverage Businesses</title>
-  <meta name="description" content="Comprehensive restaurant management platform for F&B businesses. Streamline operations with online ordering, delivery management, digital menus, payment integration, and customer analytics." />
+  <meta name="description" content="Cocopalms F&B platform offers tailored solutions for food and beverage businesses, enhancing operations, management, and customer experiences efficiently." />
   <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
@@ -200,16 +208,12 @@ const FandbSolution = () => {
   
   {/* Open Graph Meta Tags */}
   <meta property="og:title" content="F&B Restaurant Management Platform | Cocopalms - Complete Food & Beverage Solution" />
-  <meta property="og:description" content="Comprehensive restaurant management platform for F&B businesses. Streamline operations with online ordering, delivery management, digital menus, payment integration, and customer analytics." />
+  <meta property="og:description" content="Cocopalms F&B platform offers tailored solutions for food and beverage businesses, enhancing operations, management, and customer experiences efficiently." />
   <meta property="og:url" content={canonicalUrl} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Cocopalms" />
   <meta property="og:locale" content="en_US" />
   
-  {/* Twitter Card Meta Tags */}
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="F&B Restaurant Management Platform | Cocopalms - Complete Food & Beverage Solution" />
-  <meta name="twitter:description" content="Comprehensive restaurant management platform for F&B businesses. Streamline operations with online ordering, delivery management, digital menus, payment integration, and customer analytics." />
   
   {/* Additional SEO Meta Tags */}
   <meta name="author" content="Cocopalms" />

@@ -26,7 +26,15 @@ import rent4 from '../assets/rent4.png';
 
 const PropertyManagementSystem = () => {
 
-  const canonicalUrl = "https://cocopalms.io/what-we-do/property-management"; 
+  const canonicalUrl = "https://cocopalms.io/what-we-do/property-management";
+  
+  // Update meta description for property management page
+useEffect(() => {
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute('content', 'Cocopalms offers property management software and rental solutions, streamlining operations and enhancing efficiency for property owners and managers.');
+  }
+}, []);
 
   // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
   useEffect(() => {
@@ -174,7 +182,7 @@ const PropertyManagementSystem = () => {
 
 <Helmet>
   <title>Property Management Software & Rental Solution | Cocopalms</title>
-  <meta name="description" content="Comprehensive property management system in Kuwait. Connect landlords and tenants with our digital platform featuring rent collection, maintenance tracking, and property analytics." />
+  <meta name="description" content="Cocopalms offers property management software and rental solutions, streamlining operations and enhancing efficiency for property owners and managers." />
   <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
@@ -183,16 +191,12 @@ const PropertyManagementSystem = () => {
   
   {/* Open Graph Meta Tags */}
   <meta property="og:title" content="Property Management System | Cocopalms - Landlord & Tenant Solutions" />
-  <meta property="og:description" content="Comprehensive property management system in Kuwait. Connect landlords and tenants with our digital platform featuring rent collection, maintenance tracking, and property analytics." />
+  <meta property="og:description" content="Cocopalms offers property management software and rental solutions, streamlining operations and enhancing efficiency for property owners and managers." />
   <meta property="og:url" content={canonicalUrl} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Cocopalms" />
   <meta property="og:locale" content="en_US" />
   
-  {/* Twitter Card Meta Tags */}
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Property Management System | Cocopalms - Landlord & Tenant Solutions" />
-  <meta name="twitter:description" content="Comprehensive property management system in Kuwait. Connect landlords and tenants with our digital platform featuring rent collection, maintenance tracking, and property analytics." />
   
   {/* Additional SEO Meta Tags */}
   <meta name="author" content="Cocopalms" />

@@ -28,6 +28,14 @@ const EcommerceApplications = () => {
 
   const canonicalUrl = "https://cocopalms.io/what-we-do/ecommerce-application";
 
+  // Update meta description for e-commerce page
+useEffect(() => {
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute('content', 'Cocopalms offers custom e-commerce application development for F&B and retail businesses, enhancing online sales with seamless user experiences.');
+  }
+}, []);
+
   // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
   useEffect(() => {
     // Remove any existing canonical links
@@ -177,7 +185,7 @@ const EcommerceApplications = () => {
   <title>E-commerce Application Development for F&B & Retail | Cocopalms </title>
   <meta 
     name="description" 
-    content="Professional e-commerce development services in Kuwait. Custom online stores, shopping cart solutions, payment integration, and scalable e-commerce platforms. Transform your business with our proven solutions." 
+    content="Cocopalms offers custom e-commerce application development for F&B and retail businesses, enhancing online sales with seamless user experiences." 
   />
   <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -192,10 +200,7 @@ const EcommerceApplications = () => {
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Cocopalms" />
   
-  {/* Twitter Card Meta Tags */}
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="E-commerce Development Services | Cocopalms - Online Store Solutions" />
-  <meta name="twitter:description" content="Professional e-commerce development services in Kuwait. Custom online stores, shopping cart solutions, payment integration, and scalable e-commerce platforms." />
+ 
   
   {/* Keywords */}
   <meta name="keywords" content="e-commerce development Kuwait, online store development, shopping cart solutions, payment gateway integration, custom e-commerce platforms, multi-vendor marketplace, mobile commerce, Kuwait e-commerce developers, online business solutions, digital commerce" />

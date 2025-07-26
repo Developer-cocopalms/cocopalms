@@ -44,6 +44,15 @@ const DynamicSuccessStory = () => {
     fetchStoryContent();
   }, [slug]);
 
+  // Update meta description manually - similar to WhatWeDo page
+  useEffect(() => {
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', getMetaDescription());
+    }
+  }, [storyData, slug]); // Dependencies to update when story data changes
+
+  
   // Add useEffect for canonical URL management
   useEffect(() => {
     // Remove any existing canonical links
@@ -189,7 +198,7 @@ const DynamicSuccessStory = () => {
       'bizo-books': 'Bizo Books Case Study | Cocopalms ERP & Automation Impact',
       'real-estate': 'Real Estate Case Study | Cocopalms Platform in Action',
       'kitchenly': 'Kitchenly Case Study | Cocopalms ERP & Platform Impact',
-      'coco-dine': 'Coco Dine Case Study | Cocopalms ERP & Automation Impact'
+      'coco-dine': 'Cocodine Case Study | Cocopalms ERP & Automation Impact'
     };
 
     // Return specific title if slug matches, otherwise use dynamic title
@@ -211,7 +220,7 @@ const DynamicSuccessStory = () => {
       'bizo-books': 'Explore the Bizo Books case study showcasing Cocopalms ERP and automation solutions, driving efficiency and business transformation.',
       'real-estate': 'Discover our Real Estate case study, highlighting a B2B & B2C platform that revolutionizes property management and rental processes.',
       'kitchenly': 'Explore the Kitchenly case study, demonstrating the impact of Cocopalms ERP and platform solutions on efficiency and business growth.',
-      'coco-dine': 'Explore the Coco Dine case study, showcasing how Cocopalms ERP and automation solutions enhance operational efficiency and business performance.'
+      'coco-dine': 'Explore the Cocodine case study, showcasing how Cocopalms ERP and automation solutions enhance operational efficiency and business performance.'
     };
 
     // Return specific description if slug matches

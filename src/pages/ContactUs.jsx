@@ -21,7 +21,15 @@ const ContactForm = () => {
       // Replace this with your Google Apps Script Web App URL
       const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbweOzABKdtX9nwWqNe_pYcBeOGcy9RTesmkhEqj38ofm1VqKzSA7DDfl1qPW139MTc-/exec'
       const canonicalUrl = "https://cocopalms.io/contact";
+      
 
+      // Update meta description for contact page
+useEffect(() => {
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute('content', 'Contact Cocopalms for support and inquiries. Our team is ready to assist with your IT solutions and business needs.');
+  }
+}, []);
       // Add useEffect for canonical URL in document head (same as WhatWeDo page)
       useEffect(() => {
         // Remove any existing canonical links
@@ -294,7 +302,7 @@ const ContactForm = () => {
             <title>Contact Us | Cocopalms Support & Inquiries</title>
             <meta 
               name="description" 
-              content="Contact Cocopalms for expert IT solutions in Kuwait. Get in touch for web development, mobile apps, ERP systems, and digital transformation services. Located in Alsalmiya, Kuwait." 
+              content="Contact Cocopalms for support and inquiries. Our team is ready to assist with your IT solutions and business needs." 
             />
             <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -309,10 +317,7 @@ const ContactForm = () => {
             <meta property="og:type" content="website" />
             <meta property="og:site_name" content="Cocopalms" />
             
-            {/* Twitter Card Meta Tags */}
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content="Contact Us | Cocopalms - IT Solutions Kuwait" />
-            <meta name="twitter:description" content="Contact Cocopalms for expert IT solutions in Kuwait. Get in touch for web development, mobile apps, ERP systems, and digital transformation services." />
+            
             
             {/* Additional SEO Meta Tags */}
             <meta name="author" content="Cocopalms" />
