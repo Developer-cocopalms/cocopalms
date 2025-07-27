@@ -5,23 +5,38 @@ import { supabase } from '../../supabaseClient';
 export const useTeamMembers = () => {
   const [teamMembers, setTeamMembers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  
 
   useEffect(() => {
     const fetchTeamMembers = async () => {
       try {
-        setLoading(true);
         const { data, error } = await supabase
           .from('team_members')
           .select('*')
-          .eq('status', true)  // ← ADD THIS LINE
-          .order('display_order', { ascending: true });
+          .order('created_at', { ascending: true });
 
         if (error) throw error;
-        setTeamMembers(data || []);
-      } catch (err) {
-        setError(err.message);
-        console.error('Error fetching team members:', err);
+
+        // Generate public URLs for images
+        const membersWithImageUrls = await Promise.all(
+          data.map(async (member) => {
+            if (member.image_storage_path) {
+              const { data: urlData } = supabase.storage
+                .from('team-images')
+                .getPublicUrl(member.image_storage_path);
+              
+              return {
+                ...member,
+                image_url: urlData.publicUrl
+              };
+            }
+            return member;
+          })
+        );
+
+        setTeamMembers(membersWithImageUrls);
+      } catch (error) {
+        console.error('Error fetching team members:', error);
       } finally {
         setLoading(false);
       }
@@ -34,5 +49,5 @@ export const useTeamMembers = () => {
   const ceo = teamMembers.find(member => member.is_ceo);
   const otherMembers = teamMembers.filter(member => !member.is_ceo);
 
-  return { teamMembers, ceo, otherMembers, loading, error };
+  return { teamMembers, ceo, otherMembers, loading };
 };

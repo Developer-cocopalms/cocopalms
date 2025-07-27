@@ -11,17 +11,14 @@ import { useTeamMembers } from '../hooks/useTeamMembers';
 import { useFeatures } from '../hooks/useFeatures';
 import { useTestimonials } from '../hooks/useTestimonials';
 import DynamicIcon from '../../components/DynamicIcon';
+import TeamSection from '../../components/TeamSection';// NEW IMPORT
 import HeroVideoSlideshow from '../../components/HeroVideoSlideshow';
 import InstagramSlider from '../../components/InstagramSlider';
 import { Helmet } from 'react-helmet';
 
 // Import static assets
 
-import teamMember0 from '../../assets/team/fazil.png';
-import teamMember1 from '../../assets/team/john-removebg-preview.png';
-import teamMember2 from '../../assets/team/Salma-removebg-preview.png';
-import teamMember3 from '../../assets/team/cropped-Hasna-removebg-preview.png';
-import teamMember4 from '../../assets/team/latheef.png';
+
 import logos from '../../assets/logos.png';
 import logo1 from '../../assets/logo1.png';
 import logo2 from '../../assets/logo2.png';
@@ -29,56 +26,6 @@ import logo3 from '../../assets/logo3.jpeg';
 import logo4 from '../../assets/logo4.png';
 
 
-const TeamMemberCard = ({ image, name, position, isCEO = false }) => {
-  return (
-    <div className="text-center group">
-      {/* Circular Image Container */}
-      <div className={`relative mx-auto mb-4 overflow-hidden rounded-full transition-transform duration-300 group-hover:scale-105 ${
-        isCEO 
-          ? 'w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 lg:w-44 lg:h-44' 
-          : 'w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32'
-      }`}>
-        <img 
-          src={image} 
-          alt={name} 
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-          style={{ 
-            objectPosition: name === 'James Almeda' ? 'center 20%' : 'center top' 
-          }}
-        />
-        {/* Subtle overlay on hover */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 rounded-full"></div>
-      </div>
-      
-      {/* Name and Position */}
-      <div className="space-y-1">
-        <h3 className={`font-semibold text-gray-900 transition-colors duration-300 group-hover:text-teal-600 ${
-          isCEO 
-            ? 'text-lg sm:text-xl md:text-2xl' 
-            : 'text-base sm:text-lg'
-        }`}>
-          {name}
-        </h3>
-        <p className={`text-gray-600 transition-colors duration-300 ${
-          isCEO 
-            ? 'text-base sm:text-lg md:text-xl font-medium' 
-            : 'text-sm sm:text-base'
-        }`}>
-          {position}
-        </p>
-      </div>
-      
-      {/* CEO Badge (optional) */}
-      {isCEO && (
-        <div className="mt-3">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">
-            Founder & CEO
-          </span>
-        </div>
-      )}
-    </div>
-  );
-};
 const SolutionsSection = () => {
   const [activeService, setActiveService] = useState('website');
 
@@ -214,7 +161,7 @@ export default function LandingPage() {
   // SEO and Canonical URL
   const canonicalUrl = "https://cocopalms.io";
   // Dynamic data hooks
-  const { teamMembers, ceo, otherMembers, loading: teamLoading } = useTeamMembers();
+
   const { features, loading: featuresLoading } = useFeatures();
   const { testimonials, loading: testimonialsLoading } = useTestimonials();
   
@@ -308,30 +255,7 @@ useEffect(() => {
     }
   ];
 
-  // Fallback data for team members if dynamic data isn't available
-  const fallbackTeamMembers = [
-    
-    {
-      image: teamMember0,
-      name: "Fazil Parvez",
-      position: "General Manager"
-    },
-    {
-      image: teamMember1,
-      name: "James Almeda",
-      position: "IT Operations & Manager"
-    },
-    {
-      image: teamMember2,
-      name: "Salma Abdul Rahman",
-      position: "Project Manager"
-    },
-    {
-      image: teamMember3,
-      name: "Hasna Kalady",
-      position: "Program Developer"
-    }
-  ];
+  
 
  // Update your logo mapping in the component
 const logoMapping = {
@@ -693,57 +617,10 @@ const logoMapping = {
           )}
         </div>
       </section>
-      <section className="pt-6 pb-12 sm:pt-8 sm:pb-16 md:pt-10 md:pb-20 bg-white">
-  {/* Header Section */}
-  <div className="text-center mb-12 px-4">
-    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-      Meet our Team
-    </h2>
-    <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-      Run your entire business with Cocopalms unified cloud software
-    </p>
-  </div>
 
-  <div className="max-w-6xl mx-auto px-4">
-    {/* CEO Profile - Center with Larger Size */}
-    {ceo && (
-      <div className="flex justify-center mb-16">
-        <div className="text-center group">
-          <div className="relative mb-6">
-            {/* Increased from w-32 h-32 to w-56 h-56 */}
-            <div className="w-56 h-56 mx-auto rounded-full overflow-hidden shadow-2xl ring-4 ring-[#14b8a6] ring-opacity-30 group-hover:ring-[#0d9488] group-hover:ring-opacity-60 transition duration-500">
-              <img 
-                src={ceo.image_url}
-                alt={ceo.name}
-                className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
-              />
-            </div>
-          </div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">{ceo.name}</h3>
-          <p className="text-[#14b8a6] font-semibold">{ceo.position}</p>
-        </div>
-      </div>
-    )}
-
-    {/* Team Members in Circular Layout - Same Larger Size */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
-      {otherMembers.map((member) => (
-        <div key={member.id} className="text-center group">
-          {/* Increased from w-32 h-32 to w-48 h-48 to match CEO */}
-          <div className="w-48 h-48 mx-auto rounded-full overflow-hidden shadow-xl mb-4 ring-2 ring-gray-200 group-hover:ring-teal-400 group-hover:shadow-2xl transition duration-500 transform group-hover:scale-105">
-            <img 
-              src={member.image_url}
-              alt={member.name}
-              className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
-            />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-1">{member.name}</h3>
-          <p className="text-gray-600 text-sm">{member.position}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
+            {/* Team Section - NOW USING SEPARATE COMPONENT */}
+            <TeamSection />
+      
 
 <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
   <div className="container mx-auto px-4 md:px-6">
