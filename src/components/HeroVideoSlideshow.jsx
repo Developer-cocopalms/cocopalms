@@ -15,6 +15,21 @@ const HeroVideoSlideshow = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Helper function to get video URL (handles both storage and direct URLs)
+  const getVideoUrl = (slide) => {
+    if (slide.video_storage_path) {
+      // If video is stored in Supabase Storage
+      const { data } = supabase.storage
+        .from('hero-videos')
+        .getPublicUrl(slide.video_storage_path);
+      return data.publicUrl;
+    } else if (slide.video_url) {
+      // If it's a direct URL (existing functionality)
+      return slide.video_url;
+    }
+    return null;
+  };
+
   // Fetch slides from Supabase
   const fetchSlides = async () => {
     try {
@@ -162,20 +177,34 @@ const HeroVideoSlideshow = () => {
     <div className="relative w-full h-screen overflow-hidden mt-20 sm:mt-24 md:mt-28">
       {/* Full Screen Video Background */}
       <div className="absolute inset-0 w-full h-full">
-        {slides.map((slide, index) => (
-          <video
-            key={slide.id}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-              index === currentVideoIndex ? 'opacity-100' : 'opacity-0'
-            }`}
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            <source src={slide.video_url} type="video/mp4" />
-          </video>
-        ))}
+        {slides.map((slide, index) => {
+          const videoUrl = getVideoUrl(slide);
+          return videoUrl ? (
+            <video
+              key={slide.id}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                index === currentVideoIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+              autoPlay
+              loop
+              muted
+              playsInline
+              onError={(e) => {
+                console.error('Video failed to load:', videoUrl, e);
+              }}
+            >
+              <source src={videoUrl} type="video/mp4" />
+            </video>
+          ) : (
+            // Fallback background if no video
+            <div
+              key={slide.id}
+              className={`absolute inset-0 w-full h-full bg-gradient-to-br from-teal-900 to-gray-900 transition-opacity duration-500 ${
+                index === currentVideoIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          );
+        })}
         
         {/* Dark overlay for better text readability */}
         <div className="absolute inset-0 bg-black/40"></div>
