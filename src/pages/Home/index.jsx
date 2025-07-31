@@ -9,7 +9,7 @@ import ecomdevelopImg from '../../assets/ecom (1).webp';
 // Import dynamic data hooks
 
 import { useFeatures } from '../hooks/useFeatures';
-
+import { getPageKeywords } from '../hooks/keywordsService';
 
 import DynamicIcon from '../../components/DynamicIcon';
 import TeamSection from '../../components/TeamSection';// NEW IMPORT
@@ -166,10 +166,22 @@ export default function LandingPage() {
   // Dynamic data hooks
 
   const { features, loading: featuresLoading } = useFeatures();
+  const [keywords, setKeywords] = useState('cocopalms, digital solutions, technology, innovation, software company');
+
   
   
   // Testimonial slider state
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      const pageKeywords = await getPageKeywords('home');
+      if (pageKeywords) {
+        setKeywords(pageKeywords);
+      }
+    };
+    fetchKeywords();
+  }, []);
 
   useEffect(() => {
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -258,7 +270,7 @@ useEffect(() => {
     <Helmet>
         <title>Cocopalms | Scalable SaaS & ERP Solutions for F&B & Enterprise</title>
         <meta name="description" content="Cocopalms delivers smart IT solutions worldwide, offering ERP, finance tools, mobile apps, and POS systems for optimized business management." />
-        <meta name="keywords" content="web development, mobile apps, ERP solutions, e-commerce development, property management, food beverage software, Cocopalms" />
+        <meta name="keywords" content={keywords} />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         
         {/* Canonical URL - Multiple approaches for better compatibility */}
