@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import DynamicIcon from '../components/DynamicIcon';
 import { useServices } from './hooks/useServices';
 import { Helmet } from 'react-helmet'; 
+import { getPageKeywords } from '../pages/hooks/keywordsService';
 
 // Import images (keep your existing imports)
 import webdevImage from '../assets/webdev.jpg';
@@ -16,7 +17,7 @@ import fbImage from '../assets/fb1.jpg';
 const WhatWeDo = () => {
   const location = useLocation();
   const { services, loading, error } = useServices();
-
+  const [keywords, setKeywords] = useState('services, what we do, solutions, technology services, offerings');
   // Canonical URL
   const canonicalUrl = "https://cocopalms.io/what-we-do";
 
@@ -29,7 +30,16 @@ const WhatWeDo = () => {
     'rentings.jpg': rentingsImage,
     'fb1.jpg': fbImage,
   };
-
+  
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      const pageKeywords = await getPageKeywords('what-we-do');
+      if (pageKeywords) {
+        setKeywords(pageKeywords);
+      }
+    };
+    fetchKeywords();
+  }, []);
   // Update meta description manually
   useEffect(() => {
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -126,7 +136,7 @@ const WhatWeDo = () => {
           content="Cocopalms offers scalable SaaS, ERP, and app development solutions, empowering businesses with innovative technology for growth and efficiency." 
           
         />
-        
+        <meta name="keywords" content={keywords} />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
@@ -147,7 +157,7 @@ const WhatWeDo = () => {
         
         {/* Additional SEO Meta Tags */}
         <meta name="author" content="Cocopalms" />
-        <meta name="keywords" content="IT services Kuwait, web development, mobile apps, ERP systems, e-commerce solutions, digital transformation, software development" />
+        
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       </Helmet>
 

@@ -63,7 +63,6 @@ const AboutUs = () => {
     };
     fetchKeywords();
   }, []);
-
   // Update meta description for about page
 useEffect(() => {
   const metaDescription = document.querySelector('meta[name="description"]');
@@ -185,9 +184,10 @@ useEffect(() => {
           name="description" 
           content="Discover Cocopalms: providing innovative software solutions for F&B and enterprise businesses, enhancing efficiency with ERP, POS, and more." 
         />
+         <meta name="keywords" content={keywords} />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="keywords" content={keywords} />
+       
         {/* Canonical URL - Multiple approaches for better compatibility */}
         <link rel="canonical" href={canonicalUrl} />
         
