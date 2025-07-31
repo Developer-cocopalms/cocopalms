@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import { Monitor, Code, Smartphone, Globe, Zap, Shield, ExternalLink } from 'lucide-react';
@@ -9,16 +9,27 @@ import basicImage from '../assets/basicw.png';
 import alnassemImage from '../assets/alnassemw.png';
 import techbizImage from '../assets/techbizw.png';
 import { Helmet } from 'react-helmet';
+import { getPageKeywords } from '../pages/hooks/keywordsService';
 const WebDevelopment = () => {
   // Canonical URL
   const canonicalUrl = "https://cocopalms.io/what-we-do/web-development";
-
+  const [keywords, setKeywords] = useState('web development, websites, front-end, back-end, responsive design, custom sites');
   // Update meta description for web development page
 useEffect(() => {
   const metaDescription = document.querySelector('meta[name="description"]');
   if (metaDescription) {
     metaDescription.setAttribute('content', 'Cocopalms offers expert web development services for F&B and enterprise businesses, delivering custom solutions to enhance performance and growth.');
   }
+}, []);
+
+useEffect(() => {
+  const fetchKeywords = async () => {
+    const pageKeywords = await getPageKeywords('what-we-do/web-development');
+    if (pageKeywords) {
+      setKeywords(pageKeywords);
+    }
+  };
+  fetchKeywords();
 }, []);
 
   // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
@@ -60,6 +71,7 @@ useEffect(() => {
           name="description" 
           content="Cocopalms offers expert web development services for F&B and enterprise businesses, delivering custom solutions to enhance performance and growth." 
         />
+        <meta name="keywords" content={keywords} />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
@@ -80,7 +92,7 @@ useEffect(() => {
         
         {/* Additional SEO Meta Tags */}
         <meta name="author" content="Cocopalms" />
-        <meta name="keywords" content="web development Kuwait, custom websites, web applications, responsive design, React development, modern web solutions, Kuwait web developers" />
+        
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         
         {/* Structured Data */}

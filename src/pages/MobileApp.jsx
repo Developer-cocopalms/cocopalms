@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import { Smartphone, Code, Shield, Globe, Monitor, ExternalLink, Layers } from 'lucide-react';
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import dietbuxImage from '../assets/dietbuxm.png';
 import dietvalueImage from '../assets/dietvaluem.png';
 import basicImage from '../assets/basicm.png';
@@ -15,10 +15,10 @@ import approvedlifeImage from '../assets/approvedlifem.png';
 import trymacroImage from '../assets/macrom.png';
 import calculateImage from '../assets/calculatem.png';
 import { Helmet } from 'react-helmet';
-
+import { getPageKeywords } from '../pages/hooks/keywordsService';
 const MobileApp = () => {
 
-
+  const [keywords, setKeywords] = useState('mobile app development, iOS, Android, cross-platform apps, mobile solutions');
 
   const canonicalUrl = "https://cocopalms.io/what-we-do/mobile-app";
 
@@ -28,6 +28,16 @@ useEffect(() => {
   if (metaDescription) {
     metaDescription.setAttribute('content', 'Cocopalms creates high-performance mobile applications for F&B and enterprise, delivering exceptional user experiences across iOS and Android platforms.');
   }
+}, []);
+
+useEffect(() => {
+  const fetchKeywords = async () => {
+    const pageKeywords = await getPageKeywords('what-we-do/mobile-app');
+    if (pageKeywords) {
+      setKeywords(pageKeywords);
+    }
+  };
+  fetchKeywords();
 }, []);
 
   // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
@@ -179,6 +189,7 @@ useEffect(() => {
     name="description" 
     content="Cocopalms creates high-performance mobile applications for F&B and enterprise, delivering exceptional user experiences across iOS and Android platforms"
   />
+  <meta name="keywords" content={keywords} />
   <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
@@ -199,7 +210,7 @@ useEffect(() => {
   
   {/* Additional SEO Meta Tags */}
   <meta name="author" content="Cocopalms" />
-  <meta name="keywords" content="mobile app development Kuwait, iOS app development, Android app development, React Native, Flutter, mobile UI/UX design, food delivery apps, health apps Kuwait, Kuwait app developers" />
+  
   <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
   
   {/* Structured Data */}

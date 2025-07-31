@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { getPageKeywords } from '../pages/hooks/keywordsService';
 const ContactForm = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -21,8 +22,17 @@ const ContactForm = () => {
       // Replace this with your Google Apps Script Web App URL
       const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbweOzABKdtX9nwWqNe_pYcBeOGcy9RTesmkhEqj38ofm1VqKzSA7DDfl1qPW139MTc-/exec'
       const canonicalUrl = "https://cocopalms.io/contact";
-      
+      const [keywords, setKeywords] = useState('contact us, get in touch, reach out, support, inquiry');
 
+      useEffect(() => {
+        const fetchKeywords = async () => {
+          const pageKeywords = await getPageKeywords('contact');
+          if (pageKeywords) {
+            setKeywords(pageKeywords);
+          }
+        };
+        fetchKeywords();
+      }, []);
       // Update meta description for contact page
 useEffect(() => {
   const metaDescription = document.querySelector('meta[name="description"]');
@@ -304,6 +314,7 @@ useEffect(() => {
               name="description" 
               content="Contact Cocopalms for support and inquiries. Our team is ready to assist with your IT solutions and business needs." 
             />
+            <meta name="keywords" content={keywords} />
             <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             
@@ -321,7 +332,7 @@ useEffect(() => {
             
             {/* Additional SEO Meta Tags */}
             <meta name="author" content="Cocopalms" />
-            <meta name="keywords" content="contact Cocopalms, IT services Kuwait, web development contact, mobile app development Kuwait, ERP systems Kuwait, digital transformation Kuwait, software development contact" />
+            
             <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
             
            
