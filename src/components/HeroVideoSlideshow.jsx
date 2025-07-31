@@ -205,12 +205,6 @@ const HeroVideoSlideshow = () => {
             />
           );
         })}
-        
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40"></div>
-        
-        {/* Gradient overlay for enhanced text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/30"></div>
       </div>
 
       {/* Content Container */}

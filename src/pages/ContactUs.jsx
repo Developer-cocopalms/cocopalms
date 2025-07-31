@@ -324,30 +324,7 @@ useEffect(() => {
             <meta name="keywords" content="contact Cocopalms, IT services Kuwait, web development contact, mobile app development Kuwait, ERP systems Kuwait, digital transformation Kuwait, software development contact" />
             <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
             
-            {/* Local Business Schema */}
-            <script type="application/ld+json">
-              {JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "LocalBusiness",
-                "name": "Cocopalms",
-                "description": "Leading IT company in Kuwait providing web development, mobile apps, ERP systems, and digital transformation services",
-                "url": "https://cocopalms.io",
-                "telephone": "+965 9918 5891",
-                "email": "info@cocopalms.io",
-                "address": {
-                  "@type": "PostalAddress",
-                  "streetAddress": "Block 2, Salem Al Mubarak Street, Dolphin Hotel Commercial Tower",
-                  "addressLocality": "Alsalmiya",
-                  "addressCountry": "Kuwait"
-                },
-                "contactPoint": {
-                  "@type": "ContactPoint",
-                  "telephone": "+965 9918 5891",
-                  "contactType": "customer service",
-                  "availableLanguage": ["English", "Arabic"]
-                }
-              })}
-            </script>
+           
           </Helmet>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 pt-32">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">

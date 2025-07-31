@@ -10,6 +10,7 @@ import ecomdevelopImg from '../../assets/ecom (1).webp';
 
 import { useFeatures } from '../hooks/useFeatures';
 
+
 import DynamicIcon from '../../components/DynamicIcon';
 import TeamSection from '../../components/TeamSection';// NEW IMPORT
 
@@ -613,7 +614,7 @@ useEffect(() => {
       
      
      {/* Instagram Slider Section - NEW */}
-     <InstagramSlider />
+     {/* <InstagramSlider /> */}
    
     </div>
     
