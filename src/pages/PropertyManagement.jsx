@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { getPageKeywords } from '../pages/hooks/keywordsService';
 import { 
   Building2, 
   Users, 
@@ -27,6 +28,17 @@ import rent4 from '../assets/rent4.png';
 const PropertyManagementSystem = () => {
 
   const canonicalUrl = "https://cocopalms.io/what-we-do/property-management";
+  const [keywords, setKeywords] = useState('property management, real estate software, rental systems, asset management');
+  
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      const pageKeywords = await getPageKeywords('what-we-do/property-management');
+      if (pageKeywords) {
+        setKeywords(pageKeywords);
+      }
+    };
+    fetchKeywords();
+  }, []);
   
   // Update meta description for property management page
 useEffect(() => {
@@ -182,6 +194,7 @@ useEffect(() => {
 
 <Helmet>
   <title>Property Management Software & Rental Solution | Cocopalms</title>
+  <meta name="keywords" content={keywords} />
   <meta name="description" content="Cocopalms offers property management software and rental solutions, streamlining operations and enhancing efficiency for property owners and managers." />
   <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -200,7 +213,7 @@ useEffect(() => {
   
   {/* Additional SEO Meta Tags */}
   <meta name="author" content="Cocopalms" />
-  <meta name="keywords" content="property management Kuwait, rental management system, landlord tenant platform, rent collection software, property maintenance tracking, Kuwait real estate, digital lease management, tenant screening Kuwait, property analytics dashboard" />
+  
   <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
   
   {/* Geographic and Business Meta Tags */}

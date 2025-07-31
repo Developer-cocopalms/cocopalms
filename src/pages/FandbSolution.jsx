@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   UtensilsCrossed, 
@@ -13,7 +13,6 @@ import {
   ChefHat, 
   Package, 
   BarChart3, 
- 
   ArrowRight,
   Zap,
   Store,
@@ -23,6 +22,7 @@ import {
   Shield
   } from 'lucide-react';
 import { Helmet } from 'react-helmet';
+import { getPageKeywords } from '../pages/hooks/keywordsService';
 // Import images
 import coco1 from '../assets/coco1.png';
 import coco2 from '../assets/coco2.png';
@@ -30,9 +30,20 @@ import coco3 from '../assets/coco3.png';
 import coco4 from '../assets/coco4.png';
 
 const FandbSolution = () => {
-
+  const [keywords, setKeywords] = useState('F&B solutions, restaurant software, food tech, dine-in management, POS system');
   const canonicalUrl = "https://cocopalms.io/what-we-do/fandb-solution";
   
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      const pageKeywords = await getPageKeywords('what-we-do/fandb-solution');
+      if (pageKeywords) {
+        setKeywords(pageKeywords);
+      }
+    };
+    fetchKeywords();
+  }, []);
+
+
   // Update meta description for F&B solution page
 useEffect(() => {
   const metaDescription = document.querySelector('meta[name="description"]');
@@ -200,6 +211,7 @@ useEffect(() => {
 <Helmet>
   <title>Cocopalms F&B Platform for Food & Beverage Businesses</title>
   <meta name="description" content="Cocopalms F&B platform offers tailored solutions for food and beverage businesses, enhancing operations, management, and customer experiences efficiently." />
+  <meta name="keywords" content={keywords} />
   <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
@@ -217,7 +229,7 @@ useEffect(() => {
   
   {/* Additional SEO Meta Tags */}
   <meta name="author" content="Cocopalms" />
-  <meta name="keywords" content="restaurant management system, F&B platform, online ordering system, food delivery app, restaurant POS, digital menu management, kitchen management software, restaurant analytics, food business software, delivery management system, restaurant technology Kuwait" />
+  
   <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
   
   {/* Geographic and Business Meta Tags */}

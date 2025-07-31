@@ -1,11 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Users, TrendingUp, CheckCircle, ExternalLink } from 'lucide-react';
 import BizoSuiteLogo from '../assets/bizo_logo.png';
 import { Helmet } from 'react-helmet';
+import { getPageKeywords } from '../pages/hooks/keywordsService';
 const BizoBooks = () => {
+  const [keywords, setKeywords] = useState('case study, Bizo Books, success story, business software, transformation');
   const canonicalUrl = "https://cocopalms.io/success-stories/bizo-books"; 
 
-  
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      const pageKeywords = await getPageKeywords('success-stories/bizo-books');
+      if (pageKeywords) {
+        setKeywords(pageKeywords);
+      }
+    };
+    fetchKeywords();
+  }, []);
 // Update meta description for Bizo page
 useEffect(() => {
   const metaDescription = document.querySelector('meta[name="description"]');
@@ -51,6 +61,7 @@ useEffect(() => {
 <Helmet>
   <title>Bizo Books Case Study | Cocopalms ERP & Automation Impact</title>
   <meta name="description" content="Explore the Bizo Books case study showcasing Cocopalms ERP and automation solutions, driving efficiency and business transformation." />
+  <meta name="keywords" content={keywords} />
   <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   

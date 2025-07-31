@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import { 
   ShoppingCart, 
   CreditCard, 
@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-
+import { getPageKeywords } from '../pages/hooks/keywordsService';
 import ecom1Image from '../assets/ecom1.png';
 import ecom2Image from '../assets/ecom2.png';
 import ecom3Image from '../assets/ecom3.png';
@@ -27,7 +27,19 @@ import ecom4Image from '../assets/ecom4.png';
 const EcommerceApplications = () => {
 
   const canonicalUrl = "https://cocopalms.io/what-we-do/ecommerce-application";
+  const [keywords, setKeywords] = useState('eCommerce apps, online store, digital commerce, shopping solutions');
+  
 
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      const pageKeywords = await getPageKeywords('what-we-do/ecommerce-application');
+      if (pageKeywords) {
+        setKeywords(pageKeywords);
+      }
+    };
+    fetchKeywords();
+  }, []);  
+  
   // Update meta description for e-commerce page
 useEffect(() => {
   const metaDescription = document.querySelector('meta[name="description"]');
@@ -187,6 +199,7 @@ useEffect(() => {
     name="description" 
     content="Cocopalms offers custom e-commerce application development for F&B and retail businesses, enhancing online sales with seamless user experiences." 
   />
+  <meta name="keywords" content={keywords} />
   <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
@@ -202,8 +215,8 @@ useEffect(() => {
   
  
   
-  {/* Keywords */}
-  <meta name="keywords" content="e-commerce development Kuwait, online store development, shopping cart solutions, payment gateway integration, custom e-commerce platforms, multi-vendor marketplace, mobile commerce, Kuwait e-commerce developers, online business solutions, digital commerce" />
+  
+ 
   
   {/* Geographic targeting */}
   <meta name="geo.region" content="KW" />

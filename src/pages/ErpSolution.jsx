@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { 
@@ -21,12 +21,24 @@ import {
   Settings
 } from 'lucide-react';
 
-
+import { getPageKeywords } from '../pages/hooks/keywordsService';
 
 const ERPEcosystem = () => {
   const canonicalUrl = "https://cocopalms.io/what-we-do/erp-solution";
+  const [keywords, setKeywords] = useState('ERP solutions, enterprise software, business automation, resource planning');
 
-// Update meta description for ERP page
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      const pageKeywords = await getPageKeywords('what-we-do/erp-solution');
+      if (pageKeywords) {
+        setKeywords(pageKeywords);
+      }
+    };
+    fetchKeywords();
+  }, []);
+
+
+  // Update meta description for ERP page
 useEffect(() => {
   const metaDescription = document.querySelector('meta[name="description"]');
   if (metaDescription) {
@@ -234,6 +246,7 @@ useEffect(() => {
     name="description" 
     content="Cocopalms provides tailored ERP solutions for F&B and enterprise businesses, streamlining operations and enhancing efficiency for sustainable growth."
   />
+  <meta name="keywords" content={keywords} />
   <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
@@ -250,7 +263,7 @@ useEffect(() => {
  
   {/* Additional SEO Meta Tags */}
   <meta name="author" content="Cocopalms" />
-  <meta name="keywords" content="ERP system Kuwait, business management software, integrated ERP solution, kitchen management system, HRMS Kuwait, inventory management, e-commerce platform, CRM system, delivery management, Kuwait ERP software, BizOSuite" />
+  
   <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
   
   {/* Structured Data */}
