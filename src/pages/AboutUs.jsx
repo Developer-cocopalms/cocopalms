@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { getPageKeywords } from '../hooks/keywordsService';
 // Import images
 import firstImage from '../assets/1sth.jpeg';
 import secondImage from '../assets/2nd.jpeg';
@@ -15,6 +16,8 @@ const AboutUs = () => {
 
   // Canonical URL
   const canonicalUrl = "https://cocopalms.io/about";
+  const [keywords, setKeywords] = useState('about us, company profile, team, mission, vision, values');
+
 
   // Use imported images
   const images = [
@@ -51,6 +54,15 @@ const AboutUs = () => {
     }
   ];
 
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      const pageKeywords = await getPageKeywords('home');
+      if (pageKeywords) {
+        setKeywords(pageKeywords);
+      }
+    };
+    fetchKeywords();
+  }, []);
 
   // Update meta description for about page
 useEffect(() => {
@@ -175,7 +187,7 @@ useEffect(() => {
         />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        
+        <meta name="keywords" content={keywords} />
         {/* Canonical URL - Multiple approaches for better compatibility */}
         <link rel="canonical" href={canonicalUrl} />
         
@@ -193,7 +205,7 @@ useEffect(() => {
         
         {/* Additional SEO Meta Tags */}
         <meta name="author" content="Cocopalms" />
-        <meta name="keywords" content="IT company Kuwait, software development, ERP systems, mobile apps, web development, digital transformation, technology solutions" />
+      
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         
         {/* Structured Data */}

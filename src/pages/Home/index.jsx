@@ -281,6 +281,7 @@ useEffect(() => {
         <meta property="og:description" content="Empower your business with Cocopalms' smart IT solutions including web development, mobile apps, and ERP systems." />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
+        
         <meta property="og:site_name" content="Cocopalms" />
         
         {/* Twitter Card tags */}
