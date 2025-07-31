@@ -56,7 +56,7 @@ const AboutUs = () => {
 
   useEffect(() => {
     const fetchKeywords = async () => {
-      const pageKeywords = await getPageKeywords('home');
+      const pageKeywords = await getPageKeywords('about');
       if (pageKeywords) {
         setKeywords(pageKeywords);
       }
