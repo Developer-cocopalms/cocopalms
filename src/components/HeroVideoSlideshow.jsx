@@ -205,6 +205,12 @@ const HeroVideoSlideshow = () => {
             />
           );
         })}
+        
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/40"></div>
+        
+        {/* Gradient overlay for enhanced text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/30"></div>
       </div>
 
       {/* Content Container */}
@@ -214,7 +220,7 @@ const HeroVideoSlideshow = () => {
             <div className={`transition-all duration-500 ${
               isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-4'
             }`}>
-              
+                
               {/* Dynamic Title */}
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white leading-tight mb-4 sm:mb-6 md:mb-8 drop-shadow-2xl">
                 {currentSlide.title}

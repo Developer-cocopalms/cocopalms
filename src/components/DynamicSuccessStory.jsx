@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { Helmet } from 'react-helmet';
+import { getPageKeywords } from '../pages/hooks/keywordsService';
 import { Users, TrendingUp, CheckCircle, ExternalLink, Building2, Home, Package, Smartphone, FileText, BarChart3 } from 'lucide-react';
 // Import all logos
 import BizoSuiteLogo from '../assets/bizo_logo.png';
@@ -36,13 +37,27 @@ const DynamicSuccessStory = () => {
   const [storyData, setStoryData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [keywords, setKeywords] = useState('success story, case study, digital transformation, IT solutions Kuwait, business growth, technology solutions')
   // Generate canonical URL based on slug
   const canonicalUrl = `https://cocopalms.io/success-stories/${slug}`;
-
+  
   useEffect(() => {
     fetchStoryContent();
   }, [slug]);
+
+   
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      if (slug) {
+        const pageKeywords = await getPageKeywords(`success-stories/${slug}`);
+        if (pageKeywords) {
+          setKeywords(pageKeywords);
+        }
+      }
+    };
+    fetchKeywords();
+  }, [slug]);
+   
 
   // Update meta description manually - similar to WhatWeDo page
   useEffect(() => {
@@ -74,7 +89,7 @@ const DynamicSuccessStory = () => {
       robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
       document.head.appendChild(robotsMeta);
     }
-
+   
     // Cleanup function
     return () => {
       const canonical = document.querySelector("link[rel='canonical']");
@@ -280,10 +295,16 @@ const DynamicSuccessStory = () => {
     );
   }
 
+  const getMetaKeywords = () => {
+    // Return the dynamic keywords state
+    return keywords;
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
         <title>{getMetaTitle()}</title>
+        <meta name="keywords" content={getMetaKeywords()} />
         <meta name="description" content={getMetaDescription()} />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
