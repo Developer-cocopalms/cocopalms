@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { getPageKeywords } from '../hooks/keywordsService';
+import { getPageKeywords } from '../pages/hooks/keywordsService';
 // Import images
 import firstImage from '../assets/1sth.jpeg';
 import secondImage from '../assets/2nd.jpeg';
@@ -205,7 +205,7 @@ useEffect(() => {
         
         {/* Additional SEO Meta Tags */}
         <meta name="author" content="Cocopalms" />
-      
+        
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         
         {/* Structured Data */}
