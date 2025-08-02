@@ -9,15 +9,16 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
+        cache: 'npm'
         
     - name: Install dependencies
-      run: npm install
+      run: npm ci
       
     - name: Build React app
       run: npm run build
@@ -28,41 +29,67 @@ jobs:
         ESLINT_NO_DEV_ERRORS: true
 
     - name: Deploy to server
-      uses: appleboy/ssh-action@v0.1.7
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: 168.187.138.13
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
         script: |
           # Stop Apache (ignore if fails)
-          echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S systemctl stop apache2 || true
+          sudo systemctl stop apache2 || true
           
-          # Backup old site
-          echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S mv /var/www/html /var/www/html_backup_$(date +%Y%m%d) || true
+          # Backup old site with timestamp
+          if [ -d "/var/www/html" ]; then
+            sudo mv /var/www/html /var/www/html_backup_$(date +%Y%m%d_%H%M%S)
+          fi
           
           # Create new directory
-          echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S mkdir -p /var/www/html
+          sudo mkdir -p /var/www/html
           
-          # Set permissions
-          echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S chown -R $USER:$USER /var/www/html
+          # Set correct ownership and permissions
+          sudo chown -R www-data:www-data /var/www/html
+          sudo chmod -R 755 /var/www/html
           
     - name: Copy files to server
-      uses: appleboy/scp-action@v0.1.4
+      uses: appleboy/scp-action@v0.1.7
       with:
         host: 168.187.138.13
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
         source: "build/*"
-        target: "/var/www/html/"
+        target: "/tmp/deploy/"
         strip_components: 1
+        timeout: 300s
+        command_timeout: 60s
         
+    - name: Move files and set permissions
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: 168.187.138.13
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        script: |
+          # Move files from temp to web directory
+          sudo cp -r /tmp/deploy/* /var/www/html/
+          
+          # Set correct ownership and permissions
+          sudo chown -R www-data:www-data /var/www/html
+          sudo chmod -R 755 /var/www/html
+          sudo find /var/www/html -type f -exec chmod 644 {} \;
+          
+          # Clean up temp directory
+          rm -rf /tmp/deploy
+          
     - name: Restart Apache
-      uses: appleboy/ssh-action@v0.1.7
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: 168.187.138.13
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
         script: |
           # Start Apache
-          echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S systemctl start apache2
-          echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S systemctl enable apache2
+          sudo systemctl start apache2
+          sudo systemctl enable apache2
+          
+          # Check Apache status
+          sudo systemctl status apache2 --no-pager
