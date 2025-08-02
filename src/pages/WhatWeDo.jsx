@@ -1,10 +1,11 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import DynamicIcon from '../components/DynamicIcon';
 import { useServices } from './hooks/useServices';
 import { Helmet } from 'react-helmet'; 
 import { getPageKeywords } from '../pages/hooks/keywordsService';
+import { supabase } from '../supabaseClient';
 
 // Import images (keep your existing imports)
 import webdevImage from '../assets/webdev.jpg';
@@ -18,6 +19,7 @@ const WhatWeDo = () => {
   const location = useLocation();
   const { services, loading, error } = useServices();
   const [keywords, setKeywords] = useState('services, what we do, solutions, technology services, offerings');
+  
   // Canonical URL
   const canonicalUrl = "https://cocopalms.io/what-we-do";
 
@@ -30,6 +32,30 @@ const WhatWeDo = () => {
     'rentings.jpg': rentingsImage,
     'fb1.jpg': fbImage,
   };
+
+  // Function to get the correct image URL
+  const getImageUrl = (service) => {
+    // If there's a storage path (uploaded image), use Supabase client
+    if (service.image_storage_path) {
+      const { data } = supabase.storage
+        .from('service-images')
+        .getPublicUrl(service.image_storage_path);
+      return data.publicUrl;
+    }
+    
+    // If there's an image_url and it exists in imageMap, use local image
+    if (service.image_url && imageMap[service.image_url]) {
+      return imageMap[service.image_url];
+    }
+    
+    // If image_url is a full URL, use it directly
+    if (service.image_url && (service.image_url.startsWith('http') || service.image_url.startsWith('/'))) {
+      return service.image_url;
+    }
+    
+    // Fallback to a default image or null
+    return null;
+  };
   
   useEffect(() => {
     const fetchKeywords = async () => {
@@ -40,6 +66,7 @@ const WhatWeDo = () => {
     };
     fetchKeywords();
   }, []);
+
   // Update meta description manually
   useEffect(() => {
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -48,7 +75,7 @@ const WhatWeDo = () => {
     }
   }, []);
 
-  // Add useEffect for canonical URL in document head (same as AboutUs)
+  // Add useEffect for canonical URL in document head
   useEffect(() => {
     // Remove any existing canonical links
     const existingCanonical = document.querySelector("link[rel='canonical']");
@@ -134,13 +161,12 @@ const WhatWeDo = () => {
         <meta 
           name="description" 
           content="Cocopalms offers scalable SaaS, ERP, and app development solutions, empowering businesses with innovative technology for growth and efficiency." 
-          
         />
         <meta name="keywords" content={keywords} />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
-        {/* Canonical URL - Multiple approaches for better compatibility */}
+        {/* Canonical URL */}
         <link rel="canonical" href={canonicalUrl} />
         
         {/* Open Graph Meta Tags */}
@@ -157,7 +183,6 @@ const WhatWeDo = () => {
         
         {/* Additional SEO Meta Tags */}
         <meta name="author" content="Cocopalms" />
-        
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       </Helmet>
 
@@ -179,7 +204,7 @@ const WhatWeDo = () => {
       {/* Dynamic Services Sections */}
       {services.map((service, index) => {
         const isEven = index % 2 === 0;
-        const serviceImage = imageMap[service.image_url] || service.image_url;
+        const serviceImage = getImageUrl(service);
         
         return (
           <section
@@ -214,15 +239,21 @@ const WhatWeDo = () => {
                 {/* Visual Side with Image */}
                 <div className={`${!isEven ? 'lg:col-start-1 lg:row-start-1' : ''} px-2 md:px-0`}>
                   <div className="relative rounded-2xl overflow-hidden h-80 md:h-96 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <img 
-                      src={serviceImage} 
-                      alt={service.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        console.error(`Failed to load image: ${service.image_url}`);
-                        e.target.style.display = 'none';
-                      }}
-                    />
+                    {serviceImage ? (
+                      <img 
+                        src={serviceImage} 
+                        alt={service.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          console.error(`Failed to load image for service: ${service.title}`);
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                        <span className="text-gray-500">No image available</span>
+                      </div>
+                    )}
                     {/* Overlay with gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                     {/* Content overlay */}
