@@ -1,8 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient'; // Import the Supabase client
+import { Helmet } from 'react-helmet'; 
+import { getPageKeywords } from '../pages/hooks/keywordsService';
 
 const ContactForm = () => {
+    const [keywords, setKeywords] = useState('contact us, get in touch, reach out, support, inquiry');
+  
+    const canonicalUrl = "https://cocopalms.io/contact";
+
+
     const [formData, setFormData] = useState({
         name: '',
         mobile: '',
@@ -12,6 +19,7 @@ const ContactForm = () => {
         subject: '',
         message: ''
     });
+
 
     const [focusedField, setFocusedField] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -62,7 +70,55 @@ const ContactForm = () => {
     ];
 
     const [selectedCountryCode, setSelectedCountryCode] = useState('+965');
-
+    useEffect(() => {
+        const fetchKeywords = async () => {
+          const pageKeywords = await getPageKeywords('contact');
+          if (pageKeywords) {
+            setKeywords(pageKeywords);
+          }
+        };
+        fetchKeywords();
+      }, []);
+    
+    
+       // Update meta description for contact page
+useEffect(() => {
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Contact Cocopalms for support and inquiries. Our team is ready to assist with your IT solutions and business needs.');
+    }
+  }, []);
+        // Add useEffect for canonical URL in document head (same as WhatWeDo page)
+        useEffect(() => {
+          // Remove any existing canonical links
+          const existingCanonical = document.querySelector("link[rel='canonical']");
+          if (existingCanonical) {
+            existingCanonical.remove();
+          }
+  
+          // Create and add new canonical link
+          const canonicalLink = document.createElement('link');
+          canonicalLink.rel = 'canonical';
+          canonicalLink.href = canonicalUrl;
+          document.head.appendChild(canonicalLink);
+  
+          // Add robots meta tag if missing
+          if (!document.querySelector("meta[name='robots']")) {
+            const robotsMeta = document.createElement('meta');
+            robotsMeta.name = 'robots';
+            robotsMeta.content = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+            document.head.appendChild(robotsMeta);
+          }
+  
+          // Cleanup function
+          return () => {
+            const canonical = document.querySelector("link[rel='canonical']");
+            if (canonical && canonical.href === canonicalUrl) {
+              canonical.remove();
+            }
+          };
+        }, [canonicalUrl]);
+  
     // Leaflet Map integration
     useEffect(() => {
         const initMap = () => {
@@ -270,6 +326,36 @@ const ContactForm = () => {
 
     return (
         <div className="min-h-screen bg-white">
+            <Helmet>
+            <title>Contact Us | Cocopalms Support & Inquiries</title>
+            <meta 
+              name="description" 
+              content="Contact Cocopalms for support and inquiries. Our team is ready to assist with your IT solutions and business needs." 
+            />
+              <meta name="keywords" content={keywords} />
+            <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            
+            {/* Canonical URL - Multiple approaches for better compatibility */}
+            <link rel="canonical" href={canonicalUrl} />
+            
+            {/* Open Graph Meta Tags */}
+            <meta property="og:title" content="Contact Us | Cocopalms - Get in Touch for IT Solutions in Kuwait" />
+            <meta property="og:description" content="Contact Cocopalms for expert IT solutions in Kuwait. Get in touch for web development, mobile apps, ERP systems, and digital transformation services. Located in Alsalmiya, Kuwait." />
+            <meta property="og:url" content={canonicalUrl} />
+            <meta property="og:type" content="website" />
+            <meta property="og:site_name" content="Cocopalms" />
+            
+            
+            
+            {/* Additional SEO Meta Tags */}
+            <meta name="author" content="Cocopalms" />
+            
+            <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+            
+           
+          </Helmet>
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 pt-32">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                     
