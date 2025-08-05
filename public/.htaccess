@@ -1,4 +1,13 @@
 Options -MultiViews
 RewriteEngine On
+
+# Handle admin routes - all admin/* routes go to admin/index.html
+RewriteRule ^admin/(.*)$ /admin/index.html [L]
+
+# Redirect /admin/ root to /admin (remove trailing slash if needed)
+RewriteRule ^admin/?$ /admin/index.html [L]
+
+# Handle main site React routing (exclude admin routes)
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^/admin/
 RewriteRule ^ index.html [QSA,L]
