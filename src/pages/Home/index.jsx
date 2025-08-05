@@ -186,7 +186,7 @@ export default function LandingPage() {
   useEffect(() => {
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Cocopalms delivers smart IT solutions worldwide, offering ERP, finance tools, mobile apps, and POS systems for optimized business management.');
+      metaDescription.setAttribute('content', 'Cocopalms is the best IT company in Dubai, delivering smart IT solutions worldwide, including ERP, mobile apps, and POS systems for optimized business management.');
     }
   }, []);
 
@@ -268,7 +268,7 @@ useEffect(() => {
     {/* SEO Head Tags with Canonical URL */}
     
     <Helmet>
-        <title>Cocopalms | Best IT company in Dubai</title>
+        <title>Best IT company in Dubai - Cocopalms</title>
         <meta name="description" content="Cocopalms is the best IT company in Dubai, delivering smart IT solutions worldwide, including ERP, mobile apps, and POS systems for optimized business management" />
         <meta name="keywords" content={keywords} />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
