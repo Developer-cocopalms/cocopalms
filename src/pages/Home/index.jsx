@@ -268,8 +268,8 @@ useEffect(() => {
     {/* SEO Head Tags with Canonical URL */}
     
     <Helmet>
-        <title>Cocopalms | Scalable SaaS & ERP Solutions for F&B & Enterprise</title>
-        <meta name="description" content="Cocopalms delivers smart IT solutions worldwide, offering ERP, finance tools, mobile apps, and POS systems for optimized business management." />
+        <title>Cocopalms | Best IT company in Dubai</title>
+        <meta name="description" content="Cocopalms is the best IT company in Dubai, delivering smart IT solutions worldwide, including ERP, mobile apps, and POS systems for optimized business management" />
         <meta name="keywords" content={keywords} />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         
@@ -375,7 +375,7 @@ useEffect(() => {
               <div className="text-left px-2 sm:px-4 md:px-0 lg:pl-4 xl:pl-8 w-full">
                 
                 {/* Heading - Responsive sizing and line breaks */}
-                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold text-gray-900 mb-4 sm:mb-5 md:mb-6 leading-tight">
+                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold text-gray-900 mb-4 sm:mb-5 md:mb-6 leading-tight">
                   <span className="block sm:hidden">
                     {/* Mobile: Single line with compact text */}
                     Power Your Business with Smart Tech
@@ -390,7 +390,7 @@ useEffect(() => {
                     Power Your Business with <br />
                     <span className="text-gray-900">All-in-One Smart Tech by Cocopalms</span>
                   </span>
-                </h2>
+                </h1>
                 
                 {/* Description - Responsive text sizing */}
                 <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-6 sm:mb-7 md:mb-8 leading-relaxed">

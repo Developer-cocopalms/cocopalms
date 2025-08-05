@@ -222,9 +222,9 @@ const HeroVideoSlideshow = () => {
             }`}>
                 
               {/* Dynamic Title */}
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white leading-tight mb-4 sm:mb-6 md:mb-8 drop-shadow-2xl">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white leading-tight mb-4 sm:mb-6 md:mb-8 drop-shadow-2xl">
                 {currentSlide.title}
-              </h1>
+              </h2>
               
               {/* Dynamic Subtitle */}
               <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-200 mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-2xl mx-auto sm:mx-0 drop-shadow-lg">
