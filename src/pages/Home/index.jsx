@@ -35,19 +35,20 @@ const SolutionsSection = () => {
   const servicesData = {
     website: {
       title: 'Website Development',
-      content: 'We build powerful, professional websites for businesses of all sizes — from startups to large enterprises. Our team creates high-converting landing pages and scalable web services that align with your goals, strengthen your brand, and boost results. Whether you\'re launching a campaign or improving operations, our web solutions are designed to deliver impact.',
+      content: 'We specialize in website development worldwide, offering powerful, professional websites for businesses of all sizes—from startups to large enterprises. Our expertise spans eCommerce development, web application development, and creating high-converting landing pages and scalable web services that align with your goals, strengthen your brand, and boost results. Whether you’re launching a campaign or enhancing operations, our website development services are designed to deliver impact and drive success.',
       image: webdevelopImg,
-      icon: Monitor
+      icon: Monitor,
+      
     },
     mobile: {
       title: 'Mobile Application Development',
-      content: 'We develop high-performance mobile apps tailored for both native and cross-platform use, ensuring smooth functionality across all devices. Focused on intuitive design and user experience, our apps are built to engage users and meet business goals. From idea to launch, we turn your vision into impactful, user-friendly mobile solutions.',
+      content: 'We create high-performance mobile apps for both native and cross-platform use, ensuring smooth functionality across all devices. Focused on intuitive design and user experience, our apps are built to engage users and meet business goals. Serving clients in Kuwait and worldwide, we provide website mobile development, eCommerce development, website development services, and website application development—combining these capabilities to deliver impactful, user-friendly mobile solutions. From idea to launch, we bring your vision to life.',
       image: mobiledevelopImg,
       icon: Smartphone
     },
     ecommerce: {
       title: 'E-commerce Development',
-      content: 'We build scalable, secure eCommerce platforms that help businesses grow their online presence and boost revenue. Our solutions ensure a seamless shopping experience across devices, featuring intuitive design, personalized recommendations, real-time inventory, and secure payments. Whether starting fresh or upgrading your store, we tailor each solution to meet your goals and delight customers.',
+      content: 'We build scalable, secure eCommerce platforms that help businesses grow their online presence and boost revenue. Our eCommerce web development solutions ensure a seamless shopping experience across devices, featuring intuitive design, personalized recommendations, real-time inventory updates, and secure payment processing. Whether you are looking for eCommerce website development or an eCommerce mobile app, we tailor each solution to meet your goals and delight customers. Whether starting fresh or upgrading your store, we ensure that every solution is designed to maximize success.',
       image: ecomdevelopImg,
       icon: ShoppingBag
     }
@@ -438,7 +439,7 @@ useEffect(() => {
             <div className="flex items-center flex-shrink-0">
               <img 
                 src={logos} 
-                alt="Trusted Company Logos" 
+                alt="Partner company logos including major brands and enterprises" 
                 className="h-20 md:h-22 object-contain"
               />
             </div>
@@ -447,7 +448,7 @@ useEffect(() => {
             <div className="flex items-center flex-shrink-0">
               <img 
                 src={logos} 
-                alt="Trusted Company Logos" 
+                alt="Partner company logos including major brands and enterprises" 
                 className="h-20 md:h-22 object-contain"
               />
             </div>
@@ -456,7 +457,7 @@ useEffect(() => {
             <div className="flex items-center flex-shrink-0">
               <img 
                 src={logos} 
-                alt="Trusted Company Logos" 
+                alt="Partner company logos including major brands and enterprises" 
                 className="h-20 md:h-22 object-contain"
               />
             </div>
