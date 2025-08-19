@@ -31,19 +31,19 @@ const AboutUs = () => {
     {
       title: "The initial thought",
       subtitle: "Our Journey to Revolutionize Business Technology Solutions",
-      content: "Cocopalms is a next-generation IT solutions company delivering innovative and end-to-end technology services for modern businesses. We specialize in developing web platforms, mobile applications, e-commerce solutions, and enterprise software that drive digital transformation.From designing intuitive websites to building powerful backend systems and cloud based business applications, we provide scalable and secure solutions tailored to each client's goals. Our expertise spans across industries, helping businesses streamline operations, enhance customer experiences, and grow through smart technology.Whether you're launching a mobile app, automating your workflow, or building a custom ERP system , Cocopalms is your trusted technology partner.",
+      content: "Cocopalms is a next-generation IT company in Kuwait, delivering innovative and end-to-end technology services for modern businesses. Specializing in website development, mobile app development, and app development, we develop web platforms, mobile applications, e-commerce solutions, and enterprise software that drive digital transformation. From designing intuitive websites to building powerful backend systems and cloud-based business applications, we provide scalable and secure ERP solutions tailored to each client's goals. Our expertise spans across industries, helping businesses streamline operations, enhance customer experiences, and grow through smarter technology. Whether you're launching a mobile app, automating your workflow, or building a custom ERP system, Cocopalms is your trusted technology partner.",
       image: images[0]
     },
     {
       title: "Meet the Team of Cocopalms",
       subtitle: "Our Expert Team",
-      content: "Our developers don't just write code, they create digital experiences that solve real business problems. By combining cutting-edge tools, secure architecture, and human centered design, we ensure every solution is not just functional, but future ready.With a strong culture of collaboration and continuous learning, our development team is the heart of Cocopalms' innovation turning ideas into impactful solutions for businesses across industries.",
+      content: " At Cocopalms, our developers don't just write code, they create digital experiences that solve real business problems. Specializing in website development in Kuwait and mobile app development in the UAE, we combine cutting-edge tools, secure architecture, and human-centered design to ensure every solution is not just functional, but future-ready. With a strong culture of collaboration and continuous learning, our development team is the heart of Cocopalms' innovation, turning ideas into impactful solutions for businesses across industries.",
       image: images[1]
     },
     {
       title: "Built on Experience, Driven by Excellence",
       subtitle: "Our Foundation",
-      content: "A glimpse into the mobile app creation process showcasing diverse design interfaces across Android and iOS platforms. These visuals represent the seamless blend of functionality and user experience that defines every Cocopalms mobile solution.Each application is thoughtfully designed to ensure smooth navigation, intuitive layouts, and responsive performance. From customer ordering apps to delivery tracking and business management tools, our mobile platforms are built to meet the evolving needs of modern businesses.Whether it's enhancing customer engagement or streamlining operations, our mobile apps are crafted to deliver high impact across devices and industries.",
+      content: "A glimpse into the mobile app creation process from a leading mobile app development company, showcasing diverse design interfaces across Android and iOS platforms. These visuals represent the seamless blend of functionality and user experience that defines every solution by Cocopalms, an innovative app development company. Each application is thoughtfully designed to ensure smooth navigation, intuitive layouts, and responsive performance. From customer ordering apps to delivery tracking and business management tools, our mobile development company specializes in crafting solutions that meet the evolving needs of modern businesses. Whether it's enhancing customer engagement or streamlining operations, our e-commerce application development expertise ensures that our mobile apps deliver high impact across devices and industries.",
       image: images[2]
     },
     {
@@ -234,10 +234,10 @@ useEffect(() => {
           Cocopalms: Architecting the Future of Software Innovation Since 2007
         </h1>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed mb-12">
-          Founded in 2007, Cocopalms Tech Company, headquartered in Kuwait, is a next-generation Information Technology Services
-          company with a global presence. We specialize in delivering scalable and innovative digital solutions tailored to business needs across 
-          diverse industries. Our offerings include automation systems, ERP solutions, mobile and web application development, 
-          cloud services, IT consulting, systems integration.
+        Founded in 2007 and headquartered in Kuwait, Cocopalms Tech Company is a next-generation Information Technology Services provider with a global presence.
+         As a leading mobile app development company and full-service app development agency, we specialize in delivering scalable and innovative digital solutions
+        tailored to the needs of businesses across diverse industries. Our offerings include ERP solutions, automation systems, mobile and web application development, cloud services, IT consulting, and systems integration.
+
         </p>
         <Link 
           to="/contact"

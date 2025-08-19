@@ -399,9 +399,9 @@ useEffect(() => {
                     {/* Mobile: Shorter, concise version */}
                     We empower businesses with smart IT solutions including ERP, mobile apps, e-commerce, and POS systems to keep you ahead of the curve.
                   </span>
-                  <span className="hidden sm:block">
+                  <span className="hidden sm:block text-justify">
                     {/* Larger screens: Full description */}
-                    We empower businesses with smart IT solutions for today's digital world. Our integrated systems include ERP, finance tools, mobile apps, web development, e-commerce, and rental management software. From online sales to restaurant management, our intelligent solutions with feature-rich POS systems keep you ahead of the curve.
+                    We empower businesses with smart IT solutions for today's digital world. Our integrated systems, including ERP, finance tools, mobile apps, web development, e-commerce, and rental management software, cater to a wide range of business needs. Whether you're seeking IT companies in UAE, website development in Kuwait, mobile application development, or the best ERP software in UAE, we’ve got you covered. Our intelligent solutions, from online sales to restaurant management, are complemented by feature-rich POS systems that keep you ahead of the curve.
                   </span>
                 </p>
                 

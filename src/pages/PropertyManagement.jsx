@@ -263,7 +263,7 @@ useEffect(() => {
               <div key={index} className="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200">
                 <div className="relative overflow-hidden">
                   <img 
-                    src={screenshot.src} 
+                    src={screenshot.src}
                     alt={screenshot.alt}
                     className="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-300"
                   />
