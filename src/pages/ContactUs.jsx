@@ -410,7 +410,7 @@ useEffect(() => {
             <p className="text-gray-900 font-medium mb-2">Abu Dhabi Office</p>
             <p className="text-gray-900 font-medium mb-2">
                 Mazyad Mall, 7th Floor, Tower 1<br />
-                Abu Dhabi, UAE
+                Abu Dhabi,UAE
             </p>
             <p className="text-gray-900 font-medium">
                 Office Hours: 9.00 am to 5.00 pm
@@ -420,7 +420,7 @@ useEffect(() => {
 </div>
                                
 
-                                <div className="flex items-center space-x-3">
+                                 <div className="flex items-center space-x-3">
                                     <div className="flex-shrink-0 w-5 h-5">
                                         <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
