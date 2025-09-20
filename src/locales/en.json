@@ -1,0 +1,1343 @@
+{
+    "header": {
+      "alt": {
+        "Logo": "Logo",
+        "cocopalmsLogo": "Cocopalms Logo"
+      },
+      "nav": {
+        "home": "Home",
+        "aboutUs": "About Us",
+        "whatWeDo": "What We Do",
+        "successStories": "Success Stories",
+        "blog": "Blog",
+        "contactUs": "Contact Us",
+        "ctaGetInTouch": "Get In Touch"
+       
+      },
+      "whatWeDoDropdown": {
+        "webDevelopment": {
+          "title": "Web Development",
+          "subtitle": "Professional websites and web applications for businesses from startup to enterprise level."
+        },
+        "mobileApps": {
+          "title": "Mobile Apps",
+          "subtitle": "High-quality mobile applications that deliver exceptional user experiences across all platforms."
+        },
+        "erpSolution": {
+          "title": "ERP Solution",
+          "subtitle": "Comprehensive ERP solution with unified modules for all your operational needs."
+        },
+        "ecommerceApplications": {
+          "title": "E-commerce Applications",
+          "subtitle": "Custom e-commerce platforms to help you tap into the global online marketplace."
+        },
+        "propertyManagementSystem": {
+          "title": "Property Management System",
+          "subtitle": "B2B & B2C platform connecting landlords and tenants for seamless property rentals."
+        },
+        "fnbSolution": {
+          "title": "F&B Solution",
+          "subtitle": "Specialized software applications tailored for restaurants, cafes, and food service businesses."
+        }
+      },
+      "successStoriesDropdown": {
+        "tryNow": "TRY NOW"
+      }
+    },
+    "footer": {
+      "columns": {
+        "company": {
+          "title": "Company",
+          "links": {
+            "home": "Home",
+            "about": "About",
+            "whatWeDo": "What We Do",
+            "blog": "Blog",
+            "contact": "Contact"
+          }
+        },
+        "products": {
+          "title": "Products",
+          "links": {
+            "bizoSuite": "BizoSuite",
+            "propertyManagementSystem": "Property Management System",
+            "kitchenly": "Kitchenly",
+            "cocodine": "Cocodine"
+          }
+        },
+        "contact": {
+          "title": "Contact Us",
+          "labels": {
+            "email": "Email",
+            "mobile": "Mobile"
+          }
+        }
+      },
+      "social": {
+        "facebookLabel": "Facebook",
+        "instagramLabel": "Instagram",
+        "linkedinLabel": "LinkedIn"
+      },
+      "bottomLinks": {
+        "home": "Home",
+        "contact": "Contact",
+        "privacyPolicy": "Privacy Policy"
+      },
+      "copyright": "© 2025, Cocopalms Technology Company All Rights Reserved.",
+      "brand": "Cocopalms"
+    },
+    "home": {
+      "hero": {
+        "heading": "Power Your Business with All-in-One Smart Tech by Cocopalms",
+        "description": "We empower businesses with smart IT solutions for today's digital world. Our integrated systems, including ERP, finance tools, mobile apps, web development, e-commerce, and rental management software, cater to a wide range of business needs. Whether you're seeking IT companies in UAE, website development in Kuwait, mobile application development, or the best ERP software in UAE, we’ve got you covered. Our intelligent solutions, from online sales to restaurant management, are complemented by feature-rich POS systems that keep you ahead of the curve.",
+        "cta": "Book a Demo"
+      },
+      "stats": {
+        "companies": "Companies",
+        "products": "Products",
+        "revenue": "Revenue Made",
+        "apps": "Mobile Applications"
+      },
+      "trusted": {
+        "title": "Trusted by Leading Companies",
+        "subtitle": "Join thousands of businesses that trust our solutions to power their growth"
+      },
+      "solutionsSection": {
+        "heading": "Solutions for all the ways that we work.",
+        "explore": "Explore All Tools",
+        "rightTitle": "Empowering Your Business with Technology.",
+        "services": {
+          "website": {
+            "title": "Website Development",
+            "content": "We specialize in website development worldwide, offering powerful, professional websites for businesses of all sizes—from startups to large enterprises. Our expertise spans eCommerce development, web application development, and creating high-converting landing pages and scalable web services that align with your goals, strengthen your brand, and boost results. Whether you’re launching a campaign or enhancing operations, our website development services are designed to deliver impact and drive success."
+          },
+          "mobile": {
+            "title": "Mobile Application Development",
+            "content": "We create high-performance mobile apps for both native and cross-platform use, ensuring smooth functionality across all devices. Focused on intuitive design and user experience, our apps are built to engage users and meet business goals. Serving clients in Kuwait and worldwide, we provide website mobile development, eCommerce development, website development services, and website application development—combining these capabilities to deliver impactful, user-friendly mobile solutions. From idea to launch, we bring your vision to life."
+          },
+          "ecommerce": {
+            "title": "E-commerce Development",
+            "content": "We build scalable, secure eCommerce platforms that help businesses grow their online presence and boost revenue. Our eCommerce web development solutions ensure a seamless shopping experience across devices, featuring intuitive design, personalized recommendations, real-time inventory updates, and secure payment processing. Whether you are looking for eCommerce website development or an eCommerce mobile app, we tailor each solution to meet your goals and delight customers. Whether starting fresh or upgrading your store, we ensure that every solution is designed to maximize success."
+          }
+        }
+      },
+      "features": {
+        "heading": "Our Services",
+        "title": "Cocopalms",
+        "description": "Run your entire business with Cocopalms unified cloud software"
+      },
+      "customerSupport": {
+        "title": "Customer support is always here to help you",
+        "description": "We work around the clock to assist you. Drop us a message any time, and one of us will be happy to get back to you quickly!",
+        "available": "available",
+        "satisfaction": "satisfaction rate",
+        "response": "avg. response time"
+      }
+    },
+    "aboutUs": {
+      "hero": {
+        "title": "Cocopalms: Architecting the Future of Software Innovation Since 2007",
+        "description": "Founded in 2007 and headquartered in Kuwait, Cocopalms Tech Company is a next-generation Information Technology Services provider with a global presence. As a leading mobile app development company and full-service app development agency, we specialize in delivering scalable and innovative digital solutions tailored to the needs of businesses across diverse industries. Our offerings include ERP solutions, automation systems, mobile and web application development, cloud services, IT consulting, and systems integration.",
+        "cta": "Contact Us"
+      },
+      "mission": {
+        "label": "Our mission",
+        "description": "To empower our clients with robust solutions that translate complex data into actionable knowledge, directly addressing their challenges and streamlining their operational workflows for measurable improvements."
+      },
+      "whoWeAre": {
+        "title": "Who we are?",
+        "subtitle": "At Cocopalms, our story began with a simple yet ambitious goal:",
+        "sections": [
+          {
+            "title": "The initial thought",
+            "subtitle": "Our Journey to Revolutionize Business Technology Solutions",
+            "content": "Cocopalms is a next-generation IT company in Kuwait, delivering innovative and end-to-end technology services for modern businesses. Specializing in website development, mobile app development, and app development, we develop web platforms, mobile applications, e-commerce solutions, and enterprise software that drive digital transformation. From designing intuitive websites to building powerful backend systems and cloud-based business applications, we provide scalable and secure ERP solutions tailored to each client's goals. Our expertise spans across industries, helping businesses streamline operations, enhance customer experiences, and grow through smarter technology. Whether you're launching a mobile app, automating your workflow, or building a custom ERP system, Cocopalms is your trusted technology partner."
+          },
+          {
+            "title": "Meet the Team of Cocopalms",
+            "subtitle": "Our Expert Team",
+            "content": "At Cocopalms, our developers don't just write code, they create digital experiences that solve real business problems. Specializing in website development in Kuwait and mobile app development in the UAE, we combine cutting-edge tools, secure architecture, and human-centered design to ensure every solution is not just functional, but future-ready. With a strong culture of collaboration and continuous learning, our development team is the heart of Cocopalms' innovation, turning ideas into impactful solutions for businesses across industries."
+          },
+          {
+            "title": "Built on Experience, Driven by Excellence",
+            "subtitle": "Our Foundation",
+            "content": "A glimpse into the mobile app creation process from a leading mobile app development company, showcasing diverse design interfaces across Android and iOS platforms. These visuals represent the seamless blend of functionality and user experience that defines every solution by Cocopalms, an innovative app development company. Each application is thoughtfully designed to ensure smooth navigation, intuitive layouts, and responsive performance. From customer ordering apps to delivery tracking and business management tools, our mobile development company specializes in crafting solutions that meet the evolving needs of modern businesses. Whether it's enhancing customer engagement or streamlining operations, our e-commerce application development expertise ensures that our mobile apps deliver high impact across devices and industries."
+          },
+          {
+            "title": "Custom Websites & Real-Time Business Intelligence Dashboards",
+            "subtitle": "Our Impact",
+            "content": "Creation of dynamic websites and intelligent dashboards — core elements of Cocopalms' digital solutions. Our platforms are designed to be visually engaging, user-friendly, and fully responsive across devices.From clean, modern website layouts to powerful backend dashboards, each interface is built to offer clarity, control, and real-time insights. Whether managing sales, operations, inventory, or customer data, our dashboards bring actionable information to your fingertips.With seamless navigation, smart analytics, and customizable components, Cocopalms' web solutions help businesses stay connected, efficient, and ahead of the curve."
+          }
+        ]
+      },
+      "coreValues": {
+        "title": "Our Core Values",
+        "description": "The principles that guide our mission to architect the future of software innovation",
+        "values": [
+          {
+            "title": "Innovation",
+            "description": "Pioneering sophisticated technologies for multi-user environments with cutting-edge solutions."
+          },
+          {
+            "title": "Quality",
+            "description": "Delivering robust, scalable digital experiences with unwavering commitment to excellence."
+          },
+          {
+            "title": "Global Impact",
+            "description": "Empowering businesses worldwide with seamless, efficient, and cost-effective transformations."
+          }
+        ]
+      },
+      "vision": {
+        "label": "Our Vision",
+        "description": "To be a globally recognized IT solutions provider, empowering businesses with seamless, efficient, and cost-effective digital transformations that directly contribute to their growth and success through our unwavering commitment to quality and high-value services."
+      },
+      "cta": {
+        "title": "Ready to Transform Your Business?",
+        "description": "Let's discuss how Cocopalms can architect the future of your software innovation and drive your business growth.",
+        "ctaButton": "Get Started Today"
+      }
+    },
+
+    "whatWeDo": {
+  "hero": {
+    "title": "What We Do?",
+    "subtitle": "Empowering Your Business with Technology",
+    "description": "As a leading IT company in Kuwait, Cocoplams partners with you to drive software innovation and deliver market-leading solutions. In addition to our expert IT services, we are recognized as a top web design company in Dubai and a trusted website development company in UAE. Our web design and development team specializes in creating tailored solutions that address complex business challenges. As a full-service web development company, we offer advanced web application development and website application development services that help your business grow in the digital space."
+  },
+  "loading": {
+    "text": "Loading services...",
+    "error": "Error loading services:",
+    "retry": "Retry"
+  },
+  "cta": {
+    "title": "Transforming Your Ideas into Reality: Your Trusted Technology Partner.",
+    "description": "Cocopalms is a leading IT company in Kuwait, committed to delivering trustworthy and guaranteed services. We offer a wide range of IT business software and comprehensive IT solutions designed to drive digital transformation and help you achieve your business goals. Let's discuss how we can turn your vision into tangible success—contact us today.",
+    "button": "Get Started Today"
+  },
+  "imageAlt": {
+    "noImageAvailable": "No image available"
+  }
+},
+"mobileApp": {
+  
+  "hero": {
+    "title": "Mobile App Development",
+    "subtitle": "Crafting innovative mobile experiences that engage users and drive business growth",
+    "description": "As a leading mobile development company, we create high-performance mobile applications from concept to deployment, delivering exceptional user experiences across iOS and Android on a robust mobile application platform."
+  },
+  "portfolio": {
+    "title": "Our Mobile Portfolio",
+    "subtitle": "Showcasing mobile applications that have transformed businesses and enhanced user experiences",
+    "keyFeatures": "Key Features",
+    "viewLiveApp": "View Live App",
+    "apps": {
+      "dietbux": {
+        "name": "Dietbux",
+        "description": "Comprehensive diet and nutrition mobile app offering personalized meal plans, calorie tracking, and subscription-based services.",
+        "category": "Health & Nutrition",
+        "features": [
+          "Personalized meal planning",
+          "Calorie tracking system",
+          "Subscription management",
+          "Multi-language support"
+        ],
+        "platforms": ["iOS", "Android"]
+      },
+      "dietvalue": {
+        "name": "Dietvalue",
+        "description": "Premium diet delivery service mobile app focused on healthy meal subscriptions in Kuwait with elegant Arabic interface.",
+        "category": "Food Delivery",
+        "features": [
+          "Meal delivery scheduling",
+          "Arabic RTL interface",
+          "Payment integration",
+          "Order tracking"
+        ],
+        "platforms": ["iOS", "Android"]
+      },
+      "basic": {
+        "name": "Basic",
+        "description": "Clean and minimalist business mobile app providing essential services with focus on simplicity and user experience.",
+        "category": "Business",
+        "features": [
+          "Intuitive navigation",
+          "Fast performance",
+          "Business services",
+          "Professional design"
+        ],
+        "platforms": ["iOS", "Android"]
+      },
+      "balancedBite": {
+        "name": "Balanced Bite",
+        "description": "Advanced nutrition and diet management app offering professional dietary guidance and meal planning solutions.",
+        "category": "Health & Wellness",
+        "features": [
+          "Professional guidance",
+          "Advanced meal planning",
+          "Nutritional analysis",
+          "Progress tracking"
+        ],
+        "platforms": ["iOS", "Android"]
+      },
+      "dieter": {
+        "name": "Dieter",
+        "description": "Professional diet and nutrition platform providing expert dietary guidance and personalized meal planning for optimal health.",
+        "category": "Health & Nutrition",
+        "features": [
+          "Expert dietary guidance",
+          "Personalized nutrition plans",
+          "Health tracking",
+          "Professional consultation"
+        ],
+        "platforms": ["iOS", "Android"]
+      },
+      "planetZero": {
+        "name": "Planet Zero",
+        "description": "Planet Zero Meals takes the confusion and guesswork out of healthy eating by providing clean, nourishing natural ingredients. Fresh, pre-made delicious meals delivered daily.",
+        "category": "Food Delivery",
+        "features": [
+          "Clean natural ingredients",
+          "Fresh pre-made meals",
+          "Free nationwide delivery",
+          "Ready-to-eat convenience"
+        ],
+        "platforms": ["iOS", "Android"]
+      },
+      "cal": {
+        "name": "Cal",
+        "description": "Customizable healthy and fresh food delivery application offering personalized meal options and convenient delivery services.",
+        "category": "Food Delivery",
+        "features": [
+          "Customizable meal options",
+          "Fresh food delivery",
+          "Personalized nutrition",
+          "User-friendly interface"
+        ],
+        "platforms": ["iOS", "Android"]
+      },
+      "oneThird": {
+        "name": "OneThird",
+        "description": "Customizable healthy and fresh food delivery application offering personalized meal options and convenient delivery services.",
+        "category": "Food Delivery",
+        "features": [
+          "Customizable meal options",
+          "Fresh food delivery",
+          "Personalized nutrition",
+          "User-friendly interface"
+        ],
+        "platforms": ["Android"]
+      },
+      "pureHealth": {
+        "name": "PureHealth",
+        "description": "Customizable healthy and fresh food delivery application offering personalized meal options and convenient delivery services.",
+        "category": "Food Delivery",
+        "features": [
+          "Customizable meal options",
+          "Fresh food delivery",
+          "Personalized nutrition",
+          "User-friendly interface"
+        ],
+        "platforms": ["iOS", "Android"]
+      },
+      "approvedLife": {
+        "name": "Approved Life",
+        "description": "Customizable healthy and fresh food delivery application offering personalized meal options and convenient delivery services.",
+        "category": "Food Delivery",
+        "features": [
+          "Customizable meal options",
+          "Fresh food delivery",
+          "Personalized nutrition",
+          "User-friendly interface"
+        ],
+        "platforms": ["Android"]
+      },
+      "tryMacro": {
+        "name": "Try Macro",
+        "description": "Customizable healthy and fresh food delivery application offering personalized meal options and convenient delivery services.",
+        "category": "Food Delivery",
+        "features": [
+          "Customizable meal options",
+          "Fresh food delivery",
+          "Personalized nutrition",
+          "User-friendly interface"
+        ],
+        "platforms": ["iOS"]
+      },
+      "calculate": {
+        "name": "Calculate",
+        "description": "Customizable healthy and fresh food delivery application offering personalized meal options and convenient delivery services.",
+        "category": "Food Delivery",
+        "features": [
+          "Customizable meal options",
+          "Fresh food delivery",
+          "Personalized nutrition",
+          "User-friendly interface"
+        ],
+        "platforms": ["iOS", "Android"]
+      }
+    }
+  
+},
+  "stats": {
+    "appsDelivered": "Apps Delivered",
+    "clientSatisfaction": "Client Satisfaction",
+    "platforms": "Platforms",
+    "support": "Support"
+  },
+  "services": {
+    "title": "Our Mobile Development Services",
+    "subtitle": "Comprehensive mobile solutions tailored to your business needs",
+    "nativeApp": {
+      "title": "Native App Development",
+      "description": "High-performance native apps for iOS and Android with platform-specific optimizations."
+    },
+    "crossPlatform": {
+      "title": "Cross-Platform Development", 
+      "description": "Cost-effective solutions using React Native and Flutter for multiple platforms."
+    },
+    "uiUx": {
+      "title": "UI/UX Design",
+      "description": "Intuitive and engaging user interfaces designed for optimal user experience."
+    },
+    "apiIntegration": {
+      "title": "API Integration",
+      "description": "Seamless integration with backend services and third-party APIs."
+    },
+    "appSecurity": {
+      "title": "App Security", 
+      "description": "Robust security implementation to protect user data and app integrity."
+    },
+    "appStoreOptimization": {
+      "title": "App Store Optimization",
+      "description": "Strategic optimization for better visibility and downloads on app stores."
+    }
+  },
+  "technologies": {
+    "title": "Technologies We Master",
+    "subtitle": "Cutting-edge technologies and frameworks for superior mobile app development"
+  },
+  "cta": {
+    "title": "Ready to Build Your Mobile App?",
+    "description": "Transform your ideas into powerful mobile applications that engage users and drive business success.",
+    "startProject": "Start Your Project",
+    "exploreServices": "Explore All Services"
+  }
+},
+
+"webDevelopment": {
+  
+  "hero": {
+    "title": "Web Development",
+    "subtitle": "Professional websites and web applications for businesses from startup to enterprise level",
+    "description": "Transform your digital presence with our cutting-edge web application development and e-commerce development solutions. We create responsive, scalable, and user-friendly websites that drive business growth."
+  },
+  "portfolio": {
+    "title": "Our Portfolio",
+    "subtitle": "Showcasing successful web projects we've delivered for our clients",
+    "projects": {
+      "dietbux": {
+        "title": "Dietbux",
+        "description": "A comprehensive diet and nutrition platform offering personalized meal plans, calorie tracking, and subscription-based diet services. The website features a modern design with interactive elements and seamless user experience.",
+        "tags": {
+          "react": "React",
+          "responsivedesign": "Responsive Design",
+          "ecommerce": "E-commerce",
+          "arabicenglish": "Arabic/English"
+        },
+        "features": [
+          "Multi-language support (Arabic & English)",
+          "Subscription management system",
+          "Calorie calculator integration"
+        ]
+      },
+      "dietvalue": {
+        "title": "Dietvalue",
+        "description": "A premium diet delivery service platform focused on healthy meal subscriptions in Kuwait. Features elegant Arabic typography, smooth animations, and an intuitive ordering system for customers seeking nutritious meal plans.",
+        "tags": {
+          "modernui": "Modern UI",
+          "fooddelivery": "Food Delivery",
+          "arabicdesign": "Arabic Design",
+          "kuwaitmarket": "Kuwait Market"
+        },
+        "features": [
+          "RTL (Right-to-Left) Arabic layout",
+          "Online ordering",
+          "Elegant food presentation design"
+        ]
+      },
+      "dieter": {
+        "title": "Dieter",
+        "description": "A specialized diet and nutrition service platform for the Kuwait market. Offering customized meal plans, nutrition consultations, and health-focused food delivery services with a user-friendly interface designed for Arabic-speaking customers.",
+        "tags": {
+          "kuwaitfocus": "Kuwait Focus",
+          "nutritionplans": "Nutrition Plans",
+          "healthservices": "Health Services",
+          "arabicinterface": "Arabic Interface"
+        },
+        "features": [
+          "Customized meal planning system",
+          "Nutrition consultation booking",
+          "Health-focused service delivery"
+        ]
+      },
+      "basic": {
+        "title": "Basic",
+        "description": "A clean and minimalist business website showcasing essential services and information. Built with a focus on simplicity, fast loading times, and clear navigation to provide visitors with a straightforward user experience.",
+        "tags": {
+          "minimalistdesign": "Minimalist Design",
+          "fastloading": "Fast Loading",
+          "cleanui": "Clean UI",
+          "businessfocus": "Business Focus"
+        },
+        "features": [
+          "Simple and intuitive navigation",
+          "Optimized performance and speed",
+          "Professional business presentation"
+        ]
+      },
+      "alnassem": {
+        "title": "Alnassem Glass",
+        "description": "A professional glass manufacturing and installation company website showcasing premium glass products and services. Features elegant product galleries, service portfolios, and streamlined contact systems for custom glass solutions.",
+        "tags": {
+          "manufacturing": "Manufacturing",
+          "productgallery": "Product Gallery",
+          "b2bservices": "B2B Services",
+          "professional": "Professional"
+        },
+        "features": [
+          "Comprehensive product showcase",
+          "Custom glass solutions portal",
+          "Industry-focused design approach"
+        ]
+      },
+      "techbiz": {
+        "title": "Techbiz",
+        "description": "A comprehensive technology solutions platform offering software development, IT consulting, and digital transformation services. Built with modern frameworks and featuring interactive elements to showcase technical expertise and service capabilities.",
+        "tags": {
+          "techsolutions": "Tech Solutions",
+          "itconsulting": "IT Consulting",
+          "modernstack": "Modern Stack",
+          "enterprise": "Enterprise"
+        },
+        "features": [
+          "Advanced technology showcase",
+          "Service portfolio management",
+          "Interactive client engagement"
+        ]
+      }
+    }
+  },
+  "mainContent": {
+    "title": "Building Digital Excellence",
+    "description": "Our web development team combines technical expertise with creative design to deliver exceptional web application development and ecommerce site development solutions. From simple business websites to complex web applications, we ensure your online presence reflects your brand's professionalism and values.",
+    "customDevelopment": {
+      "title": "Custom Development",
+      "description": "Tailored solutions built specifically for your business needs and requirements."
+    },
+    "responsiveDesign": {
+      "title": "Responsive Design", 
+      "description": "Websites that look and function perfectly on all devices and screen sizes."
+    },
+    "seoOptimized": {
+      "title": "SEO Optimized",
+      "description": "Built with search engine optimization best practices for better visibility."
+    }
+  },
+  "projectSuccess": {
+    "title": "Project Success",
+    "liveProjects": "Live Projects",
+    "clientSatisfaction": "Client Satisfaction",
+    "countriesServed": "Countries Served",
+    "support": "Support"
+  },
+  "services": {
+    "title": "Our Web Development Services",
+    "subtitle": "Comprehensive web solutions to meet all your digital needs",
+    "corporateWebsites": {
+      "title": "Corporate Websites",
+      "description": "Professional business websites that establish credibility and showcase your services effectively."
+    },
+    "webApplications": {
+      "title": "Web Applications",
+      "description": "Complex web applications with advanced functionality and user management systems."
+    },
+    "performanceOptimization": {
+      "title": "Performance Optimization",
+      "description": "Fast-loading websites optimized for speed, performance, and user experience."
+    },
+    "securityMaintenance": {
+      "title": "Security & Maintenance",
+      "description": "Secure websites with regular updates, backups, and ongoing maintenance support."
+    },
+    "cmsSolutions": {
+      "title": "CMS Solutions",
+      "description": "Content management systems that allow you to easily update and manage your website."
+    },
+    "apiIntegration": {
+      "title": "API Integration",
+      "description": "Seamless integration with third-party services and APIs to extend functionality."
+    }
+  },
+  "technologies": {
+    "title": "Technologies We Use",
+    "subtitle": "We leverage the latest technologies to build robust and scalable web solutions"
+  },
+  "cta": {
+    "title": "Ready to Build Your Web Presence?",
+    "description": "Let's discuss your web development needs and create a solution that drives your business forward.",
+    "startProject": "Start Your Project",
+    "exploreServices": "Explore All Services"
+  }
+},
+
+  "erpSolution": {
+    
+    "hero": {
+      "title": "Complete ERP Ecosystem",
+      "subtitle": "Unified Business Management Platform",
+      "description": "Transform your business operations with our comprehensive ERP solution, a powerful enterprise resource planning system that seamlessly integrates all your business processes into one unified platform. Designed for modern enterprises, our ERP systems support efficient enterprise resource management across every department."
+    },
+    "screenshots": {
+      "title": "ERP System in Action",
+      "subtitle": "Discover how our comprehensive ERP systems and modules work together to streamline your business operations through real-time data, intuitive interfaces, and effective enterprise resource management.",
+      "items": [
+        {
+          "title": "Kitchen Management",
+          "description": "Comprehensive meal planning and ingredient tracking interface"
+        },
+        {
+          "title": "Financial Management", 
+          "description": "Complete financial records and transaction management system"
+        },
+        {
+          "title": "Human Resources",
+          "description": "Employee management with payroll and attendance tracking"
+        },
+        {
+          "title": "Inventory Control",
+          "description": "Real-time stock management and supplier coordination"
+        },
+        {
+          "title": "Online Sales",
+          "description": "Complete e-commerce platform with order management"
+        },
+        {
+          "title": "Sales Analytics",
+          "description": "Advanced sales performance monitoring and insights"
+        }
+      ]
+    },
+    "modules": {
+      "title": "Comprehensive Business Modules",
+      "subtitle": "Our ERP systems ecosystem covers every aspect of your business operations through seamlessly integrated modules, all designed to support efficient enterprise resource management and work together perfectly.",
+      "items": [
+        {
+          "title": "Kitchen",
+          "description": "Meal planning, ingredient tracking, and recipe management.",
+          "features": ["Recipe Database", "Ingredient Tracking", "Meal Planning", "Kitchen Workflow"]
+        },
+        {
+          "title": "Books",
+          "description": "Organize financial records and manage transactions efficiently.",
+          "features": ["Financial Records", "Transaction Management", "Accounting", "Reporting"]
+        },
+        {
+          "title": "HRMS",
+          "description": "Simplify employee management, payroll, and attendance tracking.",
+          "features": ["Employee Management", "Payroll Processing", "Attendance Tracking", "HR Analytics"]
+        },
+        {
+          "title": "Inventory",
+          "description": "Track stock levels, purchases, and supplier data in real-time.",
+          "features": ["Stock Management", "Purchase Orders", "Supplier Management", "Real-time Tracking"]
+        },
+        {
+          "title": "E-commerce",
+          "description": "Manage online sales, orders, and customer interactions.",
+          "features": ["Online Store", "Order Management", "Customer Portal", "Payment Integration"]
+        },
+        {
+          "title": "Sales",
+          "description": "Monitor sales performance, trends, and customer insights.",
+          "features": ["Sales Analytics", "Performance Tracking", "Customer Insights", "Revenue Reports"]
+        },
+        {
+          "title": "CRM",
+          "description": "Improve customer relationships and streamline communication.",
+          "features": ["Customer Database", "Lead Management", "Communication Tools", "Pipeline Tracking"]
+        },
+        {
+          "title": "Delivery",
+          "description": "Optimize logistics, tracking, and order fulfillment.",
+          "features": ["Route Optimization", "Delivery Tracking", "Order Fulfillment", "Logistics Management"]
+        },
+        {
+          "title": "Marka",
+          "description": "Enhance brand strategy with data-driven marketing tools.",
+          "features": ["Brand Management", "Marketing Analytics", "Campaign Tools", "Customer Segmentation"]
+        }
+      ]
+    },
+    "benefits": {
+      "title": "Why Choose Our ERP Solution?",
+      "subtitle": "Experience the power of ERP systems and an integrated enterprise resource management system, featuring tools designed to drive business growth and operational efficiency.",
+      "items": [
+        {
+          "title": "Increased Efficiency",
+          "description": "Streamline operations and reduce manual work with automated processes."
+        },
+        {
+          "title": "Real-time Analytics",
+          "description": "Make informed decisions with comprehensive reporting and dashboards."
+        },
+        {
+          "title": "Data Security",
+          "description": "Enterprise-grade security to protect your business data and operations."
+        },
+        {
+          "title": "Scalable Solution",
+          "description": "Grows with your business needs, from startup to enterprise level."
+        },
+        {
+          "title": "Customizable",
+          "description": "Tailor the system to match your specific business requirements."
+        },
+        {
+          "title": "24/7 Support",
+          "description": "Round-the-clock technical support and system maintenance."
+        }
+      ]
+    },
+    "statistics": {
+      "title": "Proven Results",
+      "subtitle": "Our ERP ecosystem has helped businesses across industries achieve remarkable growth and operational efficiency.",
+      "items": [
+        {
+          "value": "50+",
+          "label": "Active Businesses"
+        },
+        {
+          "value": "40%",
+          "label": "Efficiency Increase"
+        },
+        {
+          "value": "99.9%",
+          "label": "System Uptime"
+        },
+        {
+          "value": "24/7",
+          "label": "Support Available"
+        }
+      ]
+    },
+    "industries": {
+      "title": "Trusted Across Industries",
+      "subtitle": "Our ERP solution is designed to meet the unique needs of various industries and business types.",
+      "list": [
+        "Restaurants & Food Service",
+        "Retail & E-commerce",
+        "Manufacturing",
+        "Healthcare",
+        "Education",
+        "Professional Services",
+        "Logistics & Transportation",
+        "Real Estate"
+      ]
+    },
+    "integration": {
+      "title": "Seamless Integration & Workflow",
+      "description": "Our ERP systems ecosystem is built on the principle of unified data and seamless workflow. Each module within our enterprise resource planning systems communicates effectively, providing a comprehensive enterprise resource management system that eliminates data silos and enhances decision-making across your business operations.",
+      "features": [
+        {
+          "title": "Real-time Data Synchronization",
+          "description": "All modules share data instantly, ensuring consistency across your entire business."
+        },
+        {
+          "title": "Automated Workflows",
+          "description": "Streamline processes with intelligent automation between different business functions."
+        },
+        {
+          "title": "Unified Dashboard",
+          "description": "Get a complete overview of your business with customizable dashboards and reports."
+        }
+      ],
+      "implementation": {
+        "title": "Implementation Support",
+        "steps": [
+          "Initial consultation and requirements analysis",
+          "Custom configuration and data migration", 
+          "Team training and system deployment",
+          "Ongoing support and system optimization"
+        ]
+      }
+    },
+    "cta": {
+      "title": "Ready to Transform Your Business?",
+      "description": "Join hundreds of businesses already using our ERP ecosystem to streamline operations, increase efficiency, and drive growth.",
+      "primaryButton": "Get Started",
+      "secondaryButton": "Explore All Services"
+    },
+    "common": {
+      "learnMore": "Learn More"
+    }
+  },
+  "ecommerceApplication": {
+   
+    "hero": {
+      "title": "E-commerce Applications",
+      "subtitle": "Professional Online Store Solutions",
+      "description": "Build powerful, scalable e-commerce platforms that drive sales and deliver exceptional customer experiences. From simple online stores to complex multi-vendor marketplaces, we create solutions that grow with your business."
+    },
+    "features": {
+      "title": "Complete E-commerce Features",
+      "subtitle": "Everything you need to build and manage a successful online business, from storefront to backend management.",
+      "items": [
+        {
+          "title": "Complete Online Store",
+          "description": "Build beautiful, responsive online stores with advanced product catalogs and shopping cart functionality.",
+          "features": ["Product Catalog", "Shopping Cart", "Wishlist", "Product Search & Filters"]
+        },
+        {
+          "title": "Payment Integration",
+          "description": "Secure payment processing with multiple payment gateways and cryptocurrency support.",
+          "features": ["Multiple Payment Methods", "Secure Transactions", "Cryptocurrency Support", "Subscription Billing"]
+        },
+        {
+          "title": "Mobile Commerce",
+          "description": "Native mobile apps and responsive design for seamless shopping on any device.",
+          "features": ["Mobile Apps", "Responsive Design", "Push Notifications", "Mobile Payments"]
+        },
+        {
+          "title": "Inventory Management",
+          "description": "Real-time inventory tracking with automated stock alerts and supplier management.",
+          "features": ["Stock Tracking", "Automated Alerts", "Supplier Management", "Multi-warehouse"]
+        },
+        {
+          "title": "Customer Management",
+          "description": "Comprehensive customer profiles with purchase history and personalized experiences.",
+          "features": ["Customer Profiles", "Purchase History", "Personalization", "Loyalty Programs"]
+        },
+        {
+          "title": "Analytics & Reporting",
+          "description": "Advanced analytics and reporting tools to track performance and optimize sales.",
+          "features": ["Sales Analytics", "Customer Insights", "Performance Reports", "Revenue Tracking"]
+        },
+        {
+          "title": "Order Management",
+          "description": "Streamlined order processing with automated workflows and shipping integration.",
+          "features": ["Order Processing", "Shipping Integration", "Tracking", "Returns Management"]
+        },
+        {
+          "title": "Multi-channel Selling",
+          "description": "Sell across multiple platforms and marketplaces with centralized management.",
+          "features": ["Multi-platform", "Marketplace Integration", "Social Commerce", "Cross-channel Sync"]
+        }
+      ]
+    },
+    "benefits": {
+      "title": "Why Choose Our E-commerce Solutions?",
+      "subtitle": "Built for performance, security, and scalability with cutting-edge technology and best practices.",
+      "items": [
+        {
+          "title": "Lightning Fast",
+          "description": "Optimized for speed with advanced caching and CDN integration for instant page loads."
+        },
+        {
+          "title": "Enterprise Security",
+          "description": "Bank-level security with SSL encryption, fraud detection, and PCI compliance."
+        },
+        {
+          "title": "Highly Customizable",
+          "description": "Tailor every aspect of your store to match your brand and business requirements."
+        },
+        {
+          "title": "Cloud-Based",
+          "description": "Scalable cloud infrastructure that grows with your business needs."
+        },
+        {
+          "title": "Advanced SEO",
+          "description": "Built-in SEO tools and optimization features to improve search rankings."
+        },
+        {
+          "title": "24/7 Support",
+          "description": "Round-the-clock technical support and maintenance for your e-commerce platform."
+        }
+      ]
+    },
+    "statistics": {
+      "title": "Proven E-commerce Success",
+      "subtitle": "Our e-commerce solutions have helped businesses achieve exceptional growth and customer satisfaction.",
+      "items": [
+        {
+          "value": "20+",
+          "label": "Online Stores Built"
+        },
+        {
+          "value": "250%",
+          "label": "Average Sales Increase"
+        },
+        {
+          "value": "0.2s",
+          "label": "Average Load Time"
+        },
+        {
+          "value": "98%",
+          "label": "Customer Satisfaction"
+        }
+      ]
+    },
+    "industries": {
+      "title": "Industries We Serve",
+      "subtitle": "Our e-commerce solutions are tailored to meet the unique needs of various industries and business models.",
+      "list": [
+        "Food & Beverages",
+        "Health & Wellness",
+        "Electronics & Gadgets",
+        "Home & Garden",
+        "Sports & Fitness",
+        "Books & Media"
+      ]
+    },
+    "technologies": {
+      "title": "Cutting-Edge Technology Stack",
+      "subtitle": "We use the latest technologies and frameworks to build fast, secure, and scalable e-commerce platforms.",
+      "items": [
+        { "name": "React/Next.js", "icon": "⚛️" },
+        { "name": "Node.js", "icon": "🟢" },
+        { "name": "MongoDB", "icon": "🍃" },
+        { "name": "Stripe/PayPal", "icon": "💳" },
+        { "name": "AWS/Azure", "icon": "☁️" }
+      ]
+    },
+    "process": {
+      "title": "Our E-commerce Development Process",
+      "description": "From concept to launch, we follow a proven development methodology that ensures your e-commerce platform is built to the highest standards and delivers exceptional results.",
+      "steps": [
+        {
+          "title": "Discovery & Planning",
+          "description": "Understanding your business needs and target audience to create the perfect strategy."
+        },
+        {
+          "title": "Design & Development", 
+          "description": "Creating beautiful, user-friendly interfaces with robust backend functionality."
+        },
+        {
+          "title": "Testing & Optimization",
+          "description": "Rigorous testing and performance optimization for the best user experience."
+        },
+        {
+          "title": "Launch & Support",
+          "description": "Smooth deployment with ongoing maintenance and support services."
+        }
+      ],
+      "timeline": {
+        "title": "Project Timeline",
+        "phases": [
+          {
+            "period": "Week 1-2",
+            "task": "Requirements gathering and design mockups"
+          },
+          {
+            "period": "Week 3-8",
+            "task": "Development and feature implementation"
+          },
+          {
+            "period": "Week 9-10",
+            "task": "Testing, optimization, and content migration"
+          },
+          {
+            "period": "Week 11-12",
+            "task": "Launch preparation and go-live"
+          }
+        ]
+      }
+    },
+    "cta": {
+      "title": "Ready to Launch Your Online Store?",
+      "description": "Let's build an e-commerce platform that drives sales, engages customers, and scales with your business growth.",
+      "primaryButton": "Start Your Project",
+      "secondaryButton": "Explore All Services"
+    },
+    "imageAlts": [
+      "E-commerce Application Screenshot 1",
+      "E-commerce Application Screenshot 2", 
+      "E-commerce Application Screenshot 3",
+      "E-commerce Application Screenshot 4"
+    ]
+  },
+
+
+  "propertyManagementSystem": {
+    "hero": {
+      "title": "Property Management System",
+      "subtitle": "Connecting Landlords and Tenants for Ideal Rentals",
+      "description": "Comprehensive property management and real estate solutions connecting landlords and tenants seamlessly"
+    },
+    "projectOverview": {
+      "title": "Project Overview",
+      "description": "Our Real Estate Platform is a comprehensive B2B & B2C solution that revolutionizes property management and rental processes. The platform connects property owners, landlords, and tenants in a seamless digital ecosystem, making property rentals more efficient and transparent for all parties involved."
+    },
+    "websiteScreenshots": {
+      "title": "Modern Property Portal",
+      "subtitle": "Clean and intuitive interface for property search and management",
+      "feature1": {
+        "title": "Feature-Rich Platform",
+        "description": "Comprehensive property management tools and tenant services"
+      },
+      "maintenance": {
+        "title": "Maintenance System", 
+        "description": "Streamlined maintenance request handling and tracking system"
+      }
+    },
+    "adminDashboard": {
+      "title": "Admin Dashboard",
+      "description": "Powerful administrative interface providing landlords and property managers with comprehensive control over their rental operations, analytics, and tenant management.",
+      "analytics": {
+        "title": "Comprehensive Analytics Dashboard",
+        "description": "Real-time insights into payment status, occupancy rates, and property performance metrics"
+      },
+      "maintenance": {
+        "title": "Maintenance Request Tracking",
+        "description": "Efficient maintenance request handling with status tracking and completion analytics"
+      },
+      "property": {
+        "title": "Property & Payment Management",
+        "description": "Detailed property analytics with payment tracking and occupancy monitoring"
+      },
+      "revenue": {
+        "title": "Revenue & Financial Insights",
+        "description": "Monthly revenue tracking and year-to-date financial performance analysis"
+      }
+    },
+    "platformFeatures": {
+      "title": "Platform Features",
+      "propertyListings": {
+        "title": "Property Listings",
+        "description": "Advanced property listing system with detailed descriptions, photo galleries, and virtual tours."
+      },
+      "tenantScreening": {
+        "title": "Tenant Screening",
+        "description": "Comprehensive tenant verification system including background checks and credit assessments."
+      },
+      "rentCollection": {
+        "title": "Rent Collection",
+        "description": "Automated rent collection system with multiple payment options and late fee management."
+      },
+      "maintenanceRequests": {
+        "title": "Maintenance Requests",
+        "description": "Streamlined maintenance request system with contractor management and tracking capabilities."
+      },
+      "documentManagement": {
+        "title": "Document Management",
+        "description": "Digital lease agreements, contract storage, and document signing capabilities."
+      },
+      "analyticsDashboard": {
+        "title": "Analytics Dashboard",
+        "description": "Comprehensive reporting and analytics for property performance and financial insights."
+      }
+    },
+    "whoWeServe": {
+      "title": "Who We Serve",
+      "propertyOwners": {
+        "title": "Property Owners",
+        "description": "Maximize rental income and streamline property management with our comprehensive tools."
+      },
+      "propertyManagers": {
+        "title": "Property Managers",
+        "description": "Efficiently manage multiple properties with automated workflows and tenant communication."
+      },
+      "tenants": {
+        "title": "Tenants",
+        "description": "Find your perfect home and enjoy hassle-free rental experience with digital convenience."
+      }
+    },
+    "platformImpact": {
+      "title": "Platform Impact",
+      "properties": "Properties Listed",
+      "landlords": "Active Landlords", 
+      "tenants": "Registered Tenants",
+      "satisfaction": "User Satisfaction"
+    },
+    "cta": {
+      "title": "Ready to Transform Your Property Management?",
+      "description": "Join thousands of landlords and tenants already using our platform to streamline their property rental operations.",
+      "getStarted": "Get Started",
+      "exploreServices": "Explore All Services"
+    }
+  },
+  "fandbSolution": {
+    "hero": {
+      "title": "F&B Solution",
+      "subtitle": "Empowering the F&B Industry with Bespoke Software Solutions",
+      "description": "Restaurant management system designed to simplify operations and enhance customer delivery, pickup and dining experience"
+    },
+    "platformOverview": {
+      "title": "Platform Overview",
+      "description": "Our comprehensive F&B Solution revolutionizes restaurant operations by integrating ordering, payment, delivery, and customer management into one powerful platform. From small cafes to large restaurant chains, our system adapts to your business needs while enhancing the overall dining experience."
+    },
+    "platformScreenshots": {
+      "adminDashboard": {
+        "title": "Comprehensive Admin Dashboard",
+        "description": "Complete overview of restaurant operations with real-time analytics and performance metrics"
+      },
+      "onlineOrdering": {
+        "title": "Seamless Online Ordering",
+        "description": "User-friendly ordering interface with menu customization and payment integration"
+      },
+      "menuManagement": {
+        "title": "Dynamic Menu Management",
+        "description": "Easy-to-use menu creation and management system with real-time updates"
+      },
+      "customerExperience": {
+        "title": "Enhanced Customer Experience",
+        "description": "Streamlined customer interface for orders, tracking, and feedback management"
+      }
+    },
+    "serviceOptions": {
+      "title": "Multiple Service Options",
+      "description": "Flexible ordering and fulfillment options designed to meet every customer preference and enhance their dining experience.",
+      "homeDelivery": {
+        "title": "Home Delivery",
+        "description": "Fast and reliable delivery service with real-time tracking"
+      },
+      "pickupService": {
+        "title": "Pickup Service",
+        "description": "Convenient pickup option with order-ready notifications"
+      },
+      "dineInExperience": {
+        "title": "Dine-in Experience",
+        "description": "Enhanced in-restaurant experience with QR code ordering"
+      }
+    },
+    "platformFeatures": {
+      "title": "Platform Features",
+      "subtitle": "Comprehensive suite of tools designed to streamline restaurant operations and enhance customer satisfaction.",
+      "digitalMenuManagement": {
+        "title": "Digital Menu Management",
+        "description": "Dynamic menu creation with real-time updates, customizable categories, and seasonal offerings management."
+      },
+      "onlineOrderingSystem": {
+        "title": "Online Ordering System",
+        "description": "Seamless online ordering with real-time order tracking and automated kitchen notifications."
+      },
+      "integratedPaymentGateway": {
+        "title": "Integrated Payment Gateway",
+        "description": "Multiple payment options including cards, digital wallets, and cash with automated reconciliation."
+      },
+      "deliveryManagement": {
+        "title": "Delivery Management",
+        "description": "Efficient delivery tracking system with real-time GPS monitoring and delivery optimization."
+      },
+      "customerManagement": {
+        "title": "Customer Management",
+        "description": "Comprehensive customer profiles with order history, preferences, and loyalty program integration."
+      },
+      "analyticsReporting": {
+        "title": "Analytics & Reporting",
+        "description": "Detailed sales analytics, performance metrics, and business intelligence dashboards."
+      },
+      "qrCodeIntegration": {
+        "title": "QR Code Integration",
+        "description": "Contactless ordering through QR codes for dine-in customers with table service integration."
+      },
+      "realTimeNotifications": {
+        "title": "Real-time Notifications",
+        "description": "Instant notifications for new orders, delivery updates, and customer feedback management."
+      },
+      "inventoryManagement": {
+        "title": "Inventory Management",
+        "description": "Smart inventory tracking with low-stock alerts and automated supplier notifications."
+      }
+    },
+    "whoWeServe": {
+      "title": "Who We Serve",
+      "subtitle": "Our platform is designed to meet the diverse needs of the food and beverage industry.",
+      "restaurantOwners": {
+        "title": "Restaurant Owners",
+        "description": "Streamline operations, increase revenue, and enhance customer experience with our comprehensive platform."
+      },
+      "foodBeverageChains": {
+        "title": "Food & Beverage Chains",
+        "description": "Manage multiple locations with centralized control, standardized processes, and unified reporting."
+      },
+      "customers": {
+        "title": "Customers",
+        "description": "Enjoy seamless ordering experience with multiple options for delivery, pickup, and dine-in services."
+      }
+    },
+    "keyBenefits": {
+      "title": "Key Benefits",
+      "increasedRevenue": {
+        "title": "Increased Revenue",
+        "description": "Boost sales with streamlined ordering processes and expanded customer reach through multiple service channels."
+      },
+      "operationalEfficiency": {
+        "title": "Operational Efficiency",
+        "description": "Reduce manual work with automated order processing, inventory management, and customer communications."
+      },
+      "enhancedCustomerExperience": {
+        "title": "Enhanced Customer Experience",
+        "description": "Provide seamless ordering experience with real-time tracking and multiple payment options."
+      },
+      "dataDrivenInsights": {
+        "title": "Data-Driven Insights",
+        "description": "Make informed decisions with comprehensive analytics and reporting on sales, customer behavior, and operations."
+      },
+      "secureTransactions": {
+        "title": "Secure Transactions",
+        "description": "Ensure safe and secure payment processing with integrated fraud protection and compliance features."
+      },
+      "scalableSolution": {
+        "title": "Scalable Solution",
+        "description": "Grow your business with a platform that scales from single locations to multi-chain operations."
+      }
+    },
+    "platformImpact": {
+      "title": "Platform Impact",
+      "restaurants": "Restaurants Served",
+      "orders": "Orders Processed",
+      "customers": "Happy Customers",
+      "uptime": "Uptime Guarantee"
+    },
+    "cta": {
+      "title": "Ready to Transform Your Restaurant Operations?",
+      "description": "Join hundreds of restaurants already using our platform to streamline operations and enhance customer experience.",
+      "getStarted": "Get Started",
+      "exploreServices": "Explore All Services"
+    }
+  },
+  "teamSection": {
+  "title": "Meet our Team",
+  "subtitle": "Run your entire business with Cocopalms unified cloud software",
+  "loading": {
+    "text": "Loading team members..."
+  },
+  "imageAlts": {
+    "teamMember": "Team member photo"
+  }
+},
+
+
+  "testimonialSection": {
+    "title": "You're in good company",
+    "subtitle": "Join 8,530 business using Cocopalms to grow.",
+    "loading": {
+      "text": "Loading testimonials..."
+    },
+    "noTestimonials": "No testimonials available",
+    "imageAlts": {
+      "companyLogo": "Company Logo"
+    }
+  },
+
+"contactUs": {
+  "hero": {
+    "title": "Looking for something?",
+    "subtitle": "We are happy to help"
+  },
+  "contactDetails": {
+    "title": "Contact Directly",
+    "kuwaitOffice": {
+      "title": "Kuwait Office",
+      "address": "Block 2, Salem Al Mubarak Street, Dolphin Hotel commercial tower, Alsalmiya, Kuwait",
+      "mobile": "Mobile: +965 9918 5891",
+      "hours": "Office Hours: 8.00 am to 4.00 pm"
+    },
+    "abuDhabiOffice": {
+      "title": "Abu Dhabi Office", 
+      "address": "Mazyad Mall, 7th Floor, Tower 1 Abu Dhabi,UAE",
+      "hours": "Office Hours: 9.00 am to 5.00 pm"
+    },
+    "email": "info@cocopalms.io"
+  },
+  "form": {
+    "title": "Get in touch",
+    "fields": {
+      "name": "Name",
+      "mobile": "Mobile",
+      "email": "Email",
+      "company": "Company Name",
+      "employees": "Number of Employees",
+      "subject": "Subject",
+      "message": "Message"
+    },
+    "placeholders": {
+      "mobile": "Enter mobile number",
+      "employeesDefault": "Select..."
+    },
+    "employeeOptions": {
+      "1-10": "1-10",
+      "11-50": "11-50", 
+      "51-200": "51-200",
+      "201-500": "201-500",
+      "501+": "501+"
+    },
+    "required": "*",
+    "privacyText": "By submitting this form, you agree to our",
+    "privacyLink": "Privacy Policy",
+    "submitButton": "Submit",
+    "submittingButton": "Submitting..."
+  },
+  "messages": {
+    "success": "Form submitted successfully! We will get back to you soon.",
+    "error": "There was an error submitting the form. Please try again."
+  },
+  "map": {
+    "popupTitle": "Cocopalms",
+    "popupAddress": "Block 2, Salem Al Mubarak Street Dolphin Hotel Commercial Tower Alsalmiya, Kuwait",
+    "popupPhone": "+965 9918 5891",
+    "attribution": "Powered by OpenStreetMap - Completely Free",
+    "fallbackTitle": "Cocopalms Office",
+    "fallbackAddress": "Block 2, Salem Al Mubarak Street Alsalmiya, Kuwait"
+  }
+},
+
+"blog": {
+  "title": "Our Blog",
+  "subtitle": "Stay updated with the latest insights and trends",
+  "readMore": "Read More",
+  "loading": "Loading blog posts...",
+  "meta": {
+    "title": "Blog | Cocopalms - Latest Insights & Tech Updates",
+    "description": "Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation.",
+    "siteName": "Cocopalms Blog"
+  },
+  "error": {
+    "title": "Error loading blog posts",
+    "retry": "Retry"
+  },
+  "post": {
+    "loading": "Loading... | Cocopalms Blog",
+    "loadingDesc": "Loading blog post...",
+    "loadingTitle": "Loading blog post...",
+    "notFound": "Blog Post Not Found | Cocopalms Blog",
+    "notFoundDesc": "The requested blog post could not be found.",
+    "notFoundTitle": "Blog post not found",
+    "backToList": "Back to Blog List",
+    "previous": "Previous",
+    "next": "Next"
+  }
+},
+  "common": {
+    "imageAlt": {
+      "propertyManagement": {
+        "rentingsHomepage": "Rentings Homepage",
+        "propertyFeatures": "Property Features", 
+        "maintenanceManagement": "Maintenance Management",
+        "adminDashboardOverview": "Admin Dashboard Overview",
+        "propertyManagementDashboard": "Property Management Dashboard",
+        "revenueAnalytics": "Revenue Analytics"
+      },
+      "fandb": {
+        "restaurantManagementDashboard": "Restaurant Management Dashboard",
+        "onlineOrderingSystem": "Online Ordering System",
+        "menuManagementSystem": "Menu Management System",
+        "customerExperiencePortal": "Customer Experience Portal"
+      }
+    }
+  }
+
+}
+  
+  
