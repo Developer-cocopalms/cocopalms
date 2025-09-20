@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { 
@@ -20,12 +20,16 @@ import {
   Globe,
   Settings
 } from 'lucide-react';
-
 import { getPageKeywords } from '../pages/hooks/keywordsService';
+import { useTranslation } from "react-i18next";
 
 const ERPEcosystem = () => {
   const canonicalUrl = "https://cocopalms.io/what-we-do/erp-solution";
   const [keywords, setKeywords] = useState('ERP solutions, enterprise software, business automation, resource planning');
+  const { t, i18n } = useTranslation();
+  
+  // Get current language direction
+  const isRTL = i18n.language === 'ar';
 
   useEffect(() => {
     const fetchKeywords = async () => {
@@ -37,17 +41,14 @@ const ERPEcosystem = () => {
     fetchKeywords();
   }, []);
 
-
   // Update meta description for ERP page
-useEffect(() => {
-  const metaDescription = document.querySelector('meta[name="description"]');
-  if (metaDescription) {
-    metaDescription.setAttribute('content', 'Cocopalms provides tailored ERP solutions for F&B and enterprise businesses, streamlining operations and enhancing efficiency for sustainable growth.');
-  }
-}, []);  
+  useEffect(() => {
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Cocopalms provides tailored ERP solutions for F&B and enterprise businesses, streamlining operations and enhancing efficiency for sustainable growth.');
+    }
+  }, []);  
 
-
-  
   // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
   useEffect(() => {
     // Remove any existing canonical links
@@ -79,77 +80,76 @@ useEffect(() => {
     };
   }, [canonicalUrl]);
 
-  
   const erpModules = [
     {
       icon: ChefHat,
-      title: "Kitchen",
-      description: "Meal planning, ingredient tracking, and recipe management.",
-      features: ["Recipe Database", "Ingredient Tracking", "Meal Planning", "Kitchen Workflow"],
+      title: t('erpSolution.modules.items.0.title'),
+      description: t('erpSolution.modules.items.0.description'),
+      features: t('erpSolution.modules.items.0.features', { returnObjects: true }),
       color: "bg-orange-100 text-orange-600",
       image: "kitchen-module.png"
     },
     {
       icon: BookOpen,
-      title: "Books",
-      description: "Organize financial records and manage transactions efficiently.",
-      features: ["Financial Records", "Transaction Management", "Accounting", "Reporting"],
+      title: t('erpSolution.modules.items.1.title'),
+      description: t('erpSolution.modules.items.1.description'),
+      features: t('erpSolution.modules.items.1.features', { returnObjects: true }),
       color: "bg-blue-100 text-blue-600",
       image: "books-module.png"
     },
     {
       icon: Users,
-      title: "HRMS",
-      description: "Simplify employee management, payroll, and attendance tracking.",
-      features: ["Employee Management", "Payroll Processing", "Attendance Tracking", "HR Analytics"],
+      title: t('erpSolution.modules.items.2.title'),
+      description: t('erpSolution.modules.items.2.description'),
+      features: t('erpSolution.modules.items.2.features', { returnObjects: true }),
       color: "bg-green-100 text-green-600",
       image: "hrms-module.png"
     },
     {
       icon: Package,
-      title: "Inventory",
-      description: "Track stock levels, purchases, and supplier data in real-time.",
-      features: ["Stock Management", "Purchase Orders", "Supplier Management", "Real-time Tracking"],
+      title: t('erpSolution.modules.items.3.title'),
+      description: t('erpSolution.modules.items.3.description'),
+      features: t('erpSolution.modules.items.3.features', { returnObjects: true }),
       color: "bg-purple-100 text-purple-600",
       image: "inventory-module.png"
     },
     {
       icon: ShoppingCart,
-      title: "E-commerce",
-      description: "Manage online sales, orders, and customer interactions.",
-      features: ["Online Store", "Order Management", "Customer Portal", "Payment Integration"],
+      title: t('erpSolution.modules.items.4.title'),
+      description: t('erpSolution.modules.items.4.description'),
+      features: t('erpSolution.modules.items.4.features', { returnObjects: true }),
       color: "bg-teal-100 text-teal-600",
       image: "ecommerce-module.png"
     },
     {
       icon: TrendingUp,
-      title: "Sales",
-      description: "Monitor sales performance, trends, and customer insights.",
-      features: ["Sales Analytics", "Performance Tracking", "Customer Insights", "Revenue Reports"],
+      title: t('erpSolution.modules.items.5.title'),
+      description: t('erpSolution.modules.items.5.description'),
+      features: t('erpSolution.modules.items.5.features', { returnObjects: true }),
       color: "bg-indigo-100 text-indigo-600",
       image: "sales-module.png"
     },
     {
       icon: Building2,
-      title: "CRM",
-      description: "Improve customer relationships and streamline communication.",
-      features: ["Customer Database", "Lead Management", "Communication Tools", "Pipeline Tracking"],
+      title: t('erpSolution.modules.items.6.title'),
+      description: t('erpSolution.modules.items.6.description'),
+      features: t('erpSolution.modules.items.6.features', { returnObjects: true }),
       color: "bg-pink-100 text-pink-600",
       image: "crm-module.png"
     },
     {
       icon: Truck,
-      title: "Delivery",
-      description: "Optimize logistics, tracking, and order fulfillment.",
-      features: ["Route Optimization", "Delivery Tracking", "Order Fulfillment", "Logistics Management"],
+      title: t('erpSolution.modules.items.7.title'),
+      description: t('erpSolution.modules.items.7.description'),
+      features: t('erpSolution.modules.items.7.features', { returnObjects: true }),
       color: "bg-yellow-100 text-yellow-600",
       image: "delivery-module.png"
     },
     {
       icon: Target,
-      title: "Marka",
-      description: "Enhance brand strategy with data-driven marketing tools.",
-      features: ["Brand Management", "Marketing Analytics", "Campaign Tools", "Customer Segmentation"],
+      title: t('erpSolution.modules.items.8.title'),
+      description: t('erpSolution.modules.items.8.description'),
+      features: t('erpSolution.modules.items.8.features', { returnObjects: true }),
       color: "bg-red-100 text-red-600",
       image: "marka-module.png"
     }
@@ -158,275 +158,283 @@ useEffect(() => {
   const benefits = [
     {
       icon: Zap,
-      title: "Increased Efficiency",
-      description: "Streamline operations and reduce manual work with automated processes."
+      title: t('erpSolution.benefits.items.0.title'),
+      description: t('erpSolution.benefits.items.0.description')
     },
     {
       icon: BarChart3,
-      title: "Real-time Analytics",
-      description: "Make informed decisions with comprehensive reporting and dashboards."
+      title: t('erpSolution.benefits.items.1.title'),
+      description: t('erpSolution.benefits.items.1.description')
     },
     {
       icon: Shield,
-      title: "Data Security",
-      description: "Enterprise-grade security to protect your business data and operations."
+      title: t('erpSolution.benefits.items.2.title'),
+      description: t('erpSolution.benefits.items.2.description')
     },
     {
       icon: Globe,
-      title: "Scalable Solution",
-      description: "Grows with your business needs, from startup to enterprise level."
+      title: t('erpSolution.benefits.items.3.title'),
+      description: t('erpSolution.benefits.items.3.description')
     },
     {
       icon: Settings,
-      title: "Customizable",
-      description: "Tailor the system to match your specific business requirements."
+      title: t('erpSolution.benefits.items.4.title'),
+      description: t('erpSolution.benefits.items.4.description')
     },
     {
       icon: Clock,
-      title: "24/7 Support",
-      description: "Round-the-clock technical support and system maintenance."
+      title: t('erpSolution.benefits.items.5.title'),
+      description: t('erpSolution.benefits.items.5.description')
     }
   ];
 
-  const industries = [
-    "Restaurants & Food Service",
-    "Retail & E-commerce",
-    "Manufacturing",
-    "Healthcare",
-    "Education",
-    "Professional Services",
-    "Logistics & Transportation",
-    "Real Estate"
-  ];
+  const industries = t('erpSolution.industries.list', { returnObjects: true });
 
   const screenshots = [
     {
       src:"kitchen.png",
       alt: "Kitchen Module Dashboard",
-      title: "Kitchen Management",
-      description: "Comprehensive meal planning and ingredient tracking interface"
+      title: t('erpSolution.screenshots.items.0.title'),
+      description: t('erpSolution.screenshots.items.0.description')
     },
     {
       src: "finance.png", 
       alt: "Books Module Dashboard",
-      title: "Financial Management",
-      description: "Complete financial records and transaction management system"
+      title: t('erpSolution.screenshots.items.1.title'),
+      description: t('erpSolution.screenshots.items.1.description')
     },
     {
       src: "hr.png",
       alt: "HRMS Module Dashboard", 
-      title: "Human Resources",
-      description: "Employee management with payroll and attendance tracking"
+      title: t('erpSolution.screenshots.items.2.title'),
+      description: t('erpSolution.screenshots.items.2.description')
     },
     {
       src: "inventory.png",
       alt: "Inventory Module Dashboard",
-      title: "Inventory Control",
-      description: "Real-time stock management and supplier coordination"
+      title: t('erpSolution.screenshots.items.3.title'),
+      description: t('erpSolution.screenshots.items.3.description')
     },
     {
       src: "ecom.png",
       alt: "E-commerce Module Dashboard",
-      title: "Online Sales",
-      description: "Complete e-commerce platform with order management"
+      title: t('erpSolution.screenshots.items.4.title'),
+      description: t('erpSolution.screenshots.items.4.description')
     },
     {
       src: "sales.png", 
       alt: "Sales Module Dashboard",
-      title: "Sales Analytics",
-      description: "Advanced sales performance monitoring and insights"
+      title: t('erpSolution.screenshots.items.5.title'),
+      description: t('erpSolution.screenshots.items.5.description')
     }
   ];
 
+  const statisticsData = t('erpSolution.statistics.items', { returnObjects: true });
+  const integrationFeatures = [
+    {
+      title: t('erpSolution.integration.features.0.title'),
+      description: t('erpSolution.integration.features.0.description')
+    },
+    {
+      title: t('erpSolution.integration.features.1.title'),
+      description: t('erpSolution.integration.features.1.description')
+    },
+    {
+      title: t('erpSolution.integration.features.2.title'),
+      description: t('erpSolution.integration.features.2.description')
+    }
+  ];
+
+  const implementationSteps = t('erpSolution.integration.implementation.steps', { returnObjects: true });
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
       <Helmet>
-  <title>ERP Solutions for F&B & Enterprise | Cocopalms</title>
-  <meta 
-    name="description" 
-    content="Cocopalms provides tailored ERP solutions for F&B and enterprise businesses, streamlining operations and enhancing efficiency for sustainable growth."
-  />
-  <meta name="keywords" content={keywords} />
-  <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  {/* Canonical URL */}
-  <link rel="canonical" href="https://cocopalms.io/what-we-do/erp-solution" />
-  
-  {/* Open Graph Meta Tags */}
-  <meta property="og:title" content="Complete ERP Ecosystem - Business Management Platform | Cocopalms" />
-  <meta property="og:description" content="Cocopalms provides tailored ERP solutions for F&B and enterprise businesses, streamlining operations and enhancing efficiency for sustainable growth." />
-  <meta property="og:url" content="https://cocopalms.io/what-we-do/erp-solution" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Cocopalms" />
-  
- 
-  {/* Additional SEO Meta Tags */}
-  <meta name="author" content="Cocopalms" />
-  
-  <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-  
-  {/* Structured Data */}
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Complete ERP Ecosystem",
-      "applicationCategory": "BusinessApplication",
-      "provider": {
-        "@type": "Organization",
-        "name": "Cocopalms",
-        "url": "https://cocopalms.io",
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "Kuwait"
-        }
-      },
-      "description": "Comprehensive ERP solution with 9 integrated modules for complete business management including Kitchen, Books, HRMS, Inventory, E-commerce, Sales, CRM, Delivery and Marketing.",
-      "url": "https://cocopalms.io/what-we-do/erp-solution",
-      "operatingSystem": "Web-based",
-      "applicationSubCategory": "Enterprise Resource Planning",
-      "offers": {
-        "@type": "Offer",
-        "description": "Complete ERP Ecosystem with integrated business modules",
-        "seller": {
-          "@type": "Organization", 
-          "name": "Cocopalms"
-        }
-      },
-      "featureList": [
-        "Kitchen Management - Meal planning and ingredient tracking",
-        "Books - Financial records and transaction management", 
-        "HRMS - Employee management and payroll processing",
-        "Inventory - Stock management and supplier coordination",
-        "E-commerce - Online sales and order management", 
-        "Sales Analytics - Performance tracking and insights",
-        "CRM - Customer relationship management",
-        "Delivery - Logistics and order fulfillment",
-        "Marka - Brand strategy and marketing tools"
-      ],
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "50"
-      },
-      "applicationSuite": [
-        {
-          "@type": "SoftwareApplication",
-          "name": "Kitchen Module",
-          "description": "Meal planning, ingredient tracking, and recipe management"
-        },
-        {
-          "@type": "SoftwareApplication", 
-          "name": "Books Module",
-          "description": "Financial records and transaction management"
-        },
-        {
-          "@type": "SoftwareApplication",
-          "name": "HRMS Module", 
-          "description": "Employee management, payroll, and attendance tracking"
-        },
-        {
-          "@type": "SoftwareApplication",
-          "name": "Inventory Module",
-          "description": "Stock management and supplier coordination"
-        },
-        {
-          "@type": "SoftwareApplication",
-          "name": "E-commerce Module",
-          "description": "Online sales and order management platform"
-        },
-        {
-          "@type": "SoftwareApplication",
-          "name": "Sales Module", 
-          "description": "Sales analytics and performance tracking"
-        },
-        {
-          "@type": "SoftwareApplication",
-          "name": "CRM Module",
-          "description": "Customer relationship and communication management"
-        },
-        {
-          "@type": "SoftwareApplication",
-          "name": "Delivery Module",
-          "description": "Logistics optimization and order fulfillment"
-        },
-        {
-          "@type": "SoftwareApplication",
-          "name": "Marka Module",
-          "description": "Brand strategy and marketing analytics tools"
-        }
-      ],
-      "target": [
-        "Restaurants & Food Service",
-        "Retail & E-commerce", 
-        "Manufacturing",
-        "Healthcare",
-        "Education",
-        "Professional Services",
-        "Logistics & Transportation",
-        "Real Estate"
-      ]
-    })}
-  </script>
-  
-  {/* Additional Service Schema */}
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "name": "ERP Implementation Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Cocopalms"
-      },
-      "description": "Complete ERP ecosystem implementation with custom configuration, data migration, training and ongoing support.",
-      "serviceType": "ERP Implementation",
-      "areaServed": {
-        "@type": "Country",
-        "name": "Kuwait"
-      },
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "ERP Services",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Initial Consultation",
-              "description": "Requirements analysis and system planning"
+        <title>ERP Solutions for F&B & Enterprise | Cocopalms</title>
+        <meta 
+          name="description" 
+          content="Cocopalms provides tailored ERP solutions for F&B and enterprise businesses, streamlining operations and enhancing efficiency for sustainable growth."
+        />
+        <meta name="keywords" content={keywords} />
+        <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://cocopalms.io/what-we-do/erp-solution" />
+        
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="Complete ERP Ecosystem - Business Management Platform | Cocopalms" />
+        <meta property="og:description" content="Cocopalms provides tailored ERP solutions for F&B and enterprise businesses, streamlining operations and enhancing efficiency for sustainable growth." />
+        <meta property="og:url" content="https://cocopalms.io/what-we-do/erp-solution" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Cocopalms" />
+        
+        {/* Additional SEO Meta Tags */}
+        <meta name="author" content="Cocopalms" />
+        
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Complete ERP Ecosystem",
+            "applicationCategory": "BusinessApplication",
+            "provider": {
+              "@type": "Organization",
+              "name": "Cocopalms",
+              "url": "https://cocopalms.io",
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "Kuwait"
+              }
+            },
+            "description": "Comprehensive ERP solution with 9 integrated modules for complete business management including Kitchen, Books, HRMS, Inventory, E-commerce, Sales, CRM, Delivery and Marketing.",
+            "url": "https://cocopalms.io/what-we-do/erp-solution",
+            "operatingSystem": "Web-based",
+            "applicationSubCategory": "Enterprise Resource Planning",
+            "offers": {
+              "@type": "Offer",
+              "description": "Complete ERP Ecosystem with integrated business modules",
+              "seller": {
+                "@type": "Organization", 
+                "name": "Cocopalms"
+              }
+            },
+            "featureList": [
+              "Kitchen Management - Meal planning and ingredient tracking",
+              "Books - Financial records and transaction management", 
+              "HRMS - Employee management and payroll processing",
+              "Inventory - Stock management and supplier coordination",
+              "E-commerce - Online sales and order management", 
+              "Sales Analytics - Performance tracking and insights",
+              "CRM - Customer relationship management",
+              "Delivery - Logistics and order fulfillment",
+              "Marka - Brand strategy and marketing tools"
+            ],
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "50"
+            },
+            "applicationSuite": [
+              {
+                "@type": "SoftwareApplication",
+                "name": "Kitchen Module",
+                "description": "Meal planning, ingredient tracking, and recipe management"
+              },
+              {
+                "@type": "SoftwareApplication", 
+                "name": "Books Module",
+                "description": "Financial records and transaction management"
+              },
+              {
+                "@type": "SoftwareApplication",
+                "name": "HRMS Module", 
+                "description": "Employee management, payroll, and attendance tracking"
+              },
+              {
+                "@type": "SoftwareApplication",
+                "name": "Inventory Module",
+                "description": "Stock management and supplier coordination"
+              },
+              {
+                "@type": "SoftwareApplication",
+                "name": "E-commerce Module",
+                "description": "Online sales and order management platform"
+              },
+              {
+                "@type": "SoftwareApplication",
+                "name": "Sales Module", 
+                "description": "Sales analytics and performance tracking"
+              },
+              {
+                "@type": "SoftwareApplication",
+                "name": "CRM Module",
+                "description": "Customer relationship and communication management"
+              },
+              {
+                "@type": "SoftwareApplication",
+                "name": "Delivery Module",
+                "description": "Logistics optimization and order fulfillment"
+              },
+              {
+                "@type": "SoftwareApplication",
+                "name": "Marka Module",
+                "description": "Brand strategy and marketing analytics tools"
+              }
+            ],
+            "target": [
+              "Restaurants & Food Service",
+              "Retail & E-commerce", 
+              "Manufacturing",
+              "Healthcare",
+              "Education",
+              "Professional Services",
+              "Logistics & Transportation",
+              "Real Estate"
+            ]
+          })}
+        </script>
+        
+        {/* Additional Service Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "ERP Implementation Services",
+            "provider": {
+              "@type": "Organization",
+              "name": "Cocopalms"
+            },
+            "description": "Complete ERP ecosystem implementation with custom configuration, data migration, training and ongoing support.",
+            "serviceType": "ERP Implementation",
+            "areaServed": {
+              "@type": "Country",
+              "name": "Kuwait"
+            },
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "ERP Services",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Initial Consultation",
+                    "description": "Requirements analysis and system planning"
+                  }
+                },
+                {
+                  "@type": "Offer", 
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Custom Configuration",
+                    "description": "System setup and data migration"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service", 
+                    "name": "Team Training",
+                    "description": "Comprehensive user training and system deployment"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Ongoing Support", 
+                    "description": "24/7 technical support and system optimization"
+                  }
+                }
+              ]
             }
-          },
-          {
-            "@type": "Offer", 
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Custom Configuration",
-              "description": "System setup and data migration"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service", 
-              "name": "Team Training",
-              "description": "Comprehensive user training and system deployment"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Ongoing Support", 
-              "description": "24/7 technical support and system optimization"
-            }
-          }
-        ]
-      }
-    })}
-  </script>
-</Helmet>
+          })}
+        </script>
+      </Helmet>
       
       {/* Hero Section */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24 md:mt-24 relative overflow-hidden">
@@ -436,15 +444,14 @@ useEffect(() => {
             <Building2 className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Complete ERP Ecosystem
+            {t('erpSolution.hero.title')}
           </h1>
           <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-white/90 mb-8">
-            Unified Business Management Platform
+            {t('erpSolution.hero.subtitle')}
           </h2>
           <p className="text-base md:text-lg lg:text-xl text-white/80 leading-relaxed max-w-4xl mx-auto mb-10">
-            Transform your business operations with our comprehensive ERP solution that integrates all your business processes into one powerful, unified platform designed for modern enterprises.
+            {t('erpSolution.hero.description')}
           </p>
-          
         </div>
       </section>
 
@@ -453,10 +460,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              ERP System in Action
+              {t('erpSolution.screenshots.title')}
             </h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              See how our comprehensive ERP modules work together to streamline your business operations with real-time data and intuitive interfaces.
+              {t('erpSolution.screenshots.subtitle')}
             </p>
           </div>
 
@@ -464,7 +471,7 @@ useEffect(() => {
             {screenshots.map((screenshot, index) => (
               <div key={index} className="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-teal-200">
                 <div className="relative overflow-hidden">
-                <img 
+                  <img 
                     src={`/images/${screenshot.src}`} 
                     alt={screenshot.alt}
                     className="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-300"
@@ -496,10 +503,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Comprehensive Business Modules
+              {t('erpSolution.modules.title')}
             </h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Our ERP ecosystem covers every aspect of your business operations with seamlessly integrated modules designed to work together perfectly.
+              {t('erpSolution.modules.subtitle')}
             </p>
           </div>
 
@@ -515,7 +522,7 @@ useEffect(() => {
                   <p className="text-gray-600 leading-relaxed mb-6">{module.description}</p>
                   <div className="space-y-3">
                     {module.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-center space-x-3">
+                      <div key={featureIndex} className={`flex items-center ${isRTL ? 'space-x-reverse' : ''} space-x-3`}>
                         <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                         <span className="text-gray-700">{feature}</span>
                       </div>
@@ -528,8 +535,8 @@ useEffect(() => {
                       rel="noopener noreferrer"
                       className="text-teal-600 hover:text-teal-700 font-medium flex items-center group"
                     >
-                      Learn More
-                      <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      {t('erpSolution.common.learnMore')}
+                      <ArrowRight className={`${isRTL ? 'mr-2 group-hover:-translate-x-1' : 'ml-2 group-hover:translate-x-1'} w-4 h-4 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
                     </a>
                   </div>
                 </div>
@@ -544,10 +551,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Why Choose Our ERP Solution?
+              {t('erpSolution.benefits.title')}
             </h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Experience the power of integrated business management with features designed to drive growth and efficiency.
+              {t('erpSolution.benefits.subtitle')}
             </p>
           </div>
 
@@ -573,30 +580,35 @@ useEffect(() => {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Proven Results
+              {t('erpSolution.statistics.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Our ERP ecosystem has helped businesses across industries achieve remarkable growth and operational efficiency.
+              {t('erpSolution.statistics.subtitle')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center p-6 bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl">
-              <div className="text-4xl font-bold text-teal-600 mb-2">50+</div>
-              <div className="text-gray-700 font-medium">Active Businesses</div>
-            </div>
-            <div className="text-center p-6 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl">
-              <div className="text-4xl font-bold text-green-600 mb-2">40%</div>
-              <div className="text-gray-700 font-medium">Efficiency Increase</div>
-            </div>
-            <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-violet-100 rounded-2xl">
-              <div className="text-4xl font-bold text-purple-600 mb-2">99.9%</div>
-              <div className="text-gray-700 font-medium">System Uptime</div>
-            </div>
-            <div className="text-center p-6 bg-gradient-to-br from-orange-50 to-amber-100 rounded-2xl">
-              <div className="text-4xl font-bold text-orange-600 mb-2">24/7</div>
-              <div className="text-gray-700 font-medium">Support Available</div>
-            </div>
+            {statisticsData.map((stat, index) => {
+              const gradientClasses = [
+                'bg-gradient-to-br from-teal-50 to-teal-100',
+                'bg-gradient-to-br from-green-50 to-emerald-100',
+                'bg-gradient-to-br from-purple-50 to-violet-100',
+                'bg-gradient-to-br from-orange-50 to-amber-100'
+              ];
+              const valueClasses = [
+                'text-teal-600',
+                'text-green-600',
+                'text-purple-600',
+                'text-orange-600'
+              ];
+              
+              return (
+                <div key={index} className={`text-center p-6 ${gradientClasses[index]} rounded-2xl`}>
+                  <div className={`text-4xl font-bold ${valueClasses[index]} mb-2`}>{stat.value}</div>
+                  <div className="text-gray-700 font-medium">{stat.label}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -606,10 +618,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Trusted Across Industries
+              {t('erpSolution.industries.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Our ERP solution is designed to meet the unique needs of various industries and business types.
+              {t('erpSolution.industries.subtitle')}
             </p>
           </div>
 
@@ -622,68 +634,45 @@ useEffect(() => {
           </div>
         </div>
       </section>
-
-      {/* Integration Section */}
-      <section className="py-16 md:py-24 px-4 bg-gray-50">
+{/* Integration Section */}
+<section className="py-16 md:py-24 px-4 bg-gray-50">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${isRTL ? 'lg:grid-cols-2' : ''}`}>
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Seamless Integration & Workflow
+                {t('erpSolution.integration.title')}
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                Our ERP ecosystem is built on the principle of unified data and seamless workflow. Every module communicates with others to provide a comprehensive view of your business operations, eliminating data silos and improving decision-making.
+                {t('erpSolution.integration.description')}
               </p>
               <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <div className="bg-teal-100 p-2 rounded-lg mt-1">
-                    <CheckCircle className="w-5 h-5 text-teal-600" />
+                {integrationFeatures.map((feature, index) => (
+                  <div key={index} className={`flex items-start ${isRTL ? 'space-x-reverse' : ''} space-x-3`}>
+                    <div className="bg-teal-100 p-2 rounded-lg mt-1">
+                      <CheckCircle className="w-5 h-5 text-teal-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">{feature.title}</h4>
+                      <p className="text-gray-600">{feature.description}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Real-time Data Synchronization</h4>
-                    <p className="text-gray-600">All modules share data instantly, ensuring consistency across your entire business.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="bg-teal-100 p-2 rounded-lg mt-1">
-                    <CheckCircle className="w-5 h-5 text-teal-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Automated Workflows</h4>
-                    <p className="text-gray-600">Streamline processes with intelligent automation between different business functions.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="bg-teal-100 p-2 rounded-lg mt-1">
-                    <CheckCircle className="w-5 h-5 text-teal-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Unified Dashboard</h4>
-                    <p className="text-gray-600">Get a complete overview of your business with customizable dashboards and reports.</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
             <div className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Implementation Support</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">{t('erpSolution.integration.implementation.title')}</h3>
               <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                  <span className="text-gray-700">Initial consultation and requirements analysis</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                  <span className="text-gray-700">Custom configuration and data migration</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                  <span className="text-gray-700">Team training and system deployment</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center text-sm font-bold">4</div>
-                  <span className="text-gray-700">Ongoing support and system optimization</span>
-                </div>
+              {t('erpSolution.integration.implementation.steps', { returnObjects: true }).map(
+      (step, index) => (
+        <div key={index} className="flex items-center space-x-3">
+          <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+            {index + 1}
+          </div>
+          <span className="text-gray-700">{step}</span>
+        </div>
+      )
+    )}
               </div>
             </div>
           </div>
@@ -694,24 +683,24 @@ useEffect(() => {
       <section className="py-16 md:py-24 px-4 bg-gradient-to-r from-custom-teal to-teal-600">
         <div className="container mx-auto text-center max-w-4xl">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-            Ready to Transform Your Business?
+          {t('erpSolution.cta.title')}
           </h2>
           <p className="text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto">
-            Join hundreds of businesses already using our ERP ecosystem to streamline operations, increase efficiency, and drive growth.
+          {t('erpSolution.cta.description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               to="/contact" 
               className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold transition duration-300 flex items-center justify-center"
             >
-              Get Started
+              {t('erpSolution.cta.primaryButton')}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
             <Link 
               to="/what-we-do" 
               className="border-2 border-white text-white hover:bg-white hover:text-teal-600 px-8 py-4 rounded-lg font-semibold transition duration-300"
             >
-              Explore All Services
+              {t('erpSolution.cta.secondaryButton')}
             </Link>
           </div>
         </div>

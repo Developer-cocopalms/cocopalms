@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import './i18n';
 // Import pages
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -41,6 +41,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             
             <Route path="/about" element={<AboutUs />} />
+            <Route path="/:lang/what-we-do" element={WhatWeDo} />
             <Route path="/what-we-do" element={<WhatWeDo />} />
             <Route path="/what-we-do/web-development" element={<WebDevelopment />} />
             <Route path="/what-we-do/mobile-app" element={<MobileApp />} />

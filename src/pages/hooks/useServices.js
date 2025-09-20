@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../supabaseClient';
 
-
-
 export const useServices = () => {
   const [services, setServices] = useState([])
   const [loading, setLoading] = useState(true)
@@ -17,7 +15,13 @@ export const useServices = () => {
       setLoading(true)
       const { data, error } = await supabase
         .from('services')
-        .select('*')
+        .select(`
+          *,
+          title_ar,
+          subtitle_ar,
+          description_ar,
+          service_name_ar
+        `)
         .order('display_order', { ascending: true })
 
       if (error) throw error

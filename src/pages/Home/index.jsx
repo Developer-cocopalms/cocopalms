@@ -18,10 +18,9 @@ import TestimonialSection from '../../components/TestimonialSection'; // NEW IMP
 import HeroVideoSlideshow from '../../components/HeroVideoSlideshow';
 import InstagramSlider from '../../components/InstagramSlider';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from "react-i18next";
 
 // Import static assets
-
-
 import logos from '../../assets/logos.png';
 import logo1 from '../../assets/logo1.png';
 import logo2 from '../../assets/logo2.png';
@@ -31,24 +30,28 @@ import logo4 from '../../assets/logo4.png';
 
 const SolutionsSection = () => {
   const [activeService, setActiveService] = useState('website');
+  const { t, i18n } = useTranslation();
+  
+  // Get current language direction
+  const isRTL = i18n.language === 'ar';
 
   const servicesData = {
     website: {
-      title: 'Website Development',
-      content: 'We specialize in website development worldwide, offering powerful, professional websites for businesses of all sizes—from startups to large enterprises. Our expertise spans eCommerce development, web application development, and creating high-converting landing pages and scalable web services that align with your goals, strengthen your brand, and boost results. Whether you’re launching a campaign or enhancing operations, our website development services are designed to deliver impact and drive success.',
+      title: t('home.solutionsSection.services.website.title'),
+      content: t('home.solutionsSection.services.website.content'),
       image: webdevelopImg,
       icon: Monitor,
       
     },
     mobile: {
-      title: 'Mobile Application Development',
-      content: 'We create high-performance mobile apps for both native and cross-platform use, ensuring smooth functionality across all devices. Focused on intuitive design and user experience, our apps are built to engage users and meet business goals. Serving clients in Kuwait and worldwide, we provide website mobile development, eCommerce development, website development services, and website application development—combining these capabilities to deliver impactful, user-friendly mobile solutions. From idea to launch, we bring your vision to life.',
+      title: t('home.solutionsSection.services.mobile.title'),
+      content: t('home.solutionsSection.services.mobile.content'),
       image: mobiledevelopImg,
       icon: Smartphone
     },
     ecommerce: {
-      title: 'E-commerce Development',
-      content: 'We build scalable, secure eCommerce platforms that help businesses grow their online presence and boost revenue. Our eCommerce web development solutions ensure a seamless shopping experience across devices, featuring intuitive design, personalized recommendations, real-time inventory updates, and secure payment processing. Whether you are looking for eCommerce website development or an eCommerce mobile app, we tailor each solution to meet your goals and delight customers. Whether starting fresh or upgrading your store, we ensure that every solution is designed to maximize success.',
+      title: t('home.solutionsSection.services.ecommerce.title'),
+      content: t('home.solutionsSection.services.ecommerce.content'),
       image: ecomdevelopImg,
       icon: ShoppingBag
     }
@@ -61,12 +64,11 @@ const SolutionsSection = () => {
   };
 
   return (
-    <section className="py-20 md:py-32 lg:py-40 bg-green-50">
+    <section className="py-20 md:py-32 lg:py-40 bg-green-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-20 md:mb-24">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            Solutions for all<br />
-            the ways that we work.
+            {t('home.solutionsSection.heading')}
           </h2>
         </div>
         
@@ -83,23 +85,23 @@ const SolutionsSection = () => {
                       <button
                         key={key}
                         onClick={() => handleServiceClick(key)}
-                        className={`w-full flex items-center justify-between p-5 rounded-lg transition-all duration-200 cursor-pointer transform hover:scale-105 ${
+                        className={`w-full flex items-center ${isRTL ? 'justify-end' : 'justify-between'} p-5 rounded-lg transition-all duration-200 cursor-pointer transform hover:scale-105 ${
                           activeService === key 
                             ? 'bg-white shadow-lg' 
                             : 'bg-green-50 hover:bg-green-100'
                         }`}
                       >
-                        <div className="flex items-center space-x-4">
+                        <div className={`flex items-center ${isRTL ? 'space-x-reverse space-x-4' : 'space-x-4'}`}>
                           <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
                             activeService === key ? 'bg-teal-50' : 'bg-white'
                           }`}>
                             <IconComponent size={28} className="text-teal-500" />
                           </div>
-                          <span className="text-lg font-medium text-gray-900 text-left">
+                          <span className={`text-lg font-medium text-gray-900 ${isRTL ? 'text-right' : 'text-left'}`}>
                             {service.title}
                           </span>
                         </div>
-                        <ChevronRight className="text-gray-400 flex-shrink-0" size={20} />
+                        <ChevronRight className={`text-gray-400 flex-shrink-0 ${isRTL ? 'transform rotate-180' : ''}`} size={20} />
                       </button>
                     );
                   })}
@@ -107,16 +109,26 @@ const SolutionsSection = () => {
                 
                 {/* Explore All Tools Link */}
                 <div className="mt-8">
-                  <a 
-                    href="/contact" 
-                    className="text-teal-500 font-medium text-sm hover:text-teal-600 transition-colors duration-200 flex items-center space-x-2"
-                  >
-                    <span>Explore All Tools</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </a>
-                </div>
+  <Link
+    to="/contact"
+    className={`text-teal-500 font-medium text-sm hover:text-teal-600 transition-colors duration-200 flex items-center ${isRTL ? 'space-x-reverse space-x-2' : 'space-x-2'}`}
+  >
+    <span>{t('home.solutionsSection.explore')}</span>
+    <svg 
+      className={`w-4 h-4 ${isRTL ? 'transform rotate-180' : ''}`} 
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24"
+    >
+      <path 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+        strokeWidth={2} 
+        d="M17 8l4 4m0 0l-4 4m4-4H3" 
+      />
+    </svg>
+  </Link>
+</div>
               </div>
               
               {/* Image - Beside services on lg+ devices */}
@@ -134,20 +146,20 @@ const SolutionsSection = () => {
           
           {/* Right Side - Content */}
           <div className="space-y-8 md:space-y-10 order-1 lg:order-2">
-            <div className="text-left">
+            <div className={`${isRTL ? 'text-right' : 'text-left'}`}>
               <span className="text-teal-500 font-semibold text-sm uppercase tracking-wider">
                 {currentService.title}
               </span>
             </div>
             
             <div>
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 md:mb-8">
-                Empowering Your Business with Technology.
+              <h3 className={`text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 md:mb-8 ${isRTL ? 'text-right' : 'text-left'}`}>
+                {t('home.solutionsSection.rightTitle')}
               </h3>
               
               <div className="space-y-6 mb-8 md:mb-10">
-                <div className="flex items-start space-x-3">
-                  <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+                <div className={`flex items-start ${isRTL ? 'space-x-reverse space-x-3' : 'space-x-3'}`}>
+                  <p className={`text-gray-600 leading-relaxed text-base md:text-lg ${isRTL ? 'text-right' : 'text-left'}`}>
                     {currentService.content}
                   </p>
                 </div>
@@ -159,8 +171,22 @@ const SolutionsSection = () => {
     </section>
   );
 };
+
 // Main Landing Page Component
 export default function LandingPage() {
+  const { t, i18n } = useTranslation();
+  
+  // Get current language direction
+  const isRTL = i18n.language === 'ar';
+
+  // Helper function to get localized text for features
+  const getLocalizedFeatureText = (feature, field) => {
+    if (i18n.language === 'ar') {
+      const arabicField = `${field}_ar`;
+      return feature[arabicField] || feature[field]; // Fallback to English if Arabic not available
+    }
+    return feature[field];
+  };
 
   // SEO and Canonical URL
   const canonicalUrl = "https://cocopalms.io";
@@ -222,10 +248,6 @@ useEffect(() => {
   };
 }, [canonicalUrl]);  
 
-  
-
-
-   
   // Fallback data for services if dynamic data isn't available
   const fallbackFeatures = [
     {
@@ -265,7 +287,7 @@ useEffect(() => {
  
 
   return (
-    <div className="font-sans">
+    <div className="font-sans" dir={isRTL ? 'rtl' : 'ltr'}>
     {/* SEO Head Tags with Canonical URL */}
     
     <Helmet>
@@ -328,43 +350,43 @@ useEffect(() => {
               <div className="grid grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-10 w-full px-2 sm:px-4 md:px-6 lg:pl-8 xl:pl-12">
                 
                 {/* Stat 1 */}
-                <div className="text-left">
+                <div className={`${isRTL ? 'text-right' : 'text-left'}`}>
                   <div className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-1 sm:mb-2">
                     50+
                   </div>
                   <div className="text-sm sm:text-base md:text-lg text-gray-600 leading-tight">
-                    Companies
+                    {t('home.stats.companies')}
                   </div>
                 </div>
                 
                 {/* Stat 2 */}
-                <div className="text-left">
+                <div className={`${isRTL ? 'text-right' : 'text-left'}`}>
                   <div className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-1 sm:mb-2">
                     10+
                   </div>
                   <div className="text-sm sm:text-base md:text-lg text-gray-600 leading-tight">
-                    Products
+                    {t('home.stats.products')}
                   </div>
                 </div>
                 
                 {/* Stat 3 */}
-                <div className="text-left">
+                <div className={`${isRTL ? 'text-right' : 'text-left'}`}>
                   <div className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-1 sm:mb-2">
                     5M+
                   </div>
                   <div className="text-sm sm:text-base md:text-lg text-gray-600 leading-tight">
-                    Revenue Made
+                    {t('home.stats.revenue')}
                   </div>
                 </div>
                 
                 {/* Stat 4 */}
-                <div className="text-left">
+                <div className={`${isRTL ? 'text-right' : 'text-left'}`}>
                   <div className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-1 sm:mb-2">
                     20+
                   </div>
                   <div className="text-sm sm:text-base md:text-lg text-gray-600 leading-tight">
-                    <span className="block sm:hidden">Mobile Apps</span>
-                    <span className="hidden sm:block">Mobile Applications</span>
+                    <span className="block sm:hidden">{t('home.stats.apps').split(' ')[0]} {t('home.stats.apps').split(' ')[1]}</span>
+                    <span className="hidden sm:block">{t('home.stats.apps')}</span>
                   </div>
                 </div>
                 
@@ -373,35 +395,40 @@ useEffect(() => {
 
             {/* Right Side - Content */}
             <div className="flex items-start lg:items-center order-1 lg:order-2">
-              <div className="text-left px-2 sm:px-4 md:px-0 lg:pl-4 xl:pl-8 w-full">
+              <div className={`px-2 sm:px-4 md:px-0 lg:pl-4 xl:pl-8 w-full ${isRTL ? 'text-right lg:pr-4 xl:pr-8' : 'text-left lg:pl-4 xl:pl-8'}`}>
                 
                 {/* Heading - Responsive sizing and line breaks */}
                 <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold text-gray-900 mb-4 sm:mb-5 md:mb-6 leading-tight">
                   <span className="block sm:hidden">
                     {/* Mobile: Single line with compact text */}
-                    Power Your Business with Smart Tech
+                    {t('home.hero.heading').split(' ').slice(0, 8).join(' ')}
                   </span>
                   <span className="hidden sm:block md:hidden">
                     {/* Small screens: Two lines */}
-                    Power Your Business with <br />
+                    {t('home.hero.heading').split('Smart Tech by Cocopalms')[0]} <br />
                     Smart Tech by Cocopalms
                   </span>
                   <span className="hidden md:block">
-                    {/* Medium and larger: Original format */}
-                    Power Your Business with <br />
-                    <span className="text-gray-900">All-in-One Smart Tech by Cocopalms</span>
+                    {/* Medium and larger: Original format with line breaks */}
+                    {t('home.hero.heading').includes('All-in-One Smart Tech by Cocopalms') ? 
+                      <>
+                        Power Your Business with <br />
+                        <span className="text-gray-900">All-in-One Smart Tech by Cocopalms</span>
+                      </> : 
+                      t('home.hero.heading')
+                    }
                   </span>
                 </h1>
                 
                 {/* Description - Responsive text sizing */}
-                <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-6 sm:mb-7 md:mb-8 leading-relaxed">
+                <p className={`text-sm sm:text-base md:text-lg text-gray-600 mb-6 sm:mb-7 md:mb-8 leading-relaxed ${isRTL ? 'text-right' : 'text-left'}`}>
                   <span className="block sm:hidden">
                     {/* Mobile: Shorter, concise version */}
-                    We empower businesses with smart IT solutions including ERP, mobile apps, e-commerce, and POS systems to keep you ahead of the curve.
+                    {t('home.hero.description').split('.')[0]}.
                   </span>
-                  <span className="hidden sm:block text-justify">
+                  <span className={`hidden sm:block ${isRTL ? 'text-justify' : 'text-justify'}`}>
                     {/* Larger screens: Full description */}
-                    We empower businesses with smart IT solutions for today's digital world. Our integrated systems, including ERP, finance tools, mobile apps, web development, e-commerce, and rental management software, cater to a wide range of business needs. Whether you're seeking IT companies in UAE, website development in Kuwait, mobile application development, or the best ERP software in UAE, we’ve got you covered. Our intelligent solutions, from online sales to restaurant management, are complemented by feature-rich POS systems that keep you ahead of the curve.
+                    {t('home.hero.description')}
                   </span>
                 </p>
                 
@@ -410,8 +437,8 @@ useEffect(() => {
                   to="/contact"
                   className="bg-custom-teal hover:bg-custom-teal/90 text-white px-4 py-2 sm:px-6 sm:py-2.5 md:px-8 md:py-3 rounded-md sm:rounded-lg font-medium sm:font-semibold text-sm sm:text-base transition duration-300 transform hover:scale-105 inline-block text-center w-full sm:w-auto"
                 >
-                  <span className="block sm:hidden">Book Demo</span>
-                  <span className="hidden sm:block">Book a Demo</span>
+                  <span className="block sm:hidden">{t('home.hero.cta').split(' ')[0]} {t('home.hero.cta').split(' ')[1] || ''}</span>
+                  <span className="hidden sm:block">{t('home.hero.cta')}</span>
                 </Link>
                 
               </div>
@@ -424,11 +451,11 @@ useEffect(() => {
       {/* Trusted Companies Section */}
       <section className="py-16 bg-white overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 mb-8">
-          <h3 className="text-2xl md:text-3xl font-semibold text-gray-900 text-center mb-4">
-            Trusted by Leading Companies
+          <h3 className={`text-2xl md:text-3xl font-semibold text-gray-900 text-center mb-4 ${isRTL ? 'text-right' : ''}`}>
+            {t('home.trusted.title')}
           </h3>
-          <p className="text-gray-600 text-center max-w-2xl mx-auto">
-            Join thousands of businesses that trust our solutions to power their growth
+          <p className={`text-gray-600 text-center max-w-2xl mx-auto ${isRTL ? 'text-right' : ''}`}>
+            {t('home.trusted.subtitle')}
           </p>
         </div>
         
@@ -489,27 +516,27 @@ useEffect(() => {
       {/* Interactive Solutions Section - REPLACED */}
       <SolutionsSection />
 
-      {/* Features Section - Updated with dynamic data */}
+      {/* Features Section - Updated with dynamic data and Arabic support */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           {/* Header */}
-          <div className="text-center mb-16">
+          <div className={`text-center mb-16 ${isRTL ? 'text-right' : ''}`}>
             <p className="text-gray-500 text-sm font-medium uppercase tracking-wider mb-4">
-             Our Services
+             {t('home.features.heading')}
             </p>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Cocopalms
+              {t('home.features.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Run your entire business with Cocopalms unified cloud software
+              {t('home.features.description')}
             </p>
           </div>
 
-          {/* Features Grid - Updated to use dynamic data */}
+          {/* Features Grid - Updated to use dynamic data with Arabic support */}
           {!featuresLoading && features.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
               {features.map((feature, index) => (
-                <div key={feature.id} className="text-center">
+                <div key={feature.id} className={`text-center ${isRTL ? 'text-right' : ''}`}>
                   {/* Icon */}
                   <div className="flex justify-center mb-8">
                     <div className="w-20 h-20 bg-teal-50 rounded-2xl flex items-center justify-center">
@@ -519,15 +546,15 @@ useEffect(() => {
                     </div>
                   </div>
                   
-                  {/* Title */}
+                  {/* Title with localization */}
                   <h3 className="text-xl font-semibold text-gray-900 mb-6 leading-tight">
-                    {feature.title}
+                    {getLocalizedFeatureText(feature, 'title')}
                   </h3>
                   
-                  {/* Description */}
-                  <div className="text-justify">
+                  {/* Description with localization */}
+                  <div className={`${isRTL ? 'text-right' : 'text-justify'}`}>
                     <p className="text-gray-600 leading-relaxed text-paragraph">
-                      {feature.description}
+                      {getLocalizedFeatureText(feature, 'description')}
                     </p>
                   </div>
                 </div>
@@ -537,7 +564,7 @@ useEffect(() => {
             /* Fallback to static features */
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
               {fallbackFeatures.map((feature, index) => (
-                <div key={index} className="text-center">
+                <div key={index} className={`text-center ${isRTL ? 'text-right' : ''}`}>
                   {/* Icon */}
                   <div className="flex justify-center mb-8">
                     <div className="w-20 h-20 bg-teal-50 rounded-2xl flex items-center justify-center">
@@ -553,7 +580,7 @@ useEffect(() => {
                   </h3>
                   
                   {/* Description */}
-                  <div className="text-justify">
+                  <div className={`${isRTL ? 'text-right' : 'text-justify'}`}>
                     <p className="text-gray-600 leading-relaxed text-sm">
                       {feature.description}
                     </p>
@@ -582,43 +609,42 @@ useEffect(() => {
       <section className="pt-8 pb-16 md:pt-10 md:pb-20 lg:pt-12 lg:pb-24 bg-teal-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center max-w-4xl mx-auto">
-            <h2 className="text-xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight">
-              Customer support is always here to help you
+            <h2 className={`text-xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight ${isRTL ? 'text-right' : ''}`}>
+              {t('home.customerSupport.title')}
             </h2>
-            <p className="text-lg md:text-xl lg:text-xl font-light text-black mb-12 md:mb-16 lg:mb-20 leading-relaxed max-w-3xl mx-auto">
-              We work around the clock to assist you. Drop us a message any time,
-              and one of us will be happy to get back to you quickly!
+            <p className={`text-lg md:text-xl lg:text-xl font-light text-black mb-12 md:mb-16 lg:mb-20 leading-relaxed max-w-3xl mx-auto ${isRTL ? 'text-right' : ''}`}>
+              {t('home.customerSupport.description')}
             </p>
             
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
               {/* 24/7 Available */}
-              <div className="text-center">
+              <div className={`text-center ${isRTL ? 'text-right' : ''}`}>
                 <div className="text-4xl md:text-5xl lg:text-4xl xl:text-5xl font-semibold text-gray-900 mb-2 md:mb-3">
                   24/7
                 </div>
                 <p className="text-base md:text-lg lg:text-xl text-gray-600 font-medium">
-                  available
+                  {t('home.customerSupport.available')}
                 </p>
               </div>
               
               {/* 98% Satisfaction Rate */}
-              <div className="text-center">
+              <div className={`text-center ${isRTL ? 'text-right' : ''}`}>
                 <div className="text-4xl md:text-5xl lg:text-4xl xl:text-5xl font-semibold text-gray-900 mb-2 md:mb-3">
                   98%
                 </div>
                 <p className="text-base md:text-lg lg:text-xl text-gray-600 font-medium">
-                  satisfaction rate
+                  {t('home.customerSupport.satisfaction')}
                 </p>
               </div>
               
               {/* 5min Response Time */}
-              <div className="text-center">
+              <div className={`text-center ${isRTL ? 'text-right' : ''}`}>
                 <div className="text-4xl md:text-5xl lg:text-4xl xl:text-5xl font-semibold text-gray-900 mb-2 md:mb-3">
                   5min
                 </div>
                 <p className="text-base md:text-lg lg:text-xl text-gray-600 font-medium">
-                  avg. response time
+                  {t('home.customerSupport.response')}
                 </p>
               </div>
             </div>

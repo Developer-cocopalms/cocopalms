@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient'; // Import the Supabase client
 import { Helmet } from 'react-helmet'; 
 import { getPageKeywords } from '../pages/hooks/keywordsService';
+import { useTranslation } from "react-i18next";
 
 const ContactForm = () => {
     const [keywords, setKeywords] = useState('contact us, get in touch, reach out, support, inquiry');
-  
+    const { t, i18n } = useTranslation();
+    
+    // Get current language direction
+    const isRTL = i18n.language === 'ar';
+    
     const canonicalUrl = "https://cocopalms.io/contact";
-
 
     const [formData, setFormData] = useState({
         name: '',
@@ -19,7 +23,6 @@ const ContactForm = () => {
         subject: '',
         message: ''
     });
-
 
     const [focusedField, setFocusedField] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -70,6 +73,7 @@ const ContactForm = () => {
     ];
 
     const [selectedCountryCode, setSelectedCountryCode] = useState('+965');
+    
     useEffect(() => {
         const fetchKeywords = async () => {
           const pageKeywords = await getPageKeywords('contact');
@@ -166,14 +170,12 @@ useEffect(() => {
                     
                     marker.bindPopup(`
                         <div style="font-family: 'Lato', sans-serif; min-width: 200px;">
-                            <h3 style="margin: 0 0 8px 0; color: #164772; font-size: 16px; font-weight: bold;">Cocopalms</h3>
+                            <h3 style="margin: 0 0 8px 0; color: #164772; font-size: 16px; font-weight: bold;">${t('contactUs.map.popupTitle')}</h3>
                             <p style="margin: 0; font-size: 14px; color: #666; line-height: 1.4;">
-                                Block 2, Salem Al Mubarak Street<br>
-                                Dolphin Hotel Commercial Tower<br>
-                                Alsalmiya, Kuwait
+                                ${t('contactUs.map.popupAddress').split(' ').join('<br>')}
                             </p>
                             <p style="margin: 8px 0 0 0; font-size: 14px; color: #164772; font-weight: 500;">
-                                📞 +965 9918 5891
+                                📞 ${t('contactUs.map.popupPhone')}
                             </p>
                         </div>
                     `).openPopup();
@@ -196,10 +198,9 @@ useEffect(() => {
                                 border-radius: 8px;
                             ">
                                 <div style="font-size: 48px; margin-bottom: 12px;">📍</div>
-                                <div style="font-weight: bold; margin-bottom: 4px;">Cocopalms Office</div>
+                                <div style="font-weight: bold; margin-bottom: 4px;">${t('contactUs.map.fallbackTitle')}</div>
                                 <div style="text-align: center; font-size: 14px; line-height: 1.4;">
-                                    Block 2, Salem Al Mubarak Street<br>
-                                    Alsalmiya, Kuwait
+                                    ${t('contactUs.map.fallbackAddress')}
                                 </div>
                             </div>
                         `;
@@ -237,7 +238,7 @@ useEffect(() => {
                 mapInstanceRef.current = null;
             }
         };
-    }, []);
+    }, [t]);
 
     const handleInputChange = (e) => {
         setFormData({
@@ -325,7 +326,7 @@ useEffect(() => {
     };
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white" dir={isRTL ? 'rtl' : 'ltr'}>
             <Helmet>
             <title>Contact Us | Cocopalms Support & Inquiries</title>
             <meta 
@@ -346,14 +347,9 @@ useEffect(() => {
             <meta property="og:type" content="website" />
             <meta property="og:site_name" content="Cocopalms" />
             
-            
-            
             {/* Additional SEO Meta Tags */}
             <meta name="author" content="Cocopalms" />
-            
             <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-            
-           
           </Helmet>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 pt-32">
@@ -363,71 +359,72 @@ useEffect(() => {
                     <div className="space-y-8">
                         <div>
                             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                                Looking for<br />
-                                something?
+                                {t('contactUs.hero.title').split(' ').map((word, index) => (
+                                    <span key={index}>
+                                        {word}
+                                        {index === 1 ? <br /> : index < t('contactUs.hero.title').split(' ').length - 1 ? ' ' : ''}
+                                    </span>
+                                ))}
                             </h1>
                             <p className="text-xl text-gray-600 mt-6">
-                                We are happy to help
+                                {t('contactUs.hero.subtitle')}
                             </p>
                         </div>
 
                         {/* Contact Details */}
                         <div className="space-y-8 pt-8">
-                            <h2 className="text-2xl font-bold text-gray-900">Contact Directly</h2>
+                            <h2 className="text-2xl font-bold text-gray-900">{t('contactUs.contactDetails.title')}</h2>
                             
                             <div className="space-y-4">
                             <div className="space-y-6">
     {/* Kuwait Address */}
     <div className="flex items-start space-x-3">
-        <div className="flex-shrink-0 w-5 h-5 mt-1">
+        <div className={`flex-shrink-0 w-5 h-5 mt-1 ${isRTL ? 'ml-3' : 'mr-3'}`}>
             <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
             </svg>
         </div>
         <div>
-            <p className="text-gray-900 font-medium mb-2">Kuwait Office</p>
+            <p className="text-gray-900 font-medium mb-2">{t('contactUs.contactDetails.kuwaitOffice.title')}</p>
             <p className="text-gray-900 font-medium mb-2">
-                Block 2, Salem Al Mubarak Street, Dolphin<br />
-                Hotel commercial tower, Alsalmiya, Kuwait
+                {t('contactUs.contactDetails.kuwaitOffice.address')}
             </p>
             <p className="text-gray-900 font-medium mb-2">
-                Mobile: +965 9918 5891
+                {t('contactUs.contactDetails.kuwaitOffice.mobile')}
             </p>
             <p className="text-gray-900 font-medium">
-                Office Hours: 8.00 am to 4.00 pm
+                {t('contactUs.contactDetails.kuwaitOffice.hours')}
             </p>
         </div>
     </div>
 
     {/* Abu Dhabi Address */}
     <div className="flex items-start space-x-3">
-        <div className="flex-shrink-0 w-5 h-5 mt-1">
+        <div className={`flex-shrink-0 w-5 h-5 mt-1 ${isRTL ? 'ml-3' : 'mr-3'}`}>
             <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
             </svg>
         </div>
         <div>
-            <p className="text-gray-900 font-medium mb-2">Abu Dhabi Office</p>
+            <p className="text-gray-900 font-medium mb-2">{t('contactUs.contactDetails.abuDhabiOffice.title')}</p>
             <p className="text-gray-900 font-medium mb-2">
-                Mazyad Mall, 7th Floor, Tower 1<br />
-                Abu Dhabi,UAE
+                {t('contactUs.contactDetails.abuDhabiOffice.address')}
             </p>
             <p className="text-gray-900 font-medium">
-                Office Hours: 9.00 am to 5.00 pm
+                {t('contactUs.contactDetails.abuDhabiOffice.hours')}
             </p>
         </div>
     </div>
 </div>
                                
-
                                  <div className="flex items-center space-x-3">
-                                    <div className="flex-shrink-0 w-5 h-5">
+                                    <div className={`flex-shrink-0 w-5 h-5 ${isRTL ? 'ml-3' : 'mr-3'}`}>
                                         <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                                             <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                                         </svg>
                                     </div>
-                                    <p className="text-gray-900 font-medium">info@cocopalms.io</p>
+                                    <p className="text-gray-900 font-medium">{t('contactUs.contactDetails.email')}</p>
                                 </div>
                             </div>
 
@@ -439,7 +436,7 @@ useEffect(() => {
                                     style={{ minHeight: '256px', borderRadius: '8px' }}
                                 />
                                 <p className="text-xs text-gray-500 mt-2 text-center">
-                                    Powered by OpenStreetMap - Completely Free
+                                    {t('contactUs.map.attribution')}
                                 </p>
                             </div>
                         </div>
@@ -449,26 +446,26 @@ useEffect(() => {
                     <div className="bg-white">
                         <div className="bg-white shadow-xl rounded-2xl p-8 border border-gray-100">
                             <div className="mb-8">
-                                <h2 className="text-2xl font-bold text-gray-900 mb-2">Get in touch</h2>
+                                <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('contactUs.form.title')}</h2>
                             </div>
 
                             {/* Status Messages */}
                             {submitStatus === 'success' && (
                                 <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                                    <p className="text-green-800 text-sm">✅ Form submitted successfully! We will get back to you soon.</p>
+                                    <p className="text-green-800 text-sm">✅ {t('contactUs.messages.success')}</p>
                                 </div>
                             )}
                             
                             {submitStatus === 'error' && (
                                 <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                                    <p className="text-red-800 text-sm">❌ There was an error submitting the form. Please try again.</p>
+                                    <p className="text-red-800 text-sm">❌ {t('contactUs.messages.error')}</p>
                                 </div>
                             )}
 
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="group">
                                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                                        Name <span className="text-red-500">*</span>
+                                        {t('contactUs.form.fields.name')} <span className="text-red-500">{t('contactUs.form.required')}</span>
                                     </label>
                                     <input
                                         id="name"
@@ -487,13 +484,13 @@ useEffect(() => {
 
                                 <div className="group">
                                     <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 mb-2">
-                                        Mobile <span className="text-red-500">*</span>
+                                        {t('contactUs.form.fields.mobile')} <span className="text-red-500">{t('contactUs.form.required')}</span>
                                     </label>
                                     <div className="flex">
                                         <select 
                                             value={selectedCountryCode}
                                             onChange={handleCountryCodeChange}
-                                            className="px-3 py-3 border border-gray-300 rounded-l-lg bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 min-w-0"
+                                            className={`px-3 py-3 border border-gray-300 ${isRTL ? 'rounded-r-lg' : 'rounded-l-lg'} bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 min-w-0`}
                                             style={{ minWidth: '140px', maxWidth: '140px' }}
                                             disabled={isSubmitting}
                                         >
@@ -512,8 +509,8 @@ useEffect(() => {
                                             onChange={handleInputChange}
                                             onFocus={() => setFocusedField('mobile')}
                                             onBlur={() => setFocusedField('')}
-                                            className="flex-1 px-4 py-3 border border-l-0 border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                                            placeholder="Enter mobile number"
+                                            className={`flex-1 px-4 py-3 border ${isRTL ? 'border-r-0 rounded-l-lg' : 'border-l-0 rounded-r-lg'} border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200`}
+                                            placeholder={t('contactUs.form.placeholders.mobile')}
                                             disabled={isSubmitting}
                                         />
                                     </div>
@@ -521,7 +518,7 @@ useEffect(() => {
 
                                 <div className="group">
                                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                                        Email <span className="text-red-500">*</span>
+                                        {t('contactUs.form.fields.email')} <span className="text-red-500">{t('contactUs.form.required')}</span>
                                     </label>
                                     <input
                                         id="email"
@@ -540,7 +537,7 @@ useEffect(() => {
 
                                 <div className="group">
                                     <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
-                                        Company Name <span className="text-red-500">*</span>
+                                        {t('contactUs.form.fields.company')} <span className="text-red-500">{t('contactUs.form.required')}</span>
                                     </label>
                                     <input
                                         id="company"
@@ -559,7 +556,7 @@ useEffect(() => {
 
                                 <div className="group">
                                     <label htmlFor="employees" className="block text-sm font-medium text-gray-700 mb-2">
-                                        Number of Employees
+                                        {t('contactUs.form.fields.employees')}
                                     </label>
                                     <select
                                         id="employees"
@@ -571,18 +568,18 @@ useEffect(() => {
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 bg-white"
                                         disabled={isSubmitting}
                                     >
-                                        <option value="">Select...</option>
-                                        <option value="1-10">1-10</option>
-                                        <option value="11-50">11-50</option>
-                                        <option value="51-200">51-200</option>
-                                        <option value="201-500">201-500</option>
-                                        <option value="501+">501+</option>
+                                        <option value="">{t('contactUs.form.placeholders.employeesDefault')}</option>
+                                        <option value="1-10">{t('contactUs.form.employeeOptions.1-10')}</option>
+                                        <option value="11-50">{t('contactUs.form.employeeOptions.11-50')}</option>
+                                        <option value="51-200">{t('contactUs.form.employeeOptions.51-200')}</option>
+                                        <option value="201-500">{t('contactUs.form.employeeOptions.201-500')}</option>
+                                        <option value="501+">{t('contactUs.form.employeeOptions.501+')}</option>
                                     </select>
                                 </div>
 
                                 <div className="group">
                                     <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                                        Subject <span className="text-red-500">*</span>
+                                        {t('contactUs.form.fields.subject')} <span className="text-red-500">{t('contactUs.form.required')}</span>
                                     </label>
                                     <input
                                         id="subject"
@@ -601,7 +598,7 @@ useEffect(() => {
 
                                 <div className="group">
                                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                                        Message
+                                        {t('contactUs.form.fields.message')}
                                     </label>
                                     <textarea
                                         id="message"
@@ -618,9 +615,9 @@ useEffect(() => {
                                 </div>
 
                                 <div className="text-sm text-gray-600">
-                                    By submitting this form, you agree to our{' '}
+                                    {t('contactUs.form.privacyText')}{' '}
                                     <Link to="/privacy-policy" className="text-blue-600 hover:underline">
-                                        Privacy Policy
+                                        {t('contactUs.form.privacyLink')}
                                     </Link>
                                 </div>
 
@@ -643,7 +640,7 @@ useEffect(() => {
                                         }
                                     }}
                                 >
-                                    {isSubmitting ? 'Submitting...' : 'Submit'}
+                                    {isSubmitting ? t('contactUs.form.submittingButton') : t('contactUs.form.submitButton')}
                                 </button>
                             </form>
                         </div>

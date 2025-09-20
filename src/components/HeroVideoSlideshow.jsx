@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import { useTranslation } from "react-i18next";
+import { Link } from 'react-router-dom';
 
 // Initialize Supabase client
 const supabaseUrl = 'https://gfwjcallemugxqdweuuk.supabase.co'
@@ -14,6 +16,19 @@ const HeroVideoSlideshow = () => {
   const [slides, setSlides] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  // Add translation hooks
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
+
+  // Helper function to get localized text
+  const getLocalizedText = (slide, field) => {
+    if (i18n.language === 'ar') {
+      const arabicField = `${field}_ar`;
+      return slide[arabicField] || slide[field]; // Fallback to English if Arabic not available
+    }
+    return slide[field];
+  };
 
   // Helper function to get video URL (handles both storage and direct URLs)
   const getVideoUrl = (slide) => {
@@ -30,13 +45,18 @@ const HeroVideoSlideshow = () => {
     return null;
   };
 
-  // Fetch slides from Supabase
+  // Fetch slides from Supabase with Arabic fields
   const fetchSlides = async () => {
     try {
       setLoading(true);
       const { data, error } = await supabase
         .from('hero_slides')
-        .select('*')
+        .select(`
+          *,
+          title_ar,
+          subtitle_ar,
+          button_text_ar
+        `)
         .eq('is_active', true)
         .order('display_order', { ascending: true });
 
@@ -51,8 +71,11 @@ const HeroVideoSlideshow = () => {
         {
           id: '1',
           title: "Seamless Tech. Real Impact",
+          title_ar: "تقنية سلسة. تأثير حقيقي",
           subtitle: "We build intuitive digital experiences with ERP, e-commerce, automation tools, and more.",
+          subtitle_ar: "نحن نبني تجارب رقمية بديهية مع أنظمة تخطيط موارد المؤسسات والتجارة الإلكترونية وأدوات الأتمتة والمزيد.",
           button_text: "Explore Services",
+          button_text_ar: "استكشف الخدمات",
           button_link: "/what-we-do",
           video_url: '/clip1.mp4'
         }
@@ -64,7 +87,15 @@ const HeroVideoSlideshow = () => {
 
   useEffect(() => {
     fetchSlides();
-  }, []);
+  }, []); // Only run once on mount
+
+  // Re-fetch data when language changes
+  useEffect(() => {
+    if (slides.length > 0) {
+      // No need to refetch, just re-render with new language
+      // The component will automatically use the correct language
+    }
+  }, [i18n.language]);
 
   useEffect(() => {
     if (isPaused || slides.length === 0) return;
@@ -133,10 +164,10 @@ const HeroVideoSlideshow = () => {
   // Loading state
   if (loading) {
     return (
-      <div className="relative w-full h-screen overflow-hidden mt-20 sm:mt-24 md:mt-28 bg-gray-900 flex items-center justify-center">
+      <div className="relative w-full h-screen overflow-hidden mt-20 sm:mt-24 md:mt-28 bg-gray-900 flex items-center justify-center" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="text-white text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500 mx-auto mb-4"></div>
-          <p className="text-lg">Loading...</p>
+          <p className="text-lg">{isRTL ? 'جار التحميل...' : 'Loading...'}</p>
         </div>
       </div>
     );
@@ -145,7 +176,7 @@ const HeroVideoSlideshow = () => {
   // Error state
   if (error) {
     return (
-      <div className="relative w-full h-screen overflow-hidden mt-20 sm:mt-24 md:mt-28 bg-gray-900 flex items-center justify-center">
+      <div className="relative w-full h-screen overflow-hidden mt-20 sm:mt-24 md:mt-28 bg-gray-900 flex items-center justify-center" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="text-white text-center">
           <div className="text-red-500 text-6xl mb-4">⚠️</div>
           <p className="text-lg">{error}</p>
@@ -153,7 +184,7 @@ const HeroVideoSlideshow = () => {
             onClick={fetchSlides}
             className="mt-4 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-full transition-all duration-300"
           >
-            Retry
+            {isRTL ? 'إعادة المحاولة' : 'Retry'}
           </button>
         </div>
       </div>
@@ -163,9 +194,9 @@ const HeroVideoSlideshow = () => {
   // No slides state
   if (slides.length === 0) {
     return (
-      <div className="relative w-full h-screen overflow-hidden mt-20 sm:mt-24 md:mt-28 bg-gray-900 flex items-center justify-center">
+      <div className="relative w-full h-screen overflow-hidden mt-20 sm:mt-24 md:mt-28 bg-gray-900 flex items-center justify-center" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="text-white text-center">
-          <p className="text-lg">No hero content available</p>
+          <p className="text-lg">{isRTL ? 'لا يتوفر محتوى البانر' : 'No hero content available'}</p>
         </div>
       </div>
     );
@@ -174,7 +205,7 @@ const HeroVideoSlideshow = () => {
   const currentSlide = slides[currentVideoIndex];
 
   return (
-    <div className="relative w-full h-screen overflow-hidden mt-20 sm:mt-24 md:mt-28">
+    <div className="relative w-full h-screen overflow-hidden mt-20 sm:mt-24 md:mt-28" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Full Screen Video Background */}
       <div className="absolute inset-0 w-full h-full">
         {slides.map((slide, index) => {
@@ -210,34 +241,40 @@ const HeroVideoSlideshow = () => {
         <div className="absolute inset-0 bg-black/40"></div>
         
         {/* Gradient overlay for enhanced text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/30"></div>
+        <div className={`absolute inset-0 ${
+          isRTL 
+            ? 'bg-gradient-to-l from-black/60 via-transparent to-black/30' 
+            : 'bg-gradient-to-r from-black/60 via-transparent to-black/30'
+        }`}></div>
       </div>
 
       {/* Content Container */}
       <div className="absolute inset-0 flex items-center justify-center z-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="text-center sm:text-left max-w-4xl mx-auto sm:mx-0">
+          <div className={`max-w-4xl mx-auto ${isRTL ? 'text-center sm:text-right' : 'text-center sm:text-left'}`}>
             <div className={`transition-all duration-500 ${
               isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-4'
             }`}>
                 
-              {/* Dynamic Title */}
+              {/* Dynamic Title with localization */}
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white leading-tight mb-4 sm:mb-6 md:mb-8 drop-shadow-2xl">
-                {currentSlide.title}
+                {getLocalizedText(currentSlide, 'title')}
               </h2>
               
-              {/* Dynamic Subtitle */}
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-200 mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-2xl mx-auto sm:mx-0 drop-shadow-lg">
-                {currentSlide.subtitle}
+              {/* Dynamic Subtitle with localization */}
+              <p className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-200 mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-2xl ${
+                isRTL ? 'mx-auto sm:mr-0' : 'mx-auto sm:ml-0'
+              } drop-shadow-lg`}>
+                {getLocalizedText(currentSlide, 'subtitle')}
               </p>
               
-              {/* Dynamic Button */}
-              <a 
-                href={currentSlide.button_link}
+              {/* Dynamic Button with localization */}
+              <Link 
+                to={currentSlide.button_link}
                 className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 rounded-full transition-all duration-300 inline-block text-center transform hover:scale-105 hover:shadow-xl shadow-teal-500/25 text-sm sm:text-base md:text-lg cursor-pointer"
               >
-                {currentSlide.button_text}
-              </a>
+                {getLocalizedText(currentSlide, 'button_text')}
+              </Link>
             </div>
           </div>
         </div>
@@ -252,7 +289,7 @@ const HeroVideoSlideshow = () => {
       </div>
 
       {/* Navigation Controls - Desktop */}
-      <div className="absolute bottom-8 right-8 hidden sm:flex flex-col space-y-3 z-30">
+      <div className={`absolute bottom-8 ${isRTL ? 'left-8' : 'right-8'} hidden sm:flex flex-col space-y-3 z-30`}>
         {/* Pause/Play Button */}
         <button 
           onClick={handlePausePlay}
@@ -274,7 +311,7 @@ const HeroVideoSlideshow = () => {
           onClick={handlePrevious}
           className="bg-white/90 backdrop-blur-sm text-teal-700 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl"
         >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <svg className={`w-5 h-5 ${isRTL ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 24 24">
             <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
           </svg>
         </button>
@@ -284,7 +321,7 @@ const HeroVideoSlideshow = () => {
           onClick={handleNext}
           className="bg-white/90 backdrop-blur-sm text-teal-700 p-3 rounded-full hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl"
         >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <svg className={`w-5 h-5 ${isRTL ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 24 24">
             <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
           </svg>
         </button> 
@@ -313,7 +350,7 @@ const HeroVideoSlideshow = () => {
           onClick={handlePrevious}
           className="bg-white/90 backdrop-blur-sm text-teal-700 p-2.5 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
         >
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <svg className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 24 24">
             <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
           </svg>
         </button>
@@ -323,7 +360,7 @@ const HeroVideoSlideshow = () => {
           onClick={handleNext}
           className="bg-white/90 backdrop-blur-sm text-teal-700 p-2.5 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
         >
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <svg className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 24 24">
             <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
           </svg>
         </button>
@@ -346,8 +383,8 @@ const HeroVideoSlideshow = () => {
 
       {/* Decorative Elements */}
       <div className="absolute inset-0 pointer-events-none z-10">
-        <div className="absolute top-1/4 right-1/6 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 bg-teal-400/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 left-1/6 w-40 h-40 sm:w-56 sm:h-56 md:w-80 md:h-80 bg-teal-400/10 rounded-full blur-3xl"></div>
+        <div className={`absolute top-1/4 ${isRTL ? 'left-1/6' : 'right-1/6'} w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 bg-teal-400/10 rounded-full blur-3xl`}></div>
+        <div className={`absolute bottom-1/4 ${isRTL ? 'right-1/6' : 'left-1/6'} w-40 h-40 sm:w-56 sm:h-56 md:w-80 md:h-80 bg-teal-400/10 rounded-full blur-3xl`}></div>
       </div>
     </div>
   );

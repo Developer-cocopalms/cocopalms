@@ -1,5 +1,4 @@
-import React, { useState,useEffect } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Monitor, Code, Smartphone, Globe, Zap, Shield, ExternalLink } from 'lucide-react';
 import dietbuxImage from '../assets/dietbuxw.png';
@@ -10,27 +9,92 @@ import alnassemImage from '../assets/alnassemw.png';
 import techbizImage from '../assets/techbizw.png';
 import { Helmet } from 'react-helmet';
 import { getPageKeywords } from '../pages/hooks/keywordsService';
+import { useTranslation } from "react-i18next";
+
 const WebDevelopment = () => {
+  const { t, i18n } = useTranslation();
+  
+  // Get current language direction
+  const isRTL = i18n.language === 'ar';
+  
   // Canonical URL
   const canonicalUrl = "https://cocopalms.io/what-we-do/web-development";
   const [keywords, setKeywords] = useState('web development, websites, front-end, back-end, responsive design, custom sites');
-  // Update meta description for web development page
-useEffect(() => {
-  const metaDescription = document.querySelector('meta[name="description"]');
-  if (metaDescription) {
-    metaDescription.setAttribute('content', 'Cocopalms offers expert web development services for F&B and enterprise businesses, delivering custom solutions to enhance performance and growth.');
-  }
-}, []);
 
-useEffect(() => {
-  const fetchKeywords = async () => {
-    const pageKeywords = await getPageKeywords('what-we-do/web-development');
-    if (pageKeywords) {
-      setKeywords(pageKeywords);
+  // Portfolio projects data with translation keys
+  const portfolioProjects = [
+    {
+      id: 'dietbux',
+      image: dietbuxImage,
+      url: 'https://dietbux.com/',
+      tags: ['react', 'responsivedesign', 'ecommerce', 'arabicenglish']
+    },
+    {
+      id: 'dietvalue',
+      image: dietvalueImage,
+      url: 'https://dietvaluekw.com/',
+      tags: ['modernui', 'fooddelivery', 'arabicdesign', 'kuwaitmarket']
+    },
+    {
+      id: 'dieter',
+      image: dieterImage,
+      url: 'https://dieterkwt.com/',
+      tags: ['kuwaitfocus', 'nutritionplans', 'healthservices', 'arabicinterface']
+    },
+    {
+      id: 'basic',
+      image: basicImage,
+      url: 'https://basickw.com/',
+      tags: ['minimalistdesign', 'fastloading', 'cleanui', 'businessfocus']
+    },
+    {
+      id: 'alnassem',
+      image: alnassemImage,
+      url: 'https://nsmglass.com/',
+      tags: ['manufacturing', 'productgallery', 'b2bservices', 'professional']
+    },
+    {
+      id: 'techbiz',
+      image: techbizImage,
+      url: 'https://www.techbizsolutions.io/',
+      tags: ['techsolutions', 'itconsulting', 'modernstack', 'enterprise']
     }
+  ];
+
+  // Tag color mapping
+  const getTagColor = (index) => {
+    const colors = [
+      'bg-blue-100 text-blue-800',
+      'bg-green-100 text-green-800',
+      'bg-purple-100 text-purple-800',
+      'bg-orange-100 text-orange-800'
+    ];
+    return colors[index % 4];
   };
-  fetchKeywords();
-}, []);
+
+  // Feature bullet color mapping
+  const getFeatureColor = (index) => {
+    const colors = ['bg-blue-500', 'bg-green-500', 'bg-purple-500'];
+    return colors[index % 3];
+  };
+  
+  // Update meta description for web development page
+  useEffect(() => {
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Cocopalms offers expert web development services for F&B and enterprise businesses, delivering custom solutions to enhance performance and growth.');
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      const pageKeywords = await getPageKeywords('what-we-do/web-development');
+      if (pageKeywords) {
+        setKeywords(pageKeywords);
+      }
+    };
+    fetchKeywords();
+  }, []);
 
   // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
   useEffect(() => {
@@ -64,7 +128,7 @@ useEffect(() => {
   }, [canonicalUrl]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
        <Helmet>
         <title>Web Development Services for F&B & Enterprise | Cocopalms</title>
         <meta 
@@ -120,13 +184,13 @@ useEffect(() => {
             <Monitor className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">
-            Web Development
+            {t('webDevelopment.hero.title')}
           </h1>
           <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-white/90 mb-6 md:mb-8">
-            Professional websites and web applications for businesses from startup to enterprise level
+            {t('webDevelopment.hero.subtitle')}
           </h2>
           <p className="text-base md:text-lg lg:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto px-4">
-            Transform your digital presence with our cutting-edge web development solutions. We create responsive, scalable, and user-friendly websites that drive business growth.
+            {t('webDevelopment.hero.description')}
           </p>
         </div>
       </section>
@@ -136,301 +200,62 @@ useEffect(() => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Portfolio
+              {t('webDevelopment.portfolio.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Showcasing successful web projects we've delivered for our clients
+              {t('webDevelopment.portfolio.subtitle')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-            {/* Dietbux Project */}
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-              <div className="relative">
-                <img 
-                  src={dietbuxImage} 
-                  alt="Dietbux Website"
-                  className="w-full h-64 object-cover object-top"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                <div className="absolute top-4 right-4">
-                  <a 
-                    href="https://dietbux.com/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-lg hover:bg-white/30 transition-colors duration-300"
-                  >
-                    <ExternalLink className="w-5 h-5" />
-                  </a>
-                </div>
-              </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Dietbux</h3>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  A comprehensive diet and nutrition platform offering personalized meal plans, calorie tracking, and subscription-based diet services. The website features a modern design with interactive elements and seamless user experience.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">React</span>
-                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Responsive Design</span>
-                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">E-commerce</span>
-                  <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">Arabic/English</span>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-gray-700">Multi-language support (Arabic & English)</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-gray-700">Subscription management system</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                    <span className="text-gray-700">Calorie calculator integration</span>
+            {portfolioProjects.map((project) => (
+              <div key={project.id} className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+                <div className="relative">
+                  <img 
+                    src={project.image} 
+                    alt={t(`webDevelopment.portfolio.projects.${project.id}.title`)}
+                    className="w-full h-64 object-cover object-top"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                  <div className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'}`}>
+                    <a 
+                      href={project.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-lg hover:bg-white/30 transition-colors duration-300"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                    </a>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Dietvalue Project */}
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-              <div className="relative">
-                <img 
-                  src={dietvalueImage} 
-                  alt="Dietvalue Website"
-                  className="w-full h-64 object-cover object-top"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                <div className="absolute top-4 right-4">
-                  <a 
-                    href="https://dietvaluekw.com/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-lg hover:bg-white/30 transition-colors duration-300"
-                  >
-                    <ExternalLink className="w-5 h-5" />
-                  </a>
-                </div>
-              </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Dietvalue</h3>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  A premium diet delivery service platform focused on healthy meal subscriptions in Kuwait. Features elegant Arabic typography, smooth animations, and an intuitive ordering system for customers seeking nutritious meal plans.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Modern UI</span>
-                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Food Delivery</span>
-                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Arabic Design</span>
-                  <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">Kuwait Market</span>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-gray-700">RTL (Right-to-Left) Arabic layout</span>
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    {t(`webDevelopment.portfolio.projects.${project.id}.title`)}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed mb-6">
+                    {t(`webDevelopment.portfolio.projects.${project.id}.description`)}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tags.map((tag, index) => (
+                      <span 
+                        key={index}
+                        className={`px-3 py-1 rounded-full text-sm font-medium ${getTagColor(index)}`}
+                      >
+                        {t(`webDevelopment.portfolio.projects.${project.id}.tags.${tag}`)}
+                      </span>
+                    ))}
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-gray-700">Online ordering</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                    <span className="text-gray-700">Elegant food presentation design</span>
+                  <div className="space-y-2">
+                    {t(`webDevelopment.portfolio.projects.${project.id}.features`, { returnObjects: true }).map((feature, index) => (
+                      <div key={index} className={`flex items-center ${isRTL ? 'space-x-reverse space-x-2' : 'space-x-2'}`}>
+                        <div className={`w-2 h-2 rounded-full ${getFeatureColor(index)}`}></div>
+                        <span className="text-gray-700">{feature}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Dieter Project */}
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-              <div className="relative">
-                <img 
-                  src={dieterImage} 
-                  alt="Dieter Website"
-                  className="w-full h-64 object-cover object-top"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                <div className="absolute top-4 right-4">
-                  <a 
-                    href="https://dieterkwt.com/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-lg hover:bg-white/30 transition-colors duration-300"
-                  >
-                    <ExternalLink className="w-5 h-5" />
-                  </a>
-                </div>
-              </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Dieter</h3>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  A specialized diet and nutrition service platform for the Kuwait market. Offering customized meal plans, nutrition consultations, and health-focused food delivery services with a user-friendly interface designed for Arabic-speaking customers.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Kuwait Focus</span>
-                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Nutrition Plans</span>
-                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Health Services</span>
-                  <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">Arabic Interface</span>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-gray-700">Customized meal planning system</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-gray-700">Nutrition consultation booking</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                    <span className="text-gray-700">Health-focused service delivery</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Basic Project */}
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-              <div className="relative">
-                <img 
-                  src={basicImage} 
-                  alt="Basic Website"
-                  className="w-full h-64 object-cover object-top"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                <div className="absolute top-4 right-4">
-                  <a 
-                    href="https://basickw.com/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-lg hover:bg-white/30 transition-colors duration-300"
-                  >
-                    <ExternalLink className="w-5 h-5" />
-                  </a>
-                </div>
-              </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Basic</h3>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  A clean and minimalist business website showcasing essential services and information. Built with a focus on simplicity, fast loading times, and clear navigation to provide visitors with a straightforward user experience.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Minimalist Design</span>
-                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Fast Loading</span>
-                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Clean UI</span>
-                  <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">Business Focus</span>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-gray-700">Simple and intuitive navigation</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-gray-700">Optimized performance and speed</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                    <span className="text-gray-700">Professional business presentation</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Alnassem Glass Project */}
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-              <div className="relative">
-                <img 
-                  src={alnassemImage} 
-                  alt="Alnassem Glass Website"
-                  className="w-full h-64 object-cover object-top"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                <div className="absolute top-4 right-4">
-                  <a 
-                    href="https://nsmglass.com/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-lg hover:bg-white/30 transition-colors duration-300"
-                  >
-                    <ExternalLink className="w-5 h-5" />
-                  </a>
-                </div>
-              </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Alnassem Glass</h3>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  A professional glass manufacturing and installation company website showcasing premium glass products and services. Features elegant product galleries, service portfolios, and streamlined contact systems for custom glass solutions.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Manufacturing</span>
-                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Product Gallery</span>
-                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">B2B Services</span>
-                  <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">Professional</span>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-gray-700">Comprehensive product showcase</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-gray-700">Custom glass solutions portal</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                    <span className="text-gray-700">Industry-focused design approach</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Techbiz Project */}
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-              <div className="relative">
-                <img 
-                  src={techbizImage} 
-                  alt="Techbiz Website"
-                  className="w-full h-64 object-cover object-top"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                <div className="absolute top-4 right-4">
-                  <a 
-                    href="https://www.techbizsolutions.io/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-white/20 backdrop-blur-sm text-white p-2 rounded-lg hover:bg-white/30 transition-colors duration-300"
-                  >
-                    <ExternalLink className="w-5 h-5" />
-                  </a>
-                </div>
-              </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Techbiz</h3>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  A comprehensive technology solutions platform offering software development, IT consulting, and digital transformation services. Built with modern frameworks and featuring interactive elements to showcase technical expertise and service capabilities.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Tech Solutions</span>
-                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">IT Consulting</span>
-                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Modern Stack</span>
-                  <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">Enterprise</span>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span className="text-gray-700">Advanced technology showcase</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-gray-700">Service portfolio management</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                    <span className="text-gray-700">Interactive client engagement</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
 
           {/* Main Content Section */}
@@ -438,37 +263,37 @@ useEffect(() => {
             {/* Content */}
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Building Digital Excellence
+                {t('webDevelopment.mainContent.title')}
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                Our web development team combines technical expertise with creative design to deliver exceptional web solutions. From simple business websites to complex web applications, we ensure your online presence reflects your brand's professionalism and values.
+                {t('webDevelopment.mainContent.description')}
               </p>
               <div className="space-y-4">
-                <div className="flex items-start space-x-3">
+                <div className={`flex items-start ${isRTL ? 'space-x-reverse space-x-3' : 'space-x-3'}`}>
                   <div className="bg-blue-100 p-2 rounded-lg mt-1">
                     <Code className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Custom Development</h4>
-                    <p className="text-gray-600">Tailored solutions built specifically for your business needs and requirements.</p>
+                    <h4 className="font-semibold text-gray-900 mb-1">{t('webDevelopment.mainContent.customDevelopment.title')}</h4>
+                    <p className="text-gray-600">{t('webDevelopment.mainContent.customDevelopment.description')}</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-3">
+                <div className={`flex items-start ${isRTL ? 'space-x-reverse space-x-3' : 'space-x-3'}`}>
                   <div className="bg-blue-100 p-2 rounded-lg mt-1">
                     <Smartphone className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Responsive Design</h4>
-                    <p className="text-gray-600">Websites that look and function perfectly on all devices and screen sizes.</p>
+                    <h4 className="font-semibold text-gray-900 mb-1">{t('webDevelopment.mainContent.responsiveDesign.title')}</h4>
+                    <p className="text-gray-600">{t('webDevelopment.mainContent.responsiveDesign.description')}</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-3">
+                <div className={`flex items-start ${isRTL ? 'space-x-reverse space-x-3' : 'space-x-3'}`}>
                   <div className="bg-blue-100 p-2 rounded-lg mt-1">
                     <Globe className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">SEO Optimized</h4>
-                    <p className="text-gray-600">Built with search engine optimization best practices for better visibility.</p>
+                    <h4 className="font-semibold text-gray-900 mb-1">{t('webDevelopment.mainContent.seoOptimized.title')}</h4>
+                    <p className="text-gray-600">{t('webDevelopment.mainContent.seoOptimized.description')}</p>
                   </div>
                 </div>
               </div>
@@ -476,23 +301,23 @@ useEffect(() => {
 
             {/* Stats */}
             <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Project Success</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">{t('webDevelopment.projectSuccess.title')}</h3>
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-blue-600 mb-2">50+</div>
-                  <div className="text-gray-600">Live Projects</div>
+                  <div className="text-gray-600">{t('webDevelopment.projectSuccess.liveProjects')}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-green-600 mb-2">100%</div>
-                  <div className="text-gray-600">Client Satisfaction</div>
+                  <div className="text-gray-600">{t('webDevelopment.projectSuccess.clientSatisfaction')}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-purple-600 mb-2">3+</div>
-                  <div className="text-gray-600">Countries Served</div>
+                  <div className="text-gray-600">{t('webDevelopment.projectSuccess.countriesServed')}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-orange-600 mb-2">24/7</div>
-                  <div className="text-gray-600">Support</div>
+                  <div className="text-gray-600">{t('webDevelopment.projectSuccess.support')}</div>
                 </div>
               </div>
             </div>
@@ -505,10 +330,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Web Development Services
+              {t('webDevelopment.services.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Comprehensive web solutions to meet all your digital needs
+              {t('webDevelopment.services.subtitle')}
             </p>
           </div>
 
@@ -518,9 +343,9 @@ useEffect(() => {
               <div className="bg-blue-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
                 <Globe className="w-8 h-8 text-blue-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Corporate Websites</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{t('webDevelopment.services.corporateWebsites.title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Professional business websites that establish credibility and showcase your services effectively.
+                {t('webDevelopment.services.corporateWebsites.description')}
               </p>
             </div>
 
@@ -529,9 +354,9 @@ useEffect(() => {
               <div className="bg-green-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
                 <Code className="w-8 h-8 text-green-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Web Applications</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{t('webDevelopment.services.webApplications.title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Complex web applications with advanced functionality and user management systems.
+                {t('webDevelopment.services.webApplications.description')}
               </p>
             </div>
 
@@ -540,9 +365,9 @@ useEffect(() => {
               <div className="bg-purple-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
                 <Zap className="w-8 h-8 text-purple-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Performance Optimization</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{t('webDevelopment.services.performanceOptimization.title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Fast-loading websites optimized for speed, performance, and user experience.
+                {t('webDevelopment.services.performanceOptimization.description')}
               </p>
             </div>
 
@@ -551,9 +376,9 @@ useEffect(() => {
               <div className="bg-orange-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
                 <Shield className="w-8 h-8 text-orange-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Security & Maintenance</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{t('webDevelopment.services.securityMaintenance.title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Secure websites with regular updates, backups, and ongoing maintenance support.
+                {t('webDevelopment.services.securityMaintenance.description')}
               </p>
             </div>
 
@@ -562,9 +387,9 @@ useEffect(() => {
               <div className="bg-red-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
                 <Monitor className="w-8 h-8 text-red-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">CMS Solutions</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{t('webDevelopment.services.cmsSolutions.title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Content management systems that allow you to easily update and manage your website.
+                {t('webDevelopment.services.cmsSolutions.description')}
               </p>
             </div>
 
@@ -573,9 +398,9 @@ useEffect(() => {
               <div className="bg-teal-100 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
                 <Globe className="w-8 h-8 text-teal-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">API Integration</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{t('webDevelopment.services.apiIntegration.title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Seamless integration with third-party services and APIs to extend functionality.
+                {t('webDevelopment.services.apiIntegration.description')}
               </p>
             </div>
           </div>
@@ -587,10 +412,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Technologies We Use
+              {t('webDevelopment.technologies.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We leverage the latest technologies to build robust and scalable web solutions
+              {t('webDevelopment.technologies.subtitle')}
             </p>
           </div>
 
@@ -610,23 +435,23 @@ useEffect(() => {
       <section className="py-16 md:py-20 px-4 bg-gradient-to-r from-custom-teal to-teal-600">
         <div className="container mx-auto text-center max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to Build Your Web Presence?
+            {t('webDevelopment.cta.title')}
           </h2>
           <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
-            Let's discuss your web development needs and create a solution that drives your business forward.
+            {t('webDevelopment.cta.description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               to="/contact" 
               className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-medium transition duration-300"
             >
-              Start Your Project
+              {t('webDevelopment.cta.startProject')}
             </Link>
             <Link 
               to="/what-we-do" 
               className="border-2 border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3 rounded-lg font-medium transition duration-300"
             >
-              Explore All Services
+              {t('webDevelopment.cta.exploreServices')}
             </Link>
           </div>
         </div>

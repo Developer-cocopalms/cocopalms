@@ -6,6 +6,7 @@ import { useServices } from './hooks/useServices';
 import { Helmet } from 'react-helmet'; 
 import { getPageKeywords } from '../pages/hooks/keywordsService';
 import { supabase } from '../supabaseClient';
+import { useTranslation } from "react-i18next";
 
 // Import images (keep your existing imports)
 import webdevImage from '../assets/webdev.jpg';
@@ -19,9 +20,22 @@ const WhatWeDo = () => {
   const location = useLocation();
   const { services, loading, error } = useServices();
   const [keywords, setKeywords] = useState('services, what we do, solutions, technology services, offerings');
+  const { t, i18n } = useTranslation();
+  
+  // Get current language direction
+  const isRTL = i18n.language === 'ar';
   
   // Canonical URL
   const canonicalUrl = "https://cocopalms.io/what-we-do";
+
+  // Helper function to get localized text for services
+  const getLocalizedText = (service, field) => {
+    if (i18n.language === 'ar') {
+      const arabicField = `${field}_ar`;
+      return service[arabicField] || service[field]; // Fallback to English if Arabic not available
+    }
+    return service[field];
+  };
 
   // Image mapping for your local images
   const imageMap = {
@@ -71,9 +85,9 @@ const WhatWeDo = () => {
   useEffect(() => {
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Cocopalms offers scalable SaaS, ERP, and app development solutions, empowering businesses with innovative technology for growth and efficiency.');
+      metaDescription.setAttribute('content', t('whatWeDo.hero.description'));
     }
-  }, []);
+  }, [t]);
 
   // Add useEffect for canonical URL in document head
   useEffect(() => {
@@ -128,10 +142,10 @@ const WhatWeDo = () => {
   // Loading state
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-teal-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading services...</p>
+          <p className="text-gray-600">{t('whatWeDo.loading.text')}</p>
         </div>
       </div>
     );
@@ -140,14 +154,14 @@ const WhatWeDo = () => {
   // Error state
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="text-center">
-          <p className="text-red-600 mb-4">Error loading services: {error}</p>
+          <p className="text-red-600 mb-4">{t('whatWeDo.loading.error')} {error}</p>
           <button 
             onClick={() => window.location.reload()} 
             className="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700"
           >
-            Retry
+            {t('whatWeDo.loading.retry')}
           </button>
         </div>
       </div>
@@ -155,7 +169,7 @@ const WhatWeDo = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
       <Helmet>
         <title>What We Do | Cocopalms: Scalable SaaS, ERP & App Development</title>
         <meta 
@@ -190,13 +204,13 @@ const WhatWeDo = () => {
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24 md:mt-24">
         <div className="container mx-auto text-center max-w-4xl">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">
-            What We Do?
+            {t('whatWeDo.hero.title')}
           </h1>
           <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-white/90 mb-6 md:mb-8">
-            Empowering Your Business with Technology
+            {t('whatWeDo.hero.subtitle')}
           </h2>
           <p className="text-base md:text-lg lg:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto px-4">
-            As a leading IT company in Kuwait, Cocoplams partners with you to drive software innovation and deliver market-leading solutions. Our expert IT services tackle your complex business problems head-on with tailored technological solutions.
+            {t('whatWeDo.hero.description')}
           </p>
         </div>
       </section>
@@ -213,9 +227,12 @@ const WhatWeDo = () => {
             className={`py-12 md:py-16 lg:py-20 px-4 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} scroll-mt-20`}
           >
             <div className="container mx-auto max-w-7xl">
-              <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center ${!isEven ? 'lg:grid-flow-col-dense' : ''}`}>
+              <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center ${
+                !isEven ? 'lg:grid-flow-col-dense' : ''
+              } ${isRTL && !isEven ? 'lg:grid-flow-row' : ''}`}>
+                
                 {/* Content Side */}
-                <div className={`${!isEven ? 'lg:col-start-2' : ''} px-2 md:px-0`}>
+                <div className={`${!isEven && !isRTL ? 'lg:col-start-2' : ''} ${!isEven && isRTL ? 'lg:order-2' : ''} px-2 md:px-0`}>
                   <div className={`${service.icon_bg} w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center mb-6 md:mb-8 inline-flex`}>
                     <DynamicIcon 
                       iconName={service.icon_name} 
@@ -224,42 +241,44 @@ const WhatWeDo = () => {
                   </div>
                   
                   <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
-                    {service.title}
+                    {getLocalizedText(service, 'title')}
                   </h2>
                   
                   <h3 className="text-lg md:text-xl font-semibold text-gray-700 mb-4 md:mb-6">
-                    {service.subtitle}
+                    {getLocalizedText(service, 'subtitle')}
                   </h3>
                   
                   <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-                    {service.description}
+                    {getLocalizedText(service, 'description')}
                   </p>
                 </div>
 
                 {/* Visual Side with Image */}
-                <div className={`${!isEven ? 'lg:col-start-1 lg:row-start-1' : ''} px-2 md:px-0`}>
+                <div className={`${
+                  !isEven && !isRTL ? 'lg:col-start-1 lg:row-start-1' : ''
+                } ${!isEven && isRTL ? 'lg:order-1' : ''} px-2 md:px-0`}>
                   <div className="relative rounded-2xl overflow-hidden h-80 md:h-96 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     {serviceImage ? (
                       <img 
                         src={serviceImage} 
-                        alt={service.title}
+                        alt={getLocalizedText(service, 'title')}
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                          console.error(`Failed to load image for service: ${service.title}`);
+                          console.error(`Failed to load image for service: ${getLocalizedText(service, 'title')}`);
                           e.target.style.display = 'none';
                         }}
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                        <span className="text-gray-500">No image available</span>
+                        <span className="text-gray-500">{t('whatWeDo.imageAlt.noImageAvailable')}</span>
                       </div>
                     )}
                     {/* Overlay with gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                     {/* Content overlay */}
                     <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
-                      <h4 className="text-lg md:text-xl font-bold mb-1">{service.title}</h4>
-                      <p className="text-sm md:text-base text-white/80">{service.service_name}</p>
+                      <h4 className="text-lg md:text-xl font-bold mb-1">{getLocalizedText(service, 'title')}</h4>
+                      <p className="text-sm md:text-base text-white/80">{getLocalizedText(service, 'service_name')}</p>
                     </div>
                   </div>
                 </div>
@@ -273,18 +292,17 @@ const WhatWeDo = () => {
       <section className="py-16 md:py-20 px-4 bg-custom-teal">
         <div className="container mx-auto text-center max-w-4xl">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 md:mb-6 px-2">
-            Transforming Your Ideas into Reality: Your Trusted Technology Partner.
+            {t('whatWeDo.cta.title')}
           </h2>
           <p className="text-base md:text-lg text-white/80 mb-6 md:mb-8 max-w-2xl mx-auto px-4">
-            Let's discuss how our comprehensive IT solutions can help you achieve your business goals and drive digital transformation. Cocopalms is a leading IT company in Kuwait,
-            dedicated to delivering trustworthy and guaranteed services. Contact us today to turn your vision into tangible success.
+            {t('whatWeDo.cta.description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
             <Link 
               to="/contact" 
               className="bg-white text-teal-600 hover:bg-gray-100 px-6 md:px-8 py-3 rounded-lg font-medium transition duration-300 inline-block text-center"
             >
-              Get Started Today
+              {t('whatWeDo.cta.button')}
             </Link>
           </div>
         </div>

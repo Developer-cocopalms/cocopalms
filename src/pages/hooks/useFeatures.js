@@ -13,7 +13,19 @@ export const useFeatures = () => {
         setLoading(true);
         const { data, error } = await supabase
           .from('features')
-          .select('*')
+          .select(`
+            id,
+            title,
+            description,
+            icon_name,
+            display_order,
+            is_active,
+            created_at,
+            updated_at,
+            status,
+            title_ar,
+            description_ar
+          `)
           .eq('status', true)
           .order('display_order', { ascending: true });
 

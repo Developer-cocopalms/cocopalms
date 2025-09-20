@@ -19,12 +19,17 @@ import {
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { getPageKeywords } from '../pages/hooks/keywordsService';
+import { useTranslation } from "react-i18next";
 import ecom1Image from '../assets/ecom1.png';
 import ecom2Image from '../assets/ecom2.png';
 import ecom3Image from '../assets/ecom3.png';
 import ecom4Image from '../assets/ecom4.png';
 
 const EcommerceApplications = () => {
+  const { t, i18n } = useTranslation();
+  
+  // Get current language direction
+  const isRTL = i18n.language === 'ar';
 
   const canonicalUrl = "https://cocopalms.io/what-we-do/ecommerce-application";
   const [keywords, setKeywords] = useState('eCommerce apps, online store, digital commerce, shopping solutions');
@@ -82,58 +87,58 @@ useEffect(() => {
   const ecomFeatures = [
     {
       icon: ShoppingCart,
-      title: "Complete Online Store",
-      description: "Build beautiful, responsive online stores with advanced product catalogs and shopping cart functionality.",
-      features: ["Product Catalog", "Shopping Cart", "Wishlist", "Product Search & Filters"],
+      title: t('ecommerceApplication.features.items.0.title'),
+      description: t('ecommerceApplication.features.items.0.description'),
+      features: t('ecommerceApplication.features.items.0.features', { returnObjects: true }),
       color: "bg-blue-100 text-blue-600"
     },
     {
       icon: CreditCard,
-      title: "Payment Integration",
-      description: "Secure payment processing with multiple payment gateways and cryptocurrency support.",
-      features: ["Multiple Payment Methods", "Secure Transactions", "Cryptocurrency Support", "Subscription Billing"],
+      title: t('ecommerceApplication.features.items.1.title'),
+      description: t('ecommerceApplication.features.items.1.description'),
+      features: t('ecommerceApplication.features.items.1.features', { returnObjects: true }),
       color: "bg-green-100 text-green-600"
     },
     {
       icon: Smartphone,
-      title: "Mobile Commerce",
-      description: "Native mobile apps and responsive design for seamless shopping on any device.",
-      features: ["Mobile Apps", "Responsive Design", "Push Notifications", "Mobile Payments"],
+      title: t('ecommerceApplication.features.items.2.title'),
+      description: t('ecommerceApplication.features.items.2.description'),
+      features: t('ecommerceApplication.features.items.2.features', { returnObjects: true }),
       color: "bg-purple-100 text-purple-600"
     },
     {
       icon: Package,
-      title: "Inventory Management",
-      description: "Real-time inventory tracking with automated stock alerts and supplier management.",
-      features: ["Stock Tracking", "Automated Alerts", "Supplier Management", "Multi-warehouse"],
+      title: t('ecommerceApplication.features.items.3.title'),
+      description: t('ecommerceApplication.features.items.3.description'),
+      features: t('ecommerceApplication.features.items.3.features', { returnObjects: true }),
       color: "bg-orange-100 text-orange-600"
     },
     {
       icon: Users,
-      title: "Customer Management",
-      description: "Comprehensive customer profiles with purchase history and personalized experiences.",
-      features: ["Customer Profiles", "Purchase History", "Personalization", "Loyalty Programs"],
+      title: t('ecommerceApplication.features.items.4.title'),
+      description: t('ecommerceApplication.features.items.4.description'),
+      features: t('ecommerceApplication.features.items.4.features', { returnObjects: true }),
       color: "bg-pink-100 text-pink-600"
     },
     {
       icon: TrendingUp,
-      title: "Analytics & Reporting",
-      description: "Advanced analytics and reporting tools to track performance and optimize sales.",
-      features: ["Sales Analytics", "Customer Insights", "Performance Reports", "Revenue Tracking"],
+      title: t('ecommerceApplication.features.items.5.title'),
+      description: t('ecommerceApplication.features.items.5.description'),
+      features: t('ecommerceApplication.features.items.5.features', { returnObjects: true }),
       color: "bg-indigo-100 text-indigo-600"
     },
     {
       icon: Truck,
-      title: "Order Management",
-      description: "Streamlined order processing with automated workflows and shipping integration.",
-      features: ["Order Processing", "Shipping Integration", "Tracking", "Returns Management"],
+      title: t('ecommerceApplication.features.items.6.title'),
+      description: t('ecommerceApplication.features.items.6.description'),
+      features: t('ecommerceApplication.features.items.6.features', { returnObjects: true }),
       color: "bg-teal-100 text-teal-600"
     },
     {
       icon: Globe,
-      title: "Multi-channel Selling",
-      description: "Sell across multiple platforms and marketplaces with centralized management.",
-      features: ["Multi-platform", "Marketplace Integration", "Social Commerce", "Cross-channel Sync"],
+      title: t('ecommerceApplication.features.items.7.title'),
+      description: t('ecommerceApplication.features.items.7.description'),
+      features: t('ecommerceApplication.features.items.7.features', { returnObjects: true }),
       color: "bg-red-100 text-red-600"
     }
   ];
@@ -141,56 +146,48 @@ useEffect(() => {
   const benefits = [
     {
       icon: Zap,
-      title: "Lightning Fast",
-      description: "Optimized for speed with advanced caching and CDN integration for instant page loads."
+      title: t('ecommerceApplication.benefits.items.0.title'),
+      description: t('ecommerceApplication.benefits.items.0.description')
     },
     {
       icon: Shield,
-      title: "Enterprise Security",
-      description: "Bank-level security with SSL encryption, fraud detection, and PCI compliance."
+      title: t('ecommerceApplication.benefits.items.1.title'),
+      description: t('ecommerceApplication.benefits.items.1.description')
     },
     {
       icon: Settings,
-      title: "Highly Customizable",
-      description: "Tailor every aspect of your store to match your brand and business requirements."
+      title: t('ecommerceApplication.benefits.items.2.title'),
+      description: t('ecommerceApplication.benefits.items.2.description')
     },
     {
       icon: Cloud,
-      title: "Cloud-Based",
-      description: "Scalable cloud infrastructure that grows with your business needs."
+      title: t('ecommerceApplication.benefits.items.3.title'),
+      description: t('ecommerceApplication.benefits.items.3.description')
     },
     {
       icon: Database,
-      title: "Advanced SEO",
-      description: "Built-in SEO tools and optimization features to improve search rankings."
+      title: t('ecommerceApplication.benefits.items.4.title'),
+      description: t('ecommerceApplication.benefits.items.4.description')
     },
     {
       icon: Headphones,
-      title: "24/7 Support",
-      description: "Round-the-clock technical support and maintenance for your e-commerce platform."
+      title: t('ecommerceApplication.benefits.items.5.title'),
+      description: t('ecommerceApplication.benefits.items.5.description')
     }
   ];
 
-  const industries = [
-    "Food & Beverages",
-    "Health & Wellness",
-    "Electronics & Gadgets",
-    "Home & Garden",
-    "Sports & Fitness",
-    "Books & Media",
-  ];
+  const industries = t('ecommerceApplication.industries.list', { returnObjects: true });
 
-  const technologies = [
-    { name: "React/Next.js", icon: "⚛️" },
-    { name: "Node.js", icon: "🟢" },
-    { name: "MongoDB", icon: "🍃" },
-    { name: "Stripe/PayPal", icon: "💳" },
-    { name: "AWS/Azure", icon: "☁️" }
-  
-  ];
+  const technologies = t('ecommerceApplication.technologies.items', { returnObjects: true });
+
+  const statistics = t('ecommerceApplication.statistics.items', { returnObjects: true });
+
+  const processSteps = t('ecommerceApplication.process.steps', { returnObjects: true });
+
+  const timelinePhases = t('ecommerceApplication.process.timeline.phases', { returnObjects: true });
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
       
 
 <Helmet>
@@ -232,13 +229,13 @@ useEffect(() => {
             <ShoppingCart className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            E-commerce Applications
+            {t('ecommerceApplication.hero.title')}
           </h1>
           <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-white/90 mb-8">
-            Professional Online Store Solutions
+            {t('ecommerceApplication.hero.subtitle')}
           </h2>
           <p className="text-base md:text-lg lg:text-xl text-white/80 leading-relaxed max-w-4xl mx-auto mb-10">
-            Build powerful, scalable e-commerce platforms that drive sales and deliver exceptional customer experiences. From simple online stores to complex multi-vendor marketplaces, we create solutions that grow with your business.
+            {t('ecommerceApplication.hero.description')}
           </p>
         </div>
       </section>
@@ -339,10 +336,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Complete E-commerce Features
+              {t('ecommerceApplication.features.title')}
             </h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Everything you need to build and manage a successful online business, from storefront to backend management.
+              {t('ecommerceApplication.features.subtitle')}
             </p>
           </div>
 
@@ -359,7 +356,7 @@ useEffect(() => {
                   <div className="space-y-2">
                     {feature.features.map((item, itemIndex) => (
                       <div key={itemIndex} className="flex items-center space-x-2">
-                        <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                        <CheckCircle className={`w-4 h-4 text-green-500 flex-shrink-0 ${isRTL ? 'ml-2 mr-0' : 'mr-2 ml-0'}`} />
                         <span className="text-gray-700 text-sm">{item}</span>
                       </div>
                     ))}
@@ -376,10 +373,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Why Choose Our E-commerce Solutions?
+              {t('ecommerceApplication.benefits.title')}
             </h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              Built for performance, security, and scalability with cutting-edge technology and best practices.
+              {t('ecommerceApplication.benefits.subtitle')}
             </p>
           </div>
 
@@ -405,30 +402,20 @@ useEffect(() => {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Proven E-commerce Success
+              {t('ecommerceApplication.statistics.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Our e-commerce solutions have helped businesses achieve exceptional growth and customer satisfaction.
+              {t('ecommerceApplication.statistics.subtitle')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center p-6 bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl">
-              <div className="text-4xl font-bold text-teal-600 mb-2">20+</div>
-              <div className="text-gray-700 font-medium">Online Stores Built</div>
-            </div>
-            <div className="text-center p-6 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl">
-              <div className="text-4xl font-bold text-green-600 mb-2">250%</div>
-              <div className="text-gray-700 font-medium">Average Sales Increase</div>
-            </div>
-            <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl">
-              <div className="text-4xl font-bold text-blue-600 mb-2">0.2s</div>
-              <div className="text-gray-700 font-medium">Average Load Time</div>
-            </div>
-            <div className="text-center p-6 bg-gradient-to-br from-orange-50 to-amber-100 rounded-2xl">
-              <div className="text-4xl font-bold text-orange-600 mb-2">98%</div>
-              <div className="text-gray-700 font-medium">Customer Satisfaction</div>
-            </div>
+            {statistics.map((stat, index) => (
+              <div key={index} className="text-center p-6 bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl">
+                <div className="text-4xl font-bold text-teal-600 mb-2">{stat.value}</div>
+                <div className="text-gray-700 font-medium">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -438,10 +425,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Industries We Serve
+              {t('ecommerceApplication.industries.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Our e-commerce solutions are tailored to meet the unique needs of various industries and business models.
+              {t('ecommerceApplication.industries.subtitle')}
             </p>
           </div>
 
@@ -460,10 +447,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Cutting-Edge Technology Stack
+              {t('ecommerceApplication.technologies.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We use the latest technologies and frameworks to build fast, secure, and scalable e-commerce platforms.
+              {t('ecommerceApplication.technologies.subtitle')}
             </p>
           </div>
 
@@ -484,82 +471,40 @@ useEffect(() => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Our E-commerce Development Process
+                {t('ecommerceApplication.process.title')}
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                From concept to launch, we follow a proven development methodology that ensures your e-commerce platform is built to the highest standards and delivers exceptional results.
+                {t('ecommerceApplication.process.description')}
               </p>
               <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <div className="bg-teal-100 p-2 rounded-lg mt-1">
-                    <CheckCircle className="w-5 h-5 text-teal-600" />
+                {processSteps.map((step, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <div className="bg-teal-100 p-2 rounded-lg mt-1">
+                      <CheckCircle className="w-5 h-5 text-teal-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">{step.title}</h4>
+                      <p className="text-gray-600">{step.description}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Discovery & Planning</h4>
-                    <p className="text-gray-600">Understanding your business needs and target audience to create the perfect strategy.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="bg-purple-100 p-2 rounded-lg mt-1">
-                    <CheckCircle className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Design & Development</h4>
-                    <p className="text-gray-600">Creating beautiful, user-friendly interfaces with robust backend functionality.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="bg-purple-100 p-2 rounded-lg mt-1">
-                    <CheckCircle className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Testing & Optimization</h4>
-                    <p className="text-gray-600">Rigorous testing and performance optimization for the best user experience.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="bg-purple-100 p-2 rounded-lg mt-1">
-                    <CheckCircle className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Launch & Support</h4>
-                    <p className="text-gray-600">Smooth deployment with ongoing maintenance and support services.</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
             <div className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Project Timeline</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                {t('ecommerceApplication.process.timeline.title')}
+              </h3>
               <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                  <div>
-                    <div className="font-semibold text-gray-900">Week 1-2</div>
-                    <div className="text-gray-600 text-sm">Requirements gathering and design mockups</div>
+                {timelinePhases.map((phase, index) => (
+                  <div key={index} className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center text-sm font-bold">{index + 1}</div>
+                    <div>
+                      <div className="font-semibold text-gray-900">{phase.period}</div>
+                      <div className="text-gray-600 text-sm">{phase.task}</div>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                  <div>
-                    <div className="font-semibold text-gray-900">Week 3-8</div>
-                    <div className="text-gray-600 text-sm">Development and feature implementation</div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                  <div>
-                    <div className="font-semibold text-gray-900">Week 9-10</div>
-                    <div className="text-gray-600 text-sm">Testing, optimization, and content migration</div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center text-sm font-bold">4</div>
-                  <div>
-                    <div className="font-semibold text-gray-900">Week 11-12</div>
-                    <div className="text-gray-600 text-sm">Launch preparation and go-live</div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -570,23 +515,23 @@ useEffect(() => {
       <section className="py-16 md:py-24 px-4 bg-gradient-to-r from-custom-teal to-teal-600">
         <div className="container mx-auto text-center max-w-4xl">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-            Ready to Launch Your Online Store?
+            {t('ecommerceApplication.cta.title')}
           </h2>
           <p className="text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto">
-            Let's build an e-commerce platform that drives sales, engages customers, and scales with your business growth.
+            {t('ecommerceApplication.cta.description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               to="/contact" 
               className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-medium transition duration-300"
             >
-              Start Your Project
+              {t('ecommerceApplication.cta.primaryButton')}
             </Link>
             <Link 
               to="/what-we-do" 
               className="border-2 border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3 rounded-lg font-medium transition duration-300"
             >
-              Explore All Services
+              {t('ecommerceApplication.cta.secondaryButton')}
             </Link>
           </div>
         </div>

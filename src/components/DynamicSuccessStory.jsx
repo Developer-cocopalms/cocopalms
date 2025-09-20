@@ -4,11 +4,13 @@ import { supabase } from '../supabaseClient';
 import { Helmet } from 'react-helmet';
 import { getPageKeywords } from '../pages/hooks/keywordsService';
 import { Users, TrendingUp, CheckCircle, ExternalLink, Building2, Home, Package, Smartphone, FileText, BarChart3 } from 'lucide-react';
+import { useTranslation } from "react-i18next";
 // Import all logos
 import BizoSuiteLogo from '../assets/bizo_logo.png';
 import RealEstateLogo from '../assets/Rentings Logo.jpeg';
 import KitchenlyLogo from '../assets/Kitchenly Logo.png';
 import CocoDineLogo from '../assets/Cocodine logo.png';
+import { Link } from 'react-router-dom';
 
 // Enhanced icon mapping object
 const iconMap = {
@@ -38,8 +40,69 @@ const DynamicSuccessStory = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [keywords, setKeywords] = useState('success story, case study, digital transformation, IT solutions Kuwait, business growth, technology solutions')
+  
+  // Add translation hooks
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
+  
   // Generate canonical URL based on slug
   const canonicalUrl = `https://cocopalms.io/success-stories/${slug}`;
+
+  // Helper function to get localized text from story data
+  const getLocalizedText = (field) => {
+    if (!storyData) return '';
+    
+    if (i18n.language === 'ar') {
+      const arabicField = `${field}_ar`;
+      return storyData[arabicField] || storyData[field]; // Fallback to English if Arabic not available
+    }
+    return storyData[field];
+  };
+
+  // Helper function to get localized JSON content (for features, stats, etc.)
+  const getLocalizedJsonContent = (field) => {
+    if (!storyData || !storyData[field]) return null;
+    
+    const content = storyData[field];
+    if (!Array.isArray(content)) return content;
+    
+    return content.map(item => {
+      if (i18n.language === 'ar') {
+        return {
+          ...item,
+          title: item.title_ar || item.title,
+          description: item.description_ar || item.description,
+          label: item.label_ar || item.label
+        };
+      }
+      return item;
+    });
+  };
+
+  // Helper function to get localized additional sections
+  const getLocalizedAdditionalSections = () => {
+    if (!storyData || !storyData.additional_sections) return null;
+    
+    const sections = storyData.additional_sections;
+    if (!Array.isArray(sections)) return sections;
+    
+    return sections.map(section => {
+      let localizedSection = {
+        ...section,
+        title: i18n.language === 'ar' ? (section.title_ar || section.title) : section.title
+      };
+      
+      if (section.items && Array.isArray(section.items)) {
+        localizedSection.items = section.items.map(item => ({
+          ...item,
+          title: i18n.language === 'ar' ? (item.title_ar || item.title) : item.title,
+          description: i18n.language === 'ar' ? (item.description_ar || item.description) : item.description
+        }));
+      }
+      
+      return localizedSection;
+    });
+  };
   
   useEffect(() => {
     fetchStoryContent();
@@ -65,7 +128,7 @@ const DynamicSuccessStory = () => {
     if (metaDescription) {
       metaDescription.setAttribute('content', getMetaDescription());
     }
-  }, [storyData, slug]); // Dependencies to update when story data changes
+  }, [storyData, slug, i18n.language]); // Add i18n.language dependency
 
   
   // Add useEffect for canonical URL management
@@ -105,7 +168,22 @@ const DynamicSuccessStory = () => {
       
       const { data, error } = await supabase
         .from('success_stories_content')
-        .select('*')
+        .select(`
+          *,
+          hero_title_ar,
+          hero_subtitle_ar,
+          hero_description_ar,
+          hero_cta_text_ar,
+          overview_title_ar,
+          overview_description_ar,
+          features_title_ar,
+          results_title_ar,
+          results_subtitle_ar,
+          cta_title_ar,
+          cta_description_ar,
+          cta_primary_text_ar,
+          cta_secondary_text_ar
+        `)
         .eq('slug', slug)
         .eq('is_active', true)
         .single();
@@ -134,9 +212,10 @@ const DynamicSuccessStory = () => {
   };
 
   const renderFeatures = (features) => {
-    if (!Array.isArray(features)) return null;
+    const localizedFeatures = getLocalizedJsonContent('features');
+    if (!Array.isArray(localizedFeatures)) return null;
     
-    return features.map((feature, index) => (
+    return localizedFeatures.map((feature, index) => (
       <div key={index} className="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow">
         <div className={`text-${feature.color} mb-4`}>
           {renderIcon(feature.icon, "h-8 w-8")}
@@ -148,9 +227,10 @@ const DynamicSuccessStory = () => {
   };
 
   const renderStats = (stats) => {
-    if (!Array.isArray(stats)) return null;
+    const localizedStats = getLocalizedJsonContent('results_stats');
+    if (!Array.isArray(localizedStats)) return null;
     
-    return stats.map((stat, index) => (
+    return localizedStats.map((stat, index) => (
       <div key={index} className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center">
         <div className={`text-${stat.color} mx-auto mb-4`}>
           {renderIcon(stat.icon, "h-12 w-12")}
@@ -161,10 +241,11 @@ const DynamicSuccessStory = () => {
     ));
   };
 
-  const renderAdditionalSections = (sections) => {
-    if (!sections || !Array.isArray(sections)) return null;
+  const renderAdditionalSections = () => {
+    const localizedSections = getLocalizedAdditionalSections();
+    if (!localizedSections || !Array.isArray(localizedSections)) return null;
 
-    return sections.map((section, index) => {
+    return localizedSections.map((section, index) => {
       if (section.type === 'who_we_serve') {
         return (
           <div key={index} className={`py-16 bg-${section.background || 'gray-50'}`}>
@@ -221,9 +302,10 @@ const DynamicSuccessStory = () => {
       return titleMap[slug];
     }
     
-    // Fallback to dynamic title based on story data
-    if (storyData?.hero_title) {
-      return `${storyData.hero_title} | Success Story | Cocopalms`;
+    // Fallback to dynamic title based on story data with localization
+    const heroTitle = getLocalizedText('hero_title');
+    if (heroTitle) {
+      return `${heroTitle} | Success Story | Cocopalms`;
     }
     
     return `Success Story | Cocopalms`;
@@ -243,11 +325,12 @@ const DynamicSuccessStory = () => {
       return descriptionMap[slug];
     }
     
-    // Fallback to dynamic description based on story data
-    if (storyData?.hero_subtitle) {
-      return storyData.hero_subtitle.length > 160 
-        ? storyData.hero_subtitle.substring(0, 157) + '...'
-        : storyData.hero_subtitle;
+    // Fallback to dynamic description based on story data with localization
+    const heroSubtitle = getLocalizedText('hero_subtitle');
+    if (heroSubtitle) {
+      return heroSubtitle.length > 160 
+        ? heroSubtitle.substring(0, 157) + '...'
+        : heroSubtitle;
     }
     
     return `Discover how Cocopalms helped transform businesses with innovative technology solutions and digital transformation services.`;
@@ -255,10 +338,12 @@ const DynamicSuccessStory = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-teal-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading story content...</p>
+          <p className="mt-4 text-gray-600">
+            {isRTL ? 'جار التحميل...' : 'Loading story content...'}
+          </p>
         </div>
       </div>
     );
@@ -266,18 +351,20 @@ const DynamicSuccessStory = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="text-center max-w-md mx-auto p-8">
           <div className="text-red-600 mb-4">
             <ExternalLink className="h-16 w-16 mx-auto" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Oops! Something went wrong</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            {isRTL ? 'عذراً! حدث خطأ ما' : 'Oops! Something went wrong'}
+          </h2>
           <p className="text-gray-600 mb-6">{error}</p>
           <button 
             onClick={() => window.history.back()}
             className="bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors"
           >
-            Go Back
+            {isRTL ? 'العودة' : 'Go Back'}
           </button>
         </div>
       </div>
@@ -286,10 +373,14 @@ const DynamicSuccessStory = () => {
 
   if (!storyData) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Story Not Found</h2>
-          <p className="text-gray-600">The requested success story could not be found.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            {isRTL ? 'القصة غير موجودة' : 'Story Not Found'}
+          </h2>
+          <p className="text-gray-600">
+            {isRTL ? 'لا يمكن العثور على قصة النجاح المطلوبة.' : 'The requested success story could not be found.'}
+          </p>
         </div>
       </div>
     );
@@ -301,7 +392,7 @@ const DynamicSuccessStory = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <Helmet>
         <title>{getMetaTitle()}</title>
         <meta name="keywords" content={getMetaKeywords()} />
@@ -338,7 +429,7 @@ const DynamicSuccessStory = () => {
             <div className="bg-white p-4 rounded-full shadow-lg">
               <img 
                 src={getLogoSrc()} 
-                alt={`${storyData.hero_title} Logo`} 
+                alt={`${getLocalizedText('hero_title')} Logo`} 
                 className="h-12 w-12 object-contain"
                 onError={(e) => {
                   // Fallback to BizoSuiteLogo if image fails to load
@@ -348,20 +439,20 @@ const DynamicSuccessStory = () => {
             </div>
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">{storyData.hero_title}</h1>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">{getLocalizedText('hero_title')}</h1>
           <p className="text-xl md:text-2xl mb-8 max-w-4xl mx-auto leading-relaxed">
-            {storyData.hero_subtitle}
+            {getLocalizedText('hero_subtitle')}
           </p>
           
           {storyData.hero_cta_url && (
-            <a
-              href={storyData.hero_cta_url}
+            <Link
+              to={storyData.hero_cta_url}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center bg-white text-teal-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg hover:shadow-xl"
             >
-              {storyData.hero_cta_text} <ExternalLink className="ml-2 h-5 w-5" />
-            </a>
+              {getLocalizedText('hero_cta_text')} <ExternalLink className={`${isRTL ? 'mr-2' : 'ml-2'} h-5 w-5`} />
+            </Link>
           )}
         </div>
       </div>
@@ -371,11 +462,11 @@ const DynamicSuccessStory = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-bold text-gray-900 mb-8 text-center">
-              {storyData.overview_title}
+              {getLocalizedText('overview_title')}
             </h2>
             <div className="prose prose-xl mx-auto">
               <p className="text-gray-600 text-xl leading-relaxed text-center">
-                {storyData.overview_description}
+                {getLocalizedText('overview_description')}
               </p>
             </div>
           </div>
@@ -386,30 +477,30 @@ const DynamicSuccessStory = () => {
       <div className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-gray-900 mb-16 text-center">
-            {storyData.features_title}
+            {getLocalizedText('features_title')}
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {renderFeatures(storyData.features)}
+            {renderFeatures()}
           </div>
         </div>
       </div>
 
       {/* Additional Sections (like "Who We Serve") */}
-      {storyData.additional_sections && renderAdditionalSections(storyData.additional_sections)}
+      {renderAdditionalSections()}
 
       {/* Results & Impact */}
       <div className={`py-20 bg-${storyData.results_background_color || 'blue-50'}`}>
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-gray-900 mb-6 text-center">
-            {storyData.results_title}
+            {getLocalizedText('results_title')}
           </h2>
-          {storyData.results_subtitle && (
+          {getLocalizedText('results_subtitle') && (
             <p className="text-xl text-gray-600 mb-16 text-center max-w-3xl mx-auto">
-              {storyData.results_subtitle}
+              {getLocalizedText('results_subtitle')}
             </p>
           )}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {renderStats(storyData.results_stats)}
+            {renderStats()}
           </div>
         </div>
       </div>
@@ -417,28 +508,28 @@ const DynamicSuccessStory = () => {
       {/* Call to Action */}
       <div className={`py-20 bg-gradient-to-r from-${storyData.gradient_from} to-${storyData.gradient_to} text-white`}>
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">{storyData.cta_title}</h2>
+          <h2 className="text-4xl font-bold mb-6">{getLocalizedText('cta_title')}</h2>
           <p className="text-xl mb-10 max-w-3xl mx-auto leading-relaxed">
-            {storyData.cta_description}
+            {getLocalizedText('cta_description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             {storyData.cta_primary_url && (
-              <a 
-                href={storyData.cta_primary_url} 
+              <Link
+                to={storyData.cta_primary_url} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center bg-white text-teal-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg hover:shadow-xl"
               >
-                {storyData.cta_primary_text} <ExternalLink className="ml-2 h-5 w-5" />
-              </a>
+                {getLocalizedText('cta_primary_text')} <ExternalLink className={`${isRTL ? 'mr-2' : 'ml-2'} h-5 w-5`} />
+              </Link>
             )}
             {storyData.cta_secondary_url && (
-              <a 
-                href={storyData.cta_secondary_url} 
+              <Link 
+                to={storyData.cta_secondary_url} 
                 className="inline-flex items-center border-2 border-white text-white hover:bg-white hover:text-teal-600 px-8 py-4 rounded-lg font-semibold transition-colors duration-200"
               >
-                {storyData.cta_secondary_text}
-              </a>
+                {getLocalizedText('cta_secondary_text')}
+              </Link>
             )}
           </div>
         </div>

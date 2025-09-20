@@ -12,7 +12,11 @@ export const useTeamMembers = () => {
       try {
         const { data, error } = await supabase
           .from('team_members')
-          .select('*')
+          .select(`
+            *,
+            name_ar,
+            position_ar
+          `)
           .order('created_at', { ascending: true });
 
         if (error) throw error;

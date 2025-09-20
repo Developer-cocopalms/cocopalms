@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTeamMembers } from '../pages/hooks/useTeamMembers';
+import { useTranslation } from "react-i18next";
 
 // Import static assets (fallback images)
 import teamMember0 from '../assets/team/fazil.png';
@@ -9,8 +10,22 @@ import teamMember3 from '../assets/team/cropped-Hasna-removebg-preview.png';
 import teamMember4 from '../assets/team/latheef.png';
 
 const TeamSection = () => {
+  const { t, i18n } = useTranslation();
+  
   // Dynamic data hooks
   const { teamMembers, ceo, otherMembers, loading: teamLoading } = useTeamMembers();
+
+  // Get current language direction
+  const isRTL = i18n.language === 'ar';
+
+  // Helper function to get localized text (similar to HeroVideoSlideshow)
+  const getLocalizedText = (member, field) => {
+    if (i18n.language === 'ar') {
+      const arabicField = `${field}_ar`;
+      return member[arabicField] || member[field]; // Fallback to English if Arabic not available
+    }
+    return member[field];
+  };
 
   // Fallback data for team members if dynamic data isn't available
   const fallbackTeamMembers = [
@@ -46,11 +61,11 @@ const TeamSection = () => {
   // Show loading state
   if (teamLoading) {
     return (
-      <section className="pt-6 pb-12 sm:pt-8 sm:pb-16 md:pt-10 md:pb-20 bg-white">
+      <section className="pt-6 pb-12 sm:pt-8 sm:pb-16 md:pt-10 md:pb-20 bg-white" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="text-center py-8">
           <div className="flex flex-col items-center space-y-4">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600"></div>
-            <p className="text-gray-500">Loading team members...</p>
+            <p className="text-gray-500">{t('teamSection.loading.text')}</p>
           </div>
         </div>
       </section>
@@ -58,14 +73,14 @@ const TeamSection = () => {
   }
 
   return (
-    <section className="pt-6 pb-12 sm:pt-8 sm:pb-16 md:pt-10 md:pb-20 bg-white">
+    <section className="pt-6 pb-12 sm:pt-8 sm:pb-16 md:pt-10 md:pb-20 bg-white" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Header Section */}
       <div className="text-center mb-12 px-4">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-          Meet our Team
+          {t('teamSection.title')}
         </h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          Run your entire business with Cocopalms unified cloud software
+          {t('teamSection.subtitle')}
         </p>
       </div>
 
@@ -79,15 +94,15 @@ const TeamSection = () => {
                 <div className="w-56 h-56 mx-auto rounded-full overflow-hidden shadow-2xl ring-4 ring-[#14b8a6] ring-opacity-30 group-hover:ring-[#0d9488] group-hover:ring-opacity-60 transition duration-500">
                   <img 
                     src={ceo.image_url || ceo.image || teamMember0}
-                    alt={ceo.name}
+                    alt={`${getLocalizedText(ceo, 'name')} - ${t('teamSection.imageAlts.teamMember')}`}
                     className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
                     onError={(e) => handleImageError(e, 0, true)}
                     loading="lazy"
                   />
                 </div>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">{ceo.name}</h3>
-              <p className="text-[#14b8a6] font-semibold">{ceo.position}</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">{getLocalizedText(ceo, 'name')}</h3>
+              <p className="text-[#14b8a6] font-semibold">{getLocalizedText(ceo, 'position')}</p>
             </div>
           </div>
         )}
@@ -102,14 +117,14 @@ const TeamSection = () => {
                 <div className="w-48 h-48 mx-auto rounded-full overflow-hidden shadow-xl mb-4 ring-2 ring-gray-200 group-hover:ring-teal-400 group-hover:shadow-2xl transition duration-500 transform group-hover:scale-105">
                   <img 
                     src={member.image_url || member.image || fallbackTeamMembers[index]?.image || teamMember0}
-                    alt={member.name}
+                    alt={`${getLocalizedText(member, 'name')} - ${t('teamSection.imageAlts.teamMember')}`}
                     className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
                     onError={(e) => handleImageError(e, index)}
                     loading="lazy"
                   />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">{member.name}</h3>
-                <p className="text-gray-600 text-sm">{member.position}</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">{getLocalizedText(member, 'name')}</h3>
+                <p className="text-gray-600 text-sm">{getLocalizedText(member, 'position')}</p>
               </div>
             ))
           ) : (
@@ -119,7 +134,7 @@ const TeamSection = () => {
                 <div className="w-48 h-48 mx-auto rounded-full overflow-hidden shadow-xl mb-4 ring-2 ring-gray-200 group-hover:ring-teal-400 group-hover:shadow-2xl transition duration-500 transform group-hover:scale-105">
                   <img 
                     src={member.image}
-                    alt={member.name}
+                    alt={`${member.name} - ${t('teamSection.imageAlts.teamMember')}`}
                     className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
                     onError={(e) => handleImageError(e, index)}
                     loading="lazy"

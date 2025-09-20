@@ -2,6 +2,7 @@ import React, {useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { getPageKeywords } from '../pages/hooks/keywordsService';
+import { useTranslation } from "react-i18next";
 import { 
   Building2, 
   Users, 
@@ -26,6 +27,10 @@ import rent3 from '../assets/rent3.png';
 import rent4 from '../assets/rent4.png';
 
 const PropertyManagementSystem = () => {
+  const { t, i18n } = useTranslation();
+  
+  // Get current language direction
+  const isRTL = i18n.language === 'ar';
 
   const canonicalUrl = "https://cocopalms.io/what-we-do/property-management";
   const [keywords, setKeywords] = useState('property management, real estate software, rental systems, asset management');
@@ -84,38 +89,38 @@ useEffect(() => {
   const platformFeatures = [
     {
       icon: Home,
-      title: "Property Listings",
-      description: "Advanced property listing system with detailed descriptions, photo galleries, and virtual tours.",
+      title: t('propertyManagementSystem.platformFeatures.propertyListings.title'),
+      description: t('propertyManagementSystem.platformFeatures.propertyListings.description'),
       color: "bg-blue-100 text-blue-600"
     },
     {
       icon: UserCheck,
-      title: "Tenant Screening",
-      description: "Comprehensive tenant verification system including background checks and credit assessments.",
+      title: t('propertyManagementSystem.platformFeatures.tenantScreening.title'),
+      description: t('propertyManagementSystem.platformFeatures.tenantScreening.description'),
       color: "bg-green-100 text-green-600"
     },
     {
       icon: CreditCard,
-      title: "Rent Collection",
-      description: "Automated rent collection system with multiple payment options and late fee management.",
+      title: t('propertyManagementSystem.platformFeatures.rentCollection.title'),
+      description: t('propertyManagementSystem.platformFeatures.rentCollection.description'),
       color: "bg-purple-100 text-purple-600"
     },
     {
       icon: Wrench,
-      title: "Maintenance Requests",
-      description: "Streamlined maintenance request system with contractor management and tracking capabilities.",
+      title: t('propertyManagementSystem.platformFeatures.maintenanceRequests.title'),
+      description: t('propertyManagementSystem.platformFeatures.maintenanceRequests.description'),
       color: "bg-orange-100 text-orange-600"
     },
     {
       icon: FileText,
-      title: "Document Management",
-      description: "Digital lease agreements, contract storage, and document signing capabilities.",
+      title: t('propertyManagementSystem.platformFeatures.documentManagement.title'),
+      description: t('propertyManagementSystem.platformFeatures.documentManagement.description'),
       color: "bg-teal-100 text-teal-600"
     },
     {
       icon: BarChart3,
-      title: "Analytics Dashboard",
-      description: "Comprehensive reporting and analytics for property performance and financial insights.",
+      title: t('propertyManagementSystem.platformFeatures.analyticsDashboard.title'),
+      description: t('propertyManagementSystem.platformFeatures.analyticsDashboard.description'),
       color: "bg-indigo-100 text-indigo-600"
     }
   ];
@@ -123,20 +128,20 @@ useEffect(() => {
   const whoWeServe = [
     {
       icon: Building2,
-      title: "Property Owners",
-      description: "Maximize rental income and streamline property management with our comprehensive tools.",
+      title: t('propertyManagementSystem.whoWeServe.propertyOwners.title'),
+      description: t('propertyManagementSystem.whoWeServe.propertyOwners.description'),
       color: "bg-blue-500"
     },
     {
       icon: Users,
-      title: "Property Managers",
-      description: "Efficiently manage multiple properties with automated workflows and tenant communication.",
+      title: t('propertyManagementSystem.whoWeServe.propertyManagers.title'),
+      description: t('propertyManagementSystem.whoWeServe.propertyManagers.description'),
       color: "bg-green-500"
     },
     {
       icon: Home,
-      title: "Tenants",
-      description: "Find your perfect home and enjoy hassle-free rental experience with digital convenience.",
+      title: t('propertyManagementSystem.whoWeServe.tenants.title'),
+      description: t('propertyManagementSystem.whoWeServe.tenants.description'),
       color: "bg-purple-500"
     }
   ];
@@ -145,20 +150,20 @@ useEffect(() => {
     {
       src: rent1w,
       alt: "Rentings Homepage",
-      title: "Modern Property Portal",
-      description: "Clean and intuitive interface for property search and management"
+      title: t('propertyManagementSystem.websiteScreenshots.title'),
+      description: t('propertyManagementSystem.websiteScreenshots.subtitle')
     },
     {
       src: rentw2, 
       alt: "Property Features",
-      title: "Feature-Rich Platform",
-      description: "Comprehensive property management tools and tenant services"
+      title: t('propertyManagementSystem.websiteScreenshots.feature1.title'),
+      description: t('propertyManagementSystem.websiteScreenshots.feature1.description')
     },
     {
       src: rentw3,
       alt: "Maintenance Management",
-      title: "Maintenance System",
-      description: "Streamlined maintenance request handling and tracking system"
+      title: t('propertyManagementSystem.websiteScreenshots.maintenance.title'),
+      description: t('propertyManagementSystem.websiteScreenshots.maintenance.description')
     }
   ];
 
@@ -166,31 +171,31 @@ useEffect(() => {
     {
       src: rent1,
       alt: "Admin Dashboard Overview",
-      title: "Comprehensive Analytics Dashboard",
-      description: "Real-time insights into payment status, occupancy rates, and property performance metrics"
+      title: t('propertyManagementSystem.adminDashboard.analytics.title'),
+      description: t('propertyManagementSystem.adminDashboard.analytics.description')
     },
     {
       src: rent2,
       alt: "Maintenance Management",
-      title: "Maintenance Request Tracking",
-      description: "Efficient maintenance request handling with status tracking and completion analytics"
+      title: t('propertyManagementSystem.adminDashboard.maintenance.title'),
+      description: t('propertyManagementSystem.adminDashboard.maintenance.description')
     },
     {
       src: rent3,
       alt: "Property Management",
-      title: "Property & Payment Management",
-      description: "Detailed property analytics with payment tracking and occupancy monitoring"
+      title: t('propertyManagementSystem.adminDashboard.property.title'),
+      description: t('propertyManagementSystem.adminDashboard.property.description')
     },
     {
       src: rent4,
       alt: "Revenue Analytics",
-      title: "Revenue & Financial Insights",
-      description: "Monthly revenue tracking and year-to-date financial performance analysis"
+      title: t('propertyManagementSystem.adminDashboard.revenue.title'),
+      description: t('propertyManagementSystem.adminDashboard.revenue.description')
     }
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
 
 <Helmet>
   <title>Property Management Software & Rental Solution | Cocopalms</title>
@@ -233,13 +238,13 @@ useEffect(() => {
             <Building2 className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-            Property Management System
+            {t('propertyManagementSystem.hero.title')}
           </h1>
           <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-white/90 mb-8">
-          Connecting Landlords and Tenants for Ideal Rentals
+            {t('propertyManagementSystem.hero.subtitle')}
           </h2>
           <p className="text-base md:text-lg lg:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto px-4">
-            Comprehensive property management and real estate solutions connecting landlords and tenants seamlessly
+            {t('propertyManagementSystem.hero.description')}
           </p>
          
           
@@ -251,10 +256,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Project Overview
+              {t('propertyManagementSystem.projectOverview.title')}
             </h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Our Real Estate Platform is a comprehensive B2B & B2C solution that revolutionizes property management and rental processes. The platform connects property owners, landlords, and tenants in a seamless digital ecosystem, making property rentals more efficient and transparent for all parties involved.
+              {t('propertyManagementSystem.projectOverview.description')}
             </p>
           </div>
 
@@ -284,10 +289,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Admin Dashboard
+              {t('propertyManagementSystem.adminDashboard.title')}
             </h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Powerful administrative interface providing landlords and property managers with comprehensive control over their rental operations, analytics, and tenant management.
+              {t('propertyManagementSystem.adminDashboard.description')}
             </p>
           </div>
 
@@ -317,7 +322,7 @@ useEffect(() => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Platform Features
+              {t('propertyManagementSystem.platformFeatures.title')}
             </h2>
           </div>
 
@@ -343,7 +348,7 @@ useEffect(() => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Who We Serve
+              {t('propertyManagementSystem.whoWeServe.title')}
             </h2>
           </div>
 
@@ -369,26 +374,26 @@ useEffect(() => {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Platform Impact
+              {t('propertyManagementSystem.platformImpact.title')}
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center p-8 bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl">
               <div className="text-5xl font-bold text-teal-600 mb-4">1000+</div>
-              <div className="text-gray-700 font-semibold text-lg">Properties Listed</div>
+              <div className="text-gray-700 font-semibold text-lg">{t('propertyManagementSystem.platformImpact.properties')}</div>
             </div>
             <div className="text-center p-8 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl">
               <div className="text-5xl font-bold text-green-600 mb-4">500+</div>
-              <div className="text-gray-700 font-semibold text-lg">Active Landlords</div>
+              <div className="text-gray-700 font-semibold text-lg">{t('propertyManagementSystem.platformImpact.landlords')}</div>
             </div>
             <div className="text-center p-8 bg-gradient-to-br from-purple-50 to-violet-100 rounded-2xl">
               <div className="text-5xl font-bold text-purple-600 mb-4">2000+</div>
-              <div className="text-gray-700 font-semibold text-lg">Registered Tenants</div>
+              <div className="text-gray-700 font-semibold text-lg">{t('propertyManagementSystem.platformImpact.tenants')}</div>
             </div>
             <div className="text-center p-8 bg-gradient-to-br from-orange-50 to-amber-100 rounded-2xl">
               <div className="text-5xl font-bold text-orange-600 mb-4">98%</div>
-              <div className="text-gray-700 font-semibold text-lg">User Satisfaction</div>
+              <div className="text-gray-700 font-semibold text-lg">{t('propertyManagementSystem.platformImpact.satisfaction')}</div>
             </div>
           </div>
         </div>
@@ -398,24 +403,24 @@ useEffect(() => {
       <section className="py-16 md:py-24 px-4 bg-gradient-to-r from-custom-teal to-teal-600">
         <div className="container mx-auto text-center max-w-4xl">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-            Ready to Transform Your Property Management?
+            {t('propertyManagementSystem.cta.title')}
           </h2>
           <p className="text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto">
-            Join thousands of landlords and tenants already using our platform to streamline their property rental operations.
+            {t('propertyManagementSystem.cta.description')}
           </p>
            <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               to="/contact" 
               className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold transition duration-300 flex items-center justify-center"
             >
-              Get Started
+              {t('propertyManagementSystem.cta.getStarted')}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
             <Link 
               to="/what-we-do" 
               className="border-2 border-white text-white hover:bg-white hover:text-teal-600 px-8 py-4 rounded-lg font-semibold transition duration-300"
             >
-              Explore All Services
+              {t('propertyManagementSystem.cta.exploreServices')}
             </Link>
           </div>
         </div>

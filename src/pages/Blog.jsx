@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from "react-i18next";
 
 const supabaseUrl = 'https://gfwjcallemugxqdweuuk.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdmd2pjYWxsZW11Z3hxZHdldXVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk5MDIxMzEsImV4cCI6MjA2NTQ3ODEzMX0.kvaYhV4DTNcyix7PzjF9N9XYxzA3bK0nx3mT8bsHqTo'
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Blog post structure (commented for reference)
-// {
-//   id: number,
-//   title: string,
-//   content: string,
-//   excerpt: string,
-//   image_url: string,
-//   published_at: string,
-//   slug: string,
-//   tags?: string[],
-//   meta_description?: string,
-//   featured?: boolean
-// }
-
 const BlogList = ({ onBlogSelect }) => {
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  // Add translation hooks
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
+
+  // Helper function to get localized text for blog posts
+  const getLocalizedBlogText = (post, field) => {
+    if (i18n.language === 'ar') {
+      const arabicField = `${field}_ar`;
+      return post[arabicField] || post[field]; // Fallback to English if Arabic not available
+    }
+    return post[field];
+  };
 
   // Canonical URL for blog list page
   const canonicalUrl = "https://cocopalms.io/blog";
@@ -31,6 +31,14 @@ const BlogList = ({ onBlogSelect }) => {
   useEffect(() => {
     fetchBlogPosts();
   }, []);
+
+  // Re-fetch data when language changes (optional, for dynamic updates)
+  useEffect(() => {
+    if (blogPosts.length > 0) {
+      // No need to refetch, just re-render with new language
+      // The component will automatically use the correct language with getLocalizedBlogText
+    }
+  }, [i18n.language]);
 
   // Add canonical URL management
   useEffect(() => {
@@ -54,6 +62,9 @@ const BlogList = ({ onBlogSelect }) => {
       document.head.appendChild(robotsMeta);
     }
 
+    // Update document direction
+    document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+
     // Cleanup function
     return () => {
       const canonical = document.querySelector("link[rel='canonical']");
@@ -61,14 +72,25 @@ const BlogList = ({ onBlogSelect }) => {
         canonical.remove();
       }
     };
-  }, [canonicalUrl]);
+  }, [canonicalUrl, isRTL]);
 
   const fetchBlogPosts = async () => {
     try {
       setLoading(true);
       const { data, error } = await supabase
         .from('blog_posts')
-        .select('id, title, excerpt, image_url, published_at, slug, meta_description')
+        .select(`
+          id, 
+          title, 
+          excerpt, 
+          image_url, 
+          published_at, 
+          slug, 
+          meta_description,
+          title_ar,
+          excerpt_ar,
+          meta_description_ar
+        `)
         .eq('status', 'published')
         .order('published_at', { ascending: false });
 
@@ -82,19 +104,28 @@ const BlogList = ({ onBlogSelect }) => {
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    const date = new Date(dateString);
+    if (isRTL) {
+      return date.toLocaleDateString('ar-KW', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+    return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
   };
 
-  // Styles
+  // Styles with RTL support
   const containerStyle = {
     maxWidth: '1200px',
     margin: '0 auto',
     padding: '6rem 2rem 2rem 2rem',
-    fontFamily: 'Arial, sans-serif'
+    fontFamily: isRTL ? 'Arial, Tahoma, sans-serif' : 'Arial, sans-serif',
+    direction: isRTL ? 'rtl' : 'ltr'
   };
 
   const headerStyle = {
@@ -162,13 +193,15 @@ const BlogList = ({ onBlogSelect }) => {
     color: '#2c3e50',
     margin: '0.5rem 0 1rem 0',
     fontWeight: '600',
-    lineHeight: '1.3'
+    lineHeight: '1.3',
+    textAlign: isRTL ? 'right' : 'left'
   };
 
   const excerptStyle = {
     color: '#666',
     lineHeight: '1.6',
-    marginBottom: '1.5rem'
+    marginBottom: '1.5rem',
+    textAlign: isRTL ? 'right' : 'left'
   };
 
   const buttonStyle = {
@@ -199,12 +232,12 @@ const BlogList = ({ onBlogSelect }) => {
     return (
       <div style={containerStyle}>
         <Helmet>
-          <title>Blog | Cocopalms - Latest Insights & Tech Updates</title>
-          <meta name="description" content="Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation." />
+          <title>{t('blog.meta.title', 'Blog | Cocopalms - Latest Insights & Tech Updates')}</title>
+          <meta name="description" content={t('blog.meta.description', 'Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation.')} />
           <link rel="canonical" href={canonicalUrl} />
         </Helmet>
         <div style={loadingStyle}>
-          <h2>Loading blog posts...</h2>
+          <h2>{t('blog.loading', 'Loading blog posts...')}</h2>
         </div>
       </div>
     );
@@ -214,15 +247,15 @@ const BlogList = ({ onBlogSelect }) => {
     return (
       <div style={containerStyle}>
         <Helmet>
-          <title>Blog | Cocopalms - Latest Insights & Tech Updates</title>
-          <meta name="description" content="Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation." />
+          <title>{t('blog.meta.title', 'Blog | Cocopalms - Latest Insights & Tech Updates')}</title>
+          <meta name="description" content={t('blog.meta.description', 'Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation.')} />
           <link rel="canonical" href={canonicalUrl} />
         </Helmet>
         <div style={errorStyle}>
-          <h2>Error loading blog posts</h2>
+          <h2>{t('blog.error.title', 'Error loading blog posts')}</h2>
           <p>{error}</p>
           <button onClick={fetchBlogPosts} style={buttonStyle}>
-            Retry
+            {t('blog.error.retry', 'Retry')}
           </button>
         </div>
       </div>
@@ -232,10 +265,10 @@ const BlogList = ({ onBlogSelect }) => {
   return (
     <div style={containerStyle}>
       <Helmet>
-        <title>Blog | Cocopalms - Latest Insights & Tech Updates</title>
+        <title>{t('blog.meta.title', 'Blog | Cocopalms - Latest Insights & Tech Updates')}</title>
         <meta 
           name="description" 
-          content="Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation." 
+          content={t('blog.meta.description', 'Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation.')} 
         />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -244,16 +277,16 @@ const BlogList = ({ onBlogSelect }) => {
         <link rel="canonical" href={canonicalUrl} />
         
         {/* Open Graph Meta Tags */}
-        <meta property="og:title" content="Blog | Cocopalms - Latest Insights & Tech Updates" />
-        <meta property="og:description" content="Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation." />
+        <meta property="og:title" content={t('blog.meta.title', 'Blog | Cocopalms - Latest Insights & Tech Updates')} />
+        <meta property="og:description" content={t('blog.meta.description', 'Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation.')} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Cocopalms" />
         
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Blog | Cocopalms - Latest Insights & Tech Updates" />
-        <meta name="twitter:description" content="Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation." />
+        <meta name="twitter:title" content={t('blog.meta.title', 'Blog | Cocopalms - Latest Insights & Tech Updates')} />
+        <meta name="twitter:description" content={t('blog.meta.description', 'Stay updated with the latest insights, tech trends, and industry updates from Cocopalms. Explore our blog for expert articles on IT solutions and digital transformation.')} />
         
         {/* Additional SEO Meta Tags */}
         <meta name="author" content="Cocopalms" />
@@ -262,8 +295,8 @@ const BlogList = ({ onBlogSelect }) => {
       </Helmet>
 
       <div style={headerStyle}>
-        <h1 style={headerTitleStyle}>Our Blog</h1>
-        <p style={headerSubtitleStyle}>Stay updated with the latest insights and trends</p>
+        <h1 style={headerTitleStyle}>{t('blog.title', 'Our Blog')}</h1>
+        <p style={headerSubtitleStyle}>{t('blog.subtitle', 'Stay updated with the latest insights and trends')}</p>
       </div>
       
       <div style={gridStyle}>
@@ -282,18 +315,18 @@ const BlogList = ({ onBlogSelect }) => {
             }}
           >
             <div style={imageContainerStyle}>
-              <img src={post.image_url} alt={post.title} style={imageStyle} />
+              <img src={post.image_url} alt={getLocalizedBlogText(post, 'title')} style={imageStyle} />
             </div>
             <div style={contentStyle}>
               <span style={dateStyle}>{formatDate(post.published_at)}</span>
-              <h2 style={titleStyle}>{post.title}</h2>
-              <p style={excerptStyle}>{post.excerpt}</p>
+              <h2 style={titleStyle}>{getLocalizedBlogText(post, 'title')}</h2>
+              <p style={excerptStyle}>{getLocalizedBlogText(post, 'excerpt')}</p>
               <button 
                 style={buttonStyle}
                 onMouseEnter={(e) => e.target.style.background = 'rgba(0, 113, 113, 0.9)'}
                 onMouseLeave={(e) => e.target.style.background = '#007171'}
               >
-                Read More
+                {t('blog.readMore', 'Read More')}
               </button>
             </div>
           </article>
@@ -312,6 +345,19 @@ const BlogPost = ({
   const [allPosts, setAllPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  // Add translation hooks
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
+
+  // Helper function to get localized text for blog posts
+  const getLocalizedBlogText = (post, field) => {
+    if (i18n.language === 'ar') {
+      const arabicField = `${field}_ar`;
+      return post[arabicField] || post[field]; // Fallback to English if Arabic not available
+    }
+    return post[field];
+  };
 
   // Dynamic canonical URL for individual blog posts
   const canonicalUrl = `https://cocopalms.io/blog/${postId}`;
@@ -321,7 +367,13 @@ const BlogPost = ({
       setLoading(true);
       const { data, error } = await supabase
         .from('blog_posts')
-        .select('*')
+        .select(`
+          *,
+          title_ar,
+          content_ar,
+          excerpt_ar,
+          meta_description_ar
+        `)
         .eq('id', postId)
         .eq('status', 'published')
         .single();
@@ -339,7 +391,12 @@ const BlogPost = ({
     try {
       const { data, error } = await supabase
         .from('blog_posts')
-        .select('id, title, published_at')
+        .select(`
+          id, 
+          title, 
+          published_at,
+          title_ar
+        `)
         .eq('status', 'published')
         .order('published_at', { ascending: false });
 
@@ -354,6 +411,13 @@ const BlogPost = ({
     fetchBlogPost();
     fetchAllPosts();
   }, [postId]);
+
+  // Re-fetch data when language changes (optional)
+  useEffect(() => {
+    if (post) {
+      // No need to refetch, just re-render with new language
+    }
+  }, [i18n.language]);
 
   // Add canonical URL management for individual blog posts
   useEffect(() => {
@@ -377,6 +441,9 @@ const BlogPost = ({
       document.head.appendChild(robotsMeta);
     }
 
+    // Update document direction
+    document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+
     // Cleanup function
     return () => {
       const canonical = document.querySelector("link[rel='canonical']");
@@ -384,22 +451,31 @@ const BlogPost = ({
         canonical.remove();
       }
     };
-  }, [canonicalUrl]);
+  }, [canonicalUrl, isRTL]);
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    const date = new Date(dateString);
+    if (isRTL) {
+      return date.toLocaleDateString('ar-KW', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+    return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
   };
 
-  // Styles
+  // Styles with RTL support
   const containerStyle = {
     maxWidth: '1200px',
     margin: '0 auto',
     padding: '6rem 2rem 2rem 2rem',
-    fontFamily: 'Arial, sans-serif'
+    fontFamily: isRTL ? 'Arial, Tahoma, sans-serif' : 'Arial, sans-serif',
+    direction: isRTL ? 'rtl' : 'ltr'
   };
 
   const backButtonStyle = {
@@ -431,7 +507,8 @@ const BlogPost = ({
   };
 
   const postMetaStyle = {
-    padding: '2rem'
+    padding: '2rem',
+    textAlign: isRTL ? 'right' : 'left'
   };
 
   const postDateStyle = {
@@ -447,7 +524,8 @@ const BlogPost = ({
     color: '#2c3e50',
     margin: '1rem 0',
     fontWeight: '700',
-    lineHeight: '1.2'
+    lineHeight: '1.2',
+    textAlign: isRTL ? 'right' : 'left'
   };
 
   const postContentStyle = {
@@ -458,7 +536,8 @@ const BlogPost = ({
     color: '#444',
     lineHeight: '1.8',
     marginBottom: '1.5rem',
-    fontSize: '1.1rem'
+    fontSize: '1.1rem',
+    textAlign: isRTL ? 'right' : 'left'
   };
 
   const navigationStyle = {
@@ -482,7 +561,7 @@ const BlogPost = ({
     padding: '1rem',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
-    textAlign: 'left'
+    textAlign: isRTL ? 'right' : 'left'
   };
 
   const navLabelStyle = {
@@ -519,12 +598,12 @@ const BlogPost = ({
     return (
       <div style={containerStyle}>
         <Helmet>
-          <title>Loading... | Cocopalms Blog</title>
-          <meta name="description" content="Loading blog post..." />
+          <title>{t('blog.post.loading', 'Loading... | Cocopalms Blog')}</title>
+          <meta name="description" content={t('blog.post.loadingDesc', 'Loading blog post...')} />
           <link rel="canonical" href={canonicalUrl} />
         </Helmet>
         <div style={loadingStyle}>
-          <h2>Loading blog post...</h2>
+          <h2>{t('blog.post.loadingTitle', 'Loading blog post...')}</h2>
         </div>
       </div>
     );
@@ -534,15 +613,15 @@ const BlogPost = ({
     return (
       <div style={containerStyle}>
         <Helmet>
-          <title>Blog Post Not Found | Cocopalms Blog</title>
-          <meta name="description" content="The requested blog post could not be found." />
+          <title>{t('blog.post.notFound', 'Blog Post Not Found | Cocopalms Blog')}</title>
+          <meta name="description" content={t('blog.post.notFoundDesc', 'The requested blog post could not be found.')} />
           <link rel="canonical" href={canonicalUrl} />
         </Helmet>
         <div style={errorStyle}>
-          <h2>Blog post not found</h2>
+          <h2>{t('blog.post.notFoundTitle', 'Blog post not found')}</h2>
           <p>{error}</p>
           <button onClick={onNavigateHome} style={backButtonStyle}>
-            Back to Blog List
+            {t('blog.post.backToList', 'Back to Blog List')}
           </button>
         </div>
       </div>
@@ -553,14 +632,14 @@ const BlogPost = ({
   const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
   const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
-  // Generate description from content or use meta_description
-  const description = post.meta_description || 
-    (post.excerpt || post.content.substring(0, 160).replace(/\n/g, ' ')) + '...';
+  // Generate description from content or use meta_description with localization
+  const description = getLocalizedBlogText(post, 'meta_description') || 
+    (getLocalizedBlogText(post, 'excerpt') || getLocalizedBlogText(post, 'content').substring(0, 160).replace(/\n/g, ' ')) + '...';
 
   return (
     <div style={containerStyle}>
       <Helmet>
-        <title>{post.title} | Cocopalms Blog</title>
+        <title>{getLocalizedBlogText(post, 'title')} | {t('blog.meta.siteName', 'Cocopalms Blog')}</title>
         <meta name="description" content={description} />
         <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -569,7 +648,7 @@ const BlogPost = ({
         <link rel="canonical" href={canonicalUrl} />
         
         {/* Open Graph Meta Tags */}
-        <meta property="og:title" content={`${post.title} | Cocopalms Blog`} />
+        <meta property="og:title" content={`${getLocalizedBlogText(post, 'title')} | ${t('blog.meta.siteName', 'Cocopalms Blog')}`} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="article" />
@@ -579,7 +658,7 @@ const BlogPost = ({
         
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${post.title} | Cocopalms Blog`} />
+        <meta name="twitter:title" content={`${getLocalizedBlogText(post, 'title')} | ${t('blog.meta.siteName', 'Cocopalms Blog')}`} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={post.image_url} />
         
@@ -595,20 +674,20 @@ const BlogPost = ({
         onMouseEnter={(e) => e.target.style.background = '#7f8c8d'}
         onMouseLeave={(e) => e.target.style.background = '#95a5a6'}
       >
-        ← Back to Blog List
+        {isRTL ? '← ' : '← '}{t('blog.post.backToList', 'Back to Blog List')}
       </button>
       
       <article style={postStyle}>
         <div>
-          <img src={post.image_url} alt={post.title} style={postImageStyle} />
+          <img src={post.image_url} alt={getLocalizedBlogText(post, 'title')} style={postImageStyle} />
           <div style={postMetaStyle}>
             <span style={postDateStyle}>{formatDate(post.published_at)}</span>
-            <h1 style={postTitleStyle}>{post.title}</h1>
+            <h1 style={postTitleStyle}>{getLocalizedBlogText(post, 'title')}</h1>
           </div>
         </div>
         
         <div style={postContentStyle}>
-          {post.content.split('\n\n').map((paragraph, index) => (
+          {getLocalizedBlogText(post, 'content').split('\n\n').map((paragraph, index) => (
             <p key={index} style={paragraphStyle}>
               {paragraph.trim()}
             </p>
@@ -620,7 +699,7 @@ const BlogPost = ({
             {prevPost && (
               <button 
                 onClick={() => onNavigate(prevPost.id)} 
-                style={{...navButtonStyle, marginRight: 'auto'}}
+                style={{...navButtonStyle, marginRight: isRTL ? '0' : 'auto', marginLeft: isRTL ? 'auto' : '0'}}
                 onMouseEnter={(e) => {
                   const target = e.target;
                   target.style.borderColor = '#007171';
@@ -634,15 +713,22 @@ const BlogPost = ({
                   target.style.boxShadow = 'none';
                 }}
               >
-                <span style={navLabelStyle}>← Previous</span>
-                <span style={navTitleStyle}>{prevPost.title}</span>
+                <span style={navLabelStyle}>
+                  {isRTL ? '← ' : '← '}{t('blog.post.previous', 'Previous')}
+                </span>
+                <span style={navTitleStyle}>{getLocalizedBlogText(prevPost, 'title')}</span>
               </button>
             )}
             
             {nextPost && (
               <button 
                 onClick={() => onNavigate(nextPost.id)} 
-                style={{...navButtonStyle, marginLeft: 'auto', textAlign: 'right'}}
+                style={{
+                  ...navButtonStyle, 
+                  marginLeft: isRTL ? '0' : 'auto', 
+                  marginRight: isRTL ? 'auto' : '0',
+                  textAlign: isRTL ? 'left' : 'right'
+                }}
                 onMouseEnter={(e) => {
                   const target = e.target;
                   target.style.borderColor = '#007171';
@@ -656,8 +742,9 @@ const BlogPost = ({
                   target.style.boxShadow = 'none';
                 }}
               >
-                <span style={navLabelStyle}>Next →</span>
-                <span style={navTitleStyle}>{nextPost.title}</span>
+                <span style={navLabelStyle}>
+                  {t('blog.post.next', 'Next')}{isRTL ? ' ←' : ' →'}
+                </span>
               </button>
             )}
           </div>

@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -53,3 +53,77 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html[dir="rtl"] {
+  font-family: 'Noto Sans Arabic', 'Arial', 'Tahoma', sans-serif; /* Arabic-friendly fonts */
+}
+
+/* REMOVED THE PROBLEMATIC GLOBAL RIGHT-ALIGN RULE */
+/* html[dir="rtl"] * {
+  text-align: right;
+} */
+
+/* Preserve center alignment for elements with center classes */
+html[dir="rtl"] .text-center,
+html[dir="rtl"] [class*="text-center"] {
+  text-align: center !important;
+}
+
+/* Preserve left alignment where explicitly set */
+html[dir="rtl"] .text-left,
+html[dir="rtl"] [class*="text-left"] {
+  text-align: left !important;
+}
+
+html[dir="rtl"] .container {
+  direction: rtl;
+}
+
+/* Fix for Tailwind utilities in RTL */
+html[dir="rtl"] .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+  margin-right: calc(2rem * var(--tw-space-x-reverse));
+  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+html[dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+/* Specific RTL adjustments for dropdowns */
+html[dir="rtl"] .group:hover .group-hover\:rotate-90 {
+  transform: rotate(-90deg);
+}
+
+/* RTL adjustments for mobile menu borders */
+html[dir="rtl"] .border-l-4 {
+  border-left-width: 0;
+  border-right-width: 4px;
+}
+
+html[dir="rtl"] .pl-4 {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+html[dir="rtl"] .pl-8 {
+  padding-left: 0;
+  padding-right: 2rem;
+}
+
+html[dir="rtl"] .ml-1 {
+  margin-left: 0;
+  margin-right: 0.25rem;
+}
+
+html[dir="rtl"] .ml-10 {
+  margin-left: 0;
+  margin-right: 2.5rem;
+}
+
+html[dir="rtl"] .mr-3 {
+  margin-right: 0;
+  margin-left: 0.75rem;
+}

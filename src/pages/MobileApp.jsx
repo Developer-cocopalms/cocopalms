@@ -1,7 +1,6 @@
-
 import { Link } from 'react-router-dom';
 import { Smartphone, Code, Shield, Globe, Monitor, ExternalLink, Layers } from 'lucide-react';
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import dietbuxImage from '../assets/dietbuxm.png';
 import dietvalueImage from '../assets/dietvaluem.png';
 import basicImage from '../assets/basicm.png';
@@ -16,29 +15,34 @@ import trymacroImage from '../assets/macrom.png';
 import calculateImage from '../assets/calculatem.png';
 import { Helmet } from 'react-helmet';
 import { getPageKeywords } from '../pages/hooks/keywordsService';
-const MobileApp = () => {
+import { useTranslation } from "react-i18next";
 
+const MobileApp = () => {
   const [keywords, setKeywords] = useState('mobile app development, iOS, Android, cross-platform apps, mobile solutions');
+  const { t, i18n } = useTranslation();
+  
+  // Get current language direction
+  const isRTL = i18n.language === 'ar';
 
   const canonicalUrl = "https://cocopalms.io/what-we-do/mobile-app";
 
   // Update meta description for mobile app page
-useEffect(() => {
-  const metaDescription = document.querySelector('meta[name="description"]');
-  if (metaDescription) {
-    metaDescription.setAttribute('content', 'Cocopalms creates high-performance mobile applications for F&B and enterprise, delivering exceptional user experiences across iOS and Android platforms.');
-  }
-}, []);
-
-useEffect(() => {
-  const fetchKeywords = async () => {
-    const pageKeywords = await getPageKeywords('what-we-do/mobile-app');
-    if (pageKeywords) {
-      setKeywords(pageKeywords);
+  useEffect(() => {
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Cocopalms creates high-performance mobile applications for F&B and enterprise, delivering exceptional user experiences across iOS and Android platforms.');
     }
-  };
-  fetchKeywords();
-}, []);
+  }, []);
+
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      const pageKeywords = await getPageKeywords('what-we-do/mobile-app');
+      if (pageKeywords) {
+        setKeywords(pageKeywords);
+      }
+    };
+    fetchKeywords();
+  }, []);
 
   // Add useEffect for canonical URL in document head (same pattern as AboutUs and WhatWeDo)
   useEffect(() => {
@@ -70,214 +74,205 @@ useEffect(() => {
       }
     };
   }, [canonicalUrl]);
+
+  // Updated apps array with translation keys instead of hardcoded content
   const apps = [
     {
+      id: 'dietbux',
       name: 'Dietbux',
       url: 'https://dietbux.com/',
       image: dietbuxImage,
-      description: 'Comprehensive diet and nutrition mobile app offering personalized meal plans, calorie tracking, and subscription-based services.',
-      features: ['Personalized meal planning', 'Calorie tracking system', 'Subscription management', 'Multi-language support'],
       category: 'Health & Nutrition',
       platforms: ['iOS', 'Android']
     },
     {
+      id: 'dietvalue',
       name: 'Dietvalue',
       url: 'https://dietvaluekw.com/',
       image: dietvalueImage,
-      description: 'Premium diet delivery service mobile app focused on healthy meal subscriptions in Kuwait with elegant Arabic interface.',
-      features: ['Meal delivery scheduling', 'Arabic RTL interface', 'Payment integration', 'Order tracking'],
       category: 'Food Delivery',
       platforms: ['iOS', 'Android']
     },
     {
+      id: 'basic',
       name: 'Basic',
       url: 'https://basickw.com/',
       image: basicImage,
-      description: 'Clean and minimalist business mobile app providing essential services with focus on simplicity and user experience.',
-      features: ['Intuitive navigation', 'Fast performance', 'Business services', 'Professional design'],
       category: 'Business',
       platforms: ['iOS', 'Android']
     },
     {
+      id: 'balancedBite',
       name: 'Balanced Bite',
       url: 'https://dietprokuwait.com/',
       image: balancedBiteImage,
-      description: 'Advanced nutrition and diet management app offering professional dietary guidance and meal planning solutions.',
-      features: ['Professional guidance', 'Advanced meal planning', 'Nutritional analysis', 'Progress tracking'],
       category: 'Health & Wellness',
       platforms: ['iOS', 'Android']
     },
     {
+      id: 'dieter',
       name: 'Dieter',
       url: 'https://dieterkwt.com/',
       image: dieterImage,
-      description: 'Professional diet and nutrition platform providing expert dietary guidance and personalized meal planning for optimal health.',
-      features: ['Expert dietary guidance', 'Personalized nutrition plans', 'Health tracking', 'Professional consultation'],
       category: 'Health & Nutrition',
       platforms: ['iOS', 'Android']
     },
     {
+      id: 'planetZero',
       name: 'Planet Zero',
       url: 'https://play.google.com/store/apps/details?id=io.cocopalms.planetzero&hl=en',
       image: planetZeroImage,
-      description: 'Planet Zero Meals takes the confusion and guesswork out of healthy eating by providing clean, nourishing natural ingredients. Now you can have healthy, clean, fresh, pre-made delicious meals conveniently delivered to your door each day.',
-      features: ['Clean natural ingredients', 'Fresh pre-made meals', 'Free nationwide delivery', 'Ready-to-eat convenience'],
       category: 'Food Delivery',
       platforms: ['iOS', 'Android']
     },
     {
+      id: 'cal',
       name: 'Cal',
       url: 'https://apps.apple.com/kw/app/cal-%D9%83%D8%A7%D9%84/id1667845619',
       image: calImage,
-      description: 'Customizable healthy and fresh food delivery application offering personalized meal options and convenient delivery services.',
-      features: ['Customizable meal options', 'Fresh food delivery', 'Personalized nutrition', 'User-friendly interface'],
       category: 'Food Delivery',
       platforms: ['iOS', 'Android']
     },
     {
+      id: 'oneThird',
       name: 'OneThird',
       url: 'https://play.google.com/store/apps/details?id=io.cocopalms.onethird&hl=en',
       image: onethirdImage,
-      description: 'Customizable healthy and fresh food delivery application offering personalized meal options and convenient delivery services.',
-      features: ['Customizable meal options', 'Fresh food delivery', 'Personalized nutrition', 'User-friendly interface'],
       category: 'Food Delivery',
       platforms: ['Android']
     },
     {
+      id: 'pureHealth',
       name: 'PureHealth',
       url: 'https://apps.apple.com/qa/app/purehealth-kuwait/id6475193454?platform=iphone',
       image: purehealthImage,
-      description: 'Customizable healthy and fresh food delivery application offering personalized meal options and convenient delivery services.',
-      features: ['Customizable meal options', 'Fresh food delivery', 'Personalized nutrition', 'User-friendly interface'],
       category: 'Food Delivery',
       platforms: ['iOS', 'Android']
     },
     {
+      id: 'approvedLife',
       name: 'Approved Life',
       url: 'https://play.google.com/store/apps/details?id=io.cocopalms.approvedlife&hl=en',
       image: approvedlifeImage,
-      description: 'Customizable healthy and fresh food delivery application offering personalized meal options and convenient delivery services.',
-      features: ['Customizable meal options', 'Fresh food delivery', 'Personalized nutrition', 'User-friendly interface'],
       category: 'Food Delivery',
       platforms: ['Android']
     },
     {
+      id: 'tryMacro',
       name: 'Try Macro',
       url: 'https://apps.apple.com/kw/app/try-macro/id1671781444',
       image: trymacroImage,
-      description: 'Customizable healthy and fresh food delivery application offering personalized meal options and convenient delivery services.',
-      features: ['Customizable meal options', 'Fresh food delivery', 'Personalized nutrition', 'User-friendly interface'],
       category: 'Food Delivery',
       platforms: ['iOS']
     },
     {
+      id: 'calculate',
       name: 'Calculate',
       url: 'https://apps.apple.com/in/app/calculate-for-life/id1671781468',
       image: calculateImage,
-      description: 'Customizable healthy and fresh food delivery application offering personalized meal options and convenient delivery services.',
-      features: ['Customizable meal options', 'Fresh food delivery', 'Personalized nutrition', 'User-friendly interface'],
       category: 'Food Delivery',
       platforms: ['iOS', 'Android']
     }
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
       <Helmet>
-  <title>Mobile Application Platform | Cocopalms for F&B & Enterprise</title>
-  <meta 
-    name="description" 
-    content="Cocopalms creates high-performance mobile applications for F&B and enterprise, delivering exceptional user experiences across iOS and Android platforms"
-  />
-  <meta name="keywords" content={keywords} />
-  <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  {/* Canonical URL */}
-  <link rel="canonical" href="https://cocopalms.io/what-we-do/mobile-app" />
-  
-  {/* Open Graph Meta Tags */}
-  <meta property="og:title" content="Mobile App Development Services | Cocopalms - iOS & Android Apps" />
-  <meta property="og:description" content="Professional mobile app development services in Kuwait. Native iOS & Android apps, cross-platform solutions, UI/UX design. View our portfolio of 12+ successful mobile applications." />
-  <meta property="og:url" content="https://cocopalms.io/what-we-do/mobile-app" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Cocopalms" />
-  
-  {/* Twitter Card Meta Tags */}
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Mobile App Development Services | Cocopalms - iOS & Android Apps" />
-  <meta name="twitter:description" content="Professional mobile app development services in Kuwait. Native iOS & Android apps, cross-platform solutions, UI/UX design. View our portfolio of 12+ successful mobile applications." />
-  
-  {/* Additional SEO Meta Tags */}
-  <meta name="author" content="Cocopalms" />
-  
-  <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-  
-  {/* Structured Data */}
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "name": "Mobile App Development Services",
-      "provider": {
-        "@type": "Organization",
-        "name": "Cocopalms",
-        "url": "https://cocopalms.io"
-      },
-      "description": "Professional mobile app development services in Kuwait. Native iOS & Android apps, cross-platform solutions, UI/UX design.",
-      "url": "https://cocopalms.io/what-we-do/mobile-app",
-      "serviceType": "Mobile App Development",
-      "areaServed": {
-        "@type": "Country",
-        "name": "Kuwait"
-      },
-      "offers": [
-        {
-          "@type": "Service",
-          "name": "Native App Development",
-          "description": "High-performance native apps for iOS and Android"
-        },
-        {
-          "@type": "Service", 
-          "name": "Cross-Platform Development",
-          "description": "Cost-effective solutions using React Native and Flutter"
-        },
-        {
-          "@type": "Service",
-          "name": "Mobile UI/UX Design", 
-          "description": "Intuitive and engaging user interfaces"
-        }
-      ],
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Mobile App Portfolio",
-        "itemListElement": [
-          {
-            "@type": "MobileApplication",
-            "name": "Dietbux",
-            "applicationCategory": "Health & Nutrition",
-            "operatingSystem": ["iOS", "Android"],
-            "url": "https://dietbux.com/"
-          },
-          {
-            "@type": "MobileApplication", 
-            "name": "Planet Zero",
-            "applicationCategory": "Food Delivery",
-            "operatingSystem": ["iOS", "Android"],
-            "url": "https://play.google.com/store/apps/details?id=io.cocopalms.planetzero"
-          },
-          {
-            "@type": "MobileApplication",
-            "name": "Cal",
-            "applicationCategory": "Food Delivery", 
-            "operatingSystem": ["iOS", "Android"],
-            "url": "https://apps.apple.com/kw/app/cal-%D9%83%D8%A7%D9%84/id1667845619"
-          }
-        ]
-      }
-    })}
-  </script>
-</Helmet>
+        <title>Mobile Application Platform | Cocopalms for F&B & Enterprise</title>
+        <meta 
+          name="description" 
+          content="Cocopalms creates high-performance mobile applications for F&B and enterprise, delivering exceptional user experiences across iOS and Android platforms"
+        />
+        <meta name="keywords" content={keywords} />
+        <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://cocopalms.io/what-we-do/mobile-app" />
+        
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="Mobile App Development Services | Cocopalms - iOS & Android Apps" />
+        <meta property="og:description" content="Professional mobile app development services in Kuwait. Native iOS & Android apps, cross-platform solutions, UI/UX design. View our portfolio of 12+ successful mobile applications." />
+        <meta property="og:url" content="https://cocopalms.io/what-we-do/mobile-app" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Cocopalms" />
+        
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Mobile App Development Services | Cocopalms - iOS & Android Apps" />
+        <meta name="twitter:description" content="Professional mobile app development services in Kuwait. Native iOS & Android apps, cross-platform solutions, UI/UX design. View our portfolio of 12+ successful mobile applications." />
+        
+        {/* Additional SEO Meta Tags */}
+        <meta name="author" content="Cocopalms" />
+        
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Mobile App Development Services",
+            "provider": {
+              "@type": "Organization",
+              "name": "Cocopalms",
+              "url": "https://cocopalms.io"
+            },
+            "description": "Professional mobile app development services in Kuwait. Native iOS & Android apps, cross-platform solutions, UI/UX design.",
+            "url": "https://cocopalms.io/what-we-do/mobile-app",
+            "serviceType": "Mobile App Development",
+            "areaServed": {
+              "@type": "Country",
+              "name": "Kuwait"
+            },
+            "offers": [
+              {
+                "@type": "Service",
+                "name": "Native App Development",
+                "description": "High-performance native apps for iOS and Android"
+              },
+              {
+                "@type": "Service", 
+                "name": "Cross-Platform Development",
+                "description": "Cost-effective solutions using React Native and Flutter"
+              },
+              {
+                "@type": "Service",
+                "name": "Mobile UI/UX Design", 
+                "description": "Intuitive and engaging user interfaces"
+              }
+            ],
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Mobile App Portfolio",
+              "itemListElement": [
+                {
+                  "@type": "MobileApplication",
+                  "name": "Dietbux",
+                  "applicationCategory": "Health & Nutrition",
+                  "operatingSystem": ["iOS", "Android"],
+                  "url": "https://dietbux.com/"
+                },
+                {
+                  "@type": "MobileApplication", 
+                  "name": "Planet Zero",
+                  "applicationCategory": "Food Delivery",
+                  "operatingSystem": ["iOS", "Android"],
+                  "url": "https://play.google.com/store/apps/details?id=io.cocopalms.planetzero"
+                },
+                {
+                  "@type": "MobileApplication",
+                  "name": "Cal",
+                  "applicationCategory": "Food Delivery", 
+                  "operatingSystem": ["iOS", "Android"],
+                  "url": "https://apps.apple.com/kw/app/cal-%D9%83%D8%A7%D9%84/id1667845619"
+                }
+              ]
+            }
+          })}
+        </script>
+      </Helmet>
+      
       {/* Hero Section */}
       <section className="bg-custom-teal py-20 md:py-32 px-4 mt-24">
         <div className="container mx-auto text-center max-w-5xl">
@@ -285,13 +280,13 @@ useEffect(() => {
             <Smartphone className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Mobile App Development
+            {t('mobileApp.hero.title')}
           </h1>
           <p className="text-xl md:text-2xl text-white/90 mb-8">
-            Crafting innovative mobile experiences that engage users and drive business growth
+            {t('mobileApp.hero.subtitle')}
           </p>
           <p className="text-lg text-white/80 leading-relaxed max-w-3xl mx-auto">
-            From concept to deployment, we create high-performance mobile applications that deliver exceptional user experiences across iOS and Android platforms.
+            {t('mobileApp.hero.description')}
           </p>
         </div>
       </section>
@@ -301,16 +296,16 @@ useEffect(() => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Mobile Portfolio
+              {t('mobileApp.portfolio.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Showcasing mobile applications that have transformed businesses and enhanced user experiences
+              {t('mobileApp.portfolio.subtitle')}
             </p>
           </div>
 
           <div className="space-y-24">
             {apps.map((app, index) => (
-              <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-16 lg:gap-20`}>
+              <div key={index} className={`flex flex-col ${index % 2 === 0 ? (isRTL ? 'lg:flex-row-reverse' : 'lg:flex-row') : (isRTL ? 'lg:flex-row' : 'lg:flex-row-reverse')} items-center gap-16 lg:gap-20`}>
                 {/* Mobile Frame Image */}
                 <div className="flex-1 flex justify-center">
                   <div className="relative group">
@@ -333,7 +328,7 @@ useEffect(() => {
                   <div className="space-y-4">
                     <div className="flex items-center gap-3 flex-wrap">
                       <span className="bg-custom-teal/10 text-custom-teal px-4 py-2 rounded-full text-sm font-medium">
-                        {app.category}
+                        {t(`mobileApp.portfolio.apps.${app.id}.category`)}
                       </span>
                       <div className="flex gap-2">
                         {app.platforms.map((platform, idx) => (
@@ -343,18 +338,20 @@ useEffect(() => {
                         ))}
                       </div>
                     </div>
-                    <h3 className="text-3xl md:text-4xl font-bold text-gray-900">{app.name}</h3>
+                    <h3 className="text-3xl md:text-4xl font-bold text-gray-900">
+                      {t(`mobileApp.portfolio.apps.${app.id}.name`)}
+                    </h3>
                     <p className="text-lg text-gray-600 leading-relaxed">
-                      {app.description}
+                      {t(`mobileApp.portfolio.apps.${app.id}.description`)}
                     </p>
                   </div>
 
                   <div className="space-y-4">
-                    <h4 className="text-xl font-semibold text-gray-900">Key Features</h4>
+                    <h4 className="text-xl font-semibold text-gray-900">{t('mobileApp.portfolio.keyFeatures')}</h4>
                     <div className="grid grid-cols-1 gap-3">
-                      {app.features.map((feature, idx) => (
+                      {t(`mobileApp.portfolio.apps.${app.id}.features`, { returnObjects: true }).map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                          <div className="w-2 h-2 bg-custom-teal rounded-full flex-shrink-0"></div>
+                          <div className={`w-2 h-2 bg-custom-teal rounded-full flex-shrink-0 ${isRTL ? 'ml-auto' : ''}`}></div>
                           <span className="text-gray-700">{feature}</span>
                         </div>
                       ))}
@@ -368,7 +365,7 @@ useEffect(() => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-3 bg-gradient-to-r from-custom-teal to-teal-600 text-white px-8 py-4 rounded-xl font-medium hover:from-teal-600 hover:to-teal-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                     >
-                      View Live App
+                      {t('mobileApp.portfolio.viewLiveApp')}
                       <ExternalLink className="w-5 h-5" />
                     </a>
                   </div>
@@ -385,19 +382,19 @@ useEffect(() => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div className="space-y-2">
               <div className="text-3xl md:text-4xl font-bold text-custom-teal">12+</div>
-              <div className="text-gray-600">Apps Delivered</div>
+              <div className="text-gray-600">{t('mobileApp.stats.appsDelivered')}</div>
             </div>
             <div className="space-y-2">
               <div className="text-3xl md:text-4xl font-bold text-teal-600">100%</div>
-              <div className="text-gray-600">Client Satisfaction</div>
+              <div className="text-gray-600">{t('mobileApp.stats.clientSatisfaction')}</div>
             </div>
             <div className="space-y-2">
               <div className="text-3xl md:text-4xl font-bold text-teal-700">2</div>
-              <div className="text-gray-600">Platforms</div>
+              <div className="text-gray-600">{t('mobileApp.stats.platforms')}</div>
             </div>
             <div className="space-y-2">
               <div className="text-3xl md:text-4xl font-bold text-custom-teal">24/7</div>
-              <div className="text-gray-600">Support</div>
+              <div className="text-gray-600">{t('mobileApp.stats.support')}</div>
             </div>
           </div>
         </div>
@@ -408,10 +405,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Mobile Development Services
+              {t('mobileApp.services.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Comprehensive mobile solutions tailored to your business needs
+              {t('mobileApp.services.subtitle')}
             </p>
           </div>
 
@@ -420,9 +417,9 @@ useEffect(() => {
               <div className="bg-custom-teal w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Smartphone className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Native App Development</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{t('mobileApp.services.nativeApp.title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                High-performance native apps for iOS and Android with platform-specific optimizations.
+                {t('mobileApp.services.nativeApp.description')}
               </p>
             </div>
 
@@ -430,9 +427,9 @@ useEffect(() => {
               <div className="bg-teal-600 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Code className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Cross-Platform Development</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{t('mobileApp.services.crossPlatform.title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Cost-effective solutions using React Native and Flutter for multiple platforms.
+                {t('mobileApp.services.crossPlatform.description')}
               </p>
             </div>
 
@@ -440,9 +437,9 @@ useEffect(() => {
               <div className="bg-emerald-600 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Layers className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">UI/UX Design</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{t('mobileApp.services.uiUx.title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Intuitive and engaging user interfaces designed for optimal user experience.
+                {t('mobileApp.services.uiUx.description')}
               </p>
             </div>
 
@@ -450,9 +447,9 @@ useEffect(() => {
               <div className="bg-cyan-600 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Globe className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">API Integration</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{t('mobileApp.services.apiIntegration.title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Seamless integration with backend services and third-party APIs.
+                {t('mobileApp.services.apiIntegration.description')}
               </p>
             </div>
 
@@ -460,9 +457,9 @@ useEffect(() => {
               <div className="bg-teal-700 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Shield className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">App Security</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{t('mobileApp.services.appSecurity.title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Robust security implementation to protect user data and app integrity.
+                {t('mobileApp.services.appSecurity.description')}
               </p>
             </div>
 
@@ -470,9 +467,9 @@ useEffect(() => {
               <div className="bg-slate-600 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Monitor className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">App Store Optimization</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{t('mobileApp.services.appStoreOptimization.title')}</h3>
               <p className="text-gray-600 leading-relaxed">
-                Strategic optimization for better visibility and downloads on app stores.
+                {t('mobileApp.services.appStoreOptimization.description')}
               </p>
             </div>
           </div>
@@ -484,10 +481,10 @@ useEffect(() => {
         <div className="container mx-auto max-w-6xl px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Technologies We Master
+              {t('mobileApp.technologies.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Cutting-edge technologies and frameworks for superior mobile app development
+              {t('mobileApp.technologies.subtitle')}
             </p>
           </div>
 
@@ -507,23 +504,23 @@ useEffect(() => {
       <section className="py-20 px-4 bg-gradient-to-r from-custom-teal to-teal-600">
         <div className="container mx-auto text-center max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to Build Your Mobile App?
+            {t('mobileApp.cta.title')}
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Transform your ideas into powerful mobile applications that engage users and drive business success.
+            {t('mobileApp.cta.description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               to="/contact" 
               className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-medium transition duration-300"
             >
-              Start Your Project
+              {t('mobileApp.cta.startProject')}
             </Link>
             <Link 
               to="/what-we-do" 
               className="border-2 border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3 rounded-lg font-medium transition duration-300"
             >
-              Explore All Services
+              {t('mobileApp.cta.exploreServices')}
             </Link>
           </div>
         </div>

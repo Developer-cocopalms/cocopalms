@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import { getPageKeywords } from '../pages/hooks/keywordsService';
 // Import images
 import firstImage from '../assets/1sth.jpeg';
@@ -9,6 +10,7 @@ import thirdImage from '../assets/3rd.jpeg';
 import fourthImage from '../assets/4th.png';
 
 const AboutUs = () => {
+  const { t, i18n } = useTranslation();
   const [activeSection, setActiveSection] = useState(0);
   const scrollContainerRef = useRef(null);
   const sectionRefs = useRef([]);
@@ -18,6 +20,8 @@ const AboutUs = () => {
   const canonicalUrl = "https://cocopalms.io/about";
   const [keywords, setKeywords] = useState('about us, company profile, team, mission, vision, values');
 
+  // Get current language direction
+  const isRTL = i18n.language === 'ar';
 
   // Use imported images
   const images = [
@@ -27,30 +31,64 @@ const AboutUs = () => {
     fourthImage
   ];
 
+  // Get translated content
   const whoWeAreContent = [
     {
-      title: "The initial thought",
-      subtitle: "Our Journey to Revolutionize Business Technology Solutions",
-      content: "Cocopalms is a next-generation IT company in Kuwait, delivering innovative and end-to-end technology services for modern businesses. Specializing in website development, mobile app development, and app development, we develop web platforms, mobile applications, e-commerce solutions, and enterprise software that drive digital transformation. From designing intuitive websites to building powerful backend systems and cloud-based business applications, we provide scalable and secure ERP solutions tailored to each client's goals. Our expertise spans across industries, helping businesses streamline operations, enhance customer experiences, and grow through smarter technology. Whether you're launching a mobile app, automating your workflow, or building a custom ERP system, Cocopalms is your trusted technology partner.",
+      title: t('aboutUs.whoWeAre.sections.0.title'),
+      subtitle: t('aboutUs.whoWeAre.sections.0.subtitle'),
+      content: t('aboutUs.whoWeAre.sections.0.content'),
       image: images[0]
     },
     {
-      title: "Meet the Team of Cocopalms",
-      subtitle: "Our Expert Team",
-      content: " At Cocopalms, our developers don't just write code, they create digital experiences that solve real business problems. Specializing in website development in Kuwait and mobile app development in the UAE, we combine cutting-edge tools, secure architecture, and human-centered design to ensure every solution is not just functional, but future-ready. With a strong culture of collaboration and continuous learning, our development team is the heart of Cocopalms' innovation, turning ideas into impactful solutions for businesses across industries.",
+      title: t('aboutUs.whoWeAre.sections.1.title'),
+      subtitle: t('aboutUs.whoWeAre.sections.1.subtitle'),
+      content: t('aboutUs.whoWeAre.sections.1.content'),
       image: images[1]
     },
     {
-      title: "Built on Experience, Driven by Excellence",
-      subtitle: "Our Foundation",
-      content: "A glimpse into the mobile app creation process from a leading mobile app development company, showcasing diverse design interfaces across Android and iOS platforms. These visuals represent the seamless blend of functionality and user experience that defines every solution by Cocopalms, an innovative app development company. Each application is thoughtfully designed to ensure smooth navigation, intuitive layouts, and responsive performance. From customer ordering apps to delivery tracking and business management tools, our mobile development company specializes in crafting solutions that meet the evolving needs of modern businesses. Whether it's enhancing customer engagement or streamlining operations, our e-commerce application development expertise ensures that our mobile apps deliver high impact across devices and industries.",
+      title: t('aboutUs.whoWeAre.sections.2.title'),
+      subtitle: t('aboutUs.whoWeAre.sections.2.subtitle'),
+      content: t('aboutUs.whoWeAre.sections.2.content'),
       image: images[2]
     },
     {
-      title: "Custom Websites & Real-Time Business Intelligence Dashboards",
-      subtitle: "Our Impact",
-      content: "Creation of dynamic websites and intelligent dashboards — core elements of Cocopalms' digital solutions. Our platforms are designed to be visually engaging, user-friendly, and fully responsive across devices.From clean, modern website layouts to powerful backend dashboards, each interface is built to offer clarity, control, and real-time insights. Whether managing sales, operations, inventory, or customer data, our dashboards bring actionable information to your fingertips.With seamless navigation, smart analytics, and customizable components, Cocopalms' web solutions help businesses stay connected, efficient, and ahead of the curve.",
+      title: t('aboutUs.whoWeAre.sections.3.title'),
+      subtitle: t('aboutUs.whoWeAre.sections.3.subtitle'),
+      content: t('aboutUs.whoWeAre.sections.3.content'),
       image: images[3]
+    }
+  ];
+
+  const coreValues = [
+    {
+      title: t('aboutUs.coreValues.values.0.title'),
+      description: t('aboutUs.coreValues.values.0.description'),
+      icon: (
+        <svg className="w-8 h-8 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      ),
+      bgColor: 'bg-teal-100'
+    },
+    {
+      title: t('aboutUs.coreValues.values.1.title'),
+      description: t('aboutUs.coreValues.values.1.description'),
+      icon: (
+        <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      bgColor: 'bg-green-100'
+    },
+    {
+      title: t('aboutUs.coreValues.values.2.title'),
+      description: t('aboutUs.coreValues.values.2.description'),
+      icon: (
+        <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
+        </svg>
+      ),
+      bgColor: 'bg-blue-100'
     }
   ];
 
@@ -63,13 +101,14 @@ const AboutUs = () => {
     };
     fetchKeywords();
   }, []);
+
   // Update meta description for about page
-useEffect(() => {
-  const metaDescription = document.querySelector('meta[name="description"]');
-  if (metaDescription) {
-    metaDescription.setAttribute('content', 'Discover Cocopalms: providing innovative software solutions for F&B and enterprise businesses, enhancing efficiency with ERP, POS, and more.');
-  }
-}, []);
+  useEffect(() => {
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Discover Cocopalms: providing innovative software solutions for F&B and enterprise businesses, enhancing efficiency with ERP, POS, and more.');
+    }
+  }, []);
 
   // Add useEffect for canonical URL in document head (similar to your index.jsx)
   useEffect(() => {
@@ -176,7 +215,7 @@ useEffect(() => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" dir={isRTL ? 'rtl' : 'ltr'}>
       <Helmet>
         <title>About Cocopalms | Software Solutions for F&B & Enterprise</title>
         
@@ -231,19 +270,16 @@ useEffect(() => {
       {/* Hero Section */}
       <div className="max-w-4xl mx-auto px-6 py-20 pt-48 text-center">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-          Cocopalms: Architecting the Future of Software Innovation Since 2007
+          {t('aboutUs.hero.title')}
         </h1>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed mb-12">
-        Founded in 2007 and headquartered in Kuwait, Cocopalms Tech Company is a next-generation Information Technology Services provider with a global presence.
-         As a leading mobile app development company and full-service app development agency, we specialize in delivering scalable and innovative digital solutions
-        tailored to the needs of businesses across diverse industries. Our offerings include ERP solutions, automation systems, mobile and web application development, cloud services, IT consulting, and systems integration.
-
+          {t('aboutUs.hero.description')}
         </p>
         <Link 
           to="/contact"
           className="bg-teal-600 hover:bg-teal-700 text-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-block text-center"
         >
-          Contact Us
+          {t('aboutUs.hero.cta')}
         </Link>
       </div>
 
@@ -251,12 +287,10 @@ useEffect(() => {
       <div className="bg-green-50 py-20">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <p className="text-sm text-teal-600 font-medium mb-4 uppercase tracking-wide">
-            Our mission
+            {t('aboutUs.mission.label')}
           </p>
           <h2 className="text-xl md:text-3xl font-medium text-gray-900 leading-tight max-w-3xl mx-auto">
-            To empower our clients with robust solutions that translate complex data into  
-            actionable knowledge, directly addressing their challenges and streamlining their 
-            operational workflows for measurable improvements.
+            {t('aboutUs.mission.description')}
           </h2>
         </div>
       </div>
@@ -266,23 +300,23 @@ useEffect(() => {
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Who we are?
+              {t('aboutUs.whoWeAre.title')}
             </h2>
             <p className="text-lg text-gray-600">
-              At Cocopalms, our story began with a simple yet ambitious goal:
+              {t('aboutUs.whoWeAre.subtitle')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left Side - Navigation (Smaller) */}
-            <div className="lg:col-span-4 space-y-4">
+            <div className={`lg:col-span-4 space-y-4 ${isRTL ? 'lg:order-2' : 'lg:order-1'}`}>
               {whoWeAreContent.map((item, index) => (
                 <div
                   key={index}
                   className={`cursor-pointer transition-all duration-300 ${
                     activeSection === index 
-                      ? 'border-l-4 border-teal-600 pl-4 bg-teal-50 py-3 rounded-r-lg' 
-                      : 'border-l-4 border-transparent pl-4 py-3 hover:border-gray-300 hover:bg-gray-50'
+                      ? `${isRTL ? 'border-r-4 border-teal-600 pr-4' : 'border-l-4 border-teal-600 pl-4'} bg-teal-50 py-3 ${isRTL ? 'rounded-l-lg' : 'rounded-r-lg'}` 
+                      : `${isRTL ? 'border-r-4 border-transparent pr-4' : 'border-l-4 border-transparent pl-4'} py-3 hover:border-gray-300 hover:bg-gray-50`
                   }`}
                   onClick={() => scrollToSection(index)}
                 >
@@ -301,7 +335,7 @@ useEffect(() => {
             </div>
 
             {/* Right Side - Scrollable Content Display (Larger) */}
-            <div className="lg:col-span-8 bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className={`lg:col-span-8 bg-white rounded-lg shadow-lg overflow-hidden ${isRTL ? 'lg:order-1' : 'lg:order-2'}`}>
               <div 
                 ref={scrollContainerRef}
                 className="h-[600px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
@@ -321,7 +355,7 @@ useEffect(() => {
                         style={{ objectPosition: 'center 30%' }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                      <div className="absolute bottom-4 left-6 text-white">
+                      <div className={`absolute bottom-4 ${isRTL ? 'right-6' : 'left-6'} text-white`}>
                         <h3 className="text-2xl font-bold mb-2">
                           {item.title}
                         </h3>
@@ -345,49 +379,25 @@ useEffect(() => {
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Our Core Values
+              {t('aboutUs.coreValues.title')}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              The principles that guide our mission to architect the future of software innovation
+              {t('aboutUs.coreValues.description')}
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+            {coreValues.map((value, index) => (
+              <div key={index} className="text-center">
+                <div className={`w-16 h-16 ${value.bgColor} rounded-full flex items-center justify-center mx-auto mb-6`}>
+                  {value.icon}
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {value.description}
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Innovation</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Pioneering sophisticated technologies for multi-user environments with cutting-edge solutions.
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Quality</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Delivering robust, scalable digital experiences with unwavering commitment to excellence.
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Global Impact</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Empowering businesses worldwide with seamless, efficient, and cost-effective transformations.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -396,11 +406,10 @@ useEffect(() => {
       <div className="bg-green-50 py-20">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <p className="text-sm text-teal-600 font-medium mb-4 uppercase tracking-wide">
-            Our Vision
+            {t('aboutUs.vision.label')}
           </p>
           <h2 className="text-xl md:text-3xl font-medium text-gray-900 leading-tight max-w-3xl mx-auto">
-            To be a globally recognized IT solutions provider, empowering businesses with seamless, efficient, and cost-effective digital transformations 
-            that directly contribute to their growth and success through our unwavering commitment to quality and high-value services.
+            {t('aboutUs.vision.description')}
           </h2>
         </div>
       </div>
@@ -409,17 +418,16 @@ useEffect(() => {
       <div className="py-20">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Ready to Transform Your Business?
+            {t('aboutUs.cta.title')}
           </h2>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Let's discuss how Cocopalms can architect the future of your software innovation 
-            and drive your business growth.
+            {t('aboutUs.cta.description')}
           </p>
           <Link 
             to="/contact" 
             className="bg-teal-600 hover:bg-teal-700 text-white font-medium px-8 py-3 rounded-lg transition-colors duration-300 inline-block text-center"
           >
-            Get Started Today
+            {t('aboutUs.cta.ctaButton')}
           </Link>
         </div>
       </div>
